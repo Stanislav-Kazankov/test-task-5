@@ -1,0 +1,20 @@
+.page-header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    width: 100%;
+    min-height: 100vh;
+
+    @include mq($maxTabletWidth) {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+    }
+
+    @include mq($minMobileWidth) {
+        min-height: 676px;
+    }
+
+    @include mq($minMobileWidth + 1, $maxTabletWidth) {
+        min-height: 630px;
+    }
+}

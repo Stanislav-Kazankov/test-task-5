@@ -1,0 +1,13 @@
+.p {
+    padding-right: 1px;
+    font-size: 16px;
+    line-height: 26px;
+
+    @include mq($maxMobileWidth) {
+        width: 100%;
+    }
+
+    @include mq($minTabletWidth, $maxTabletWidth) {
+        width: 727px;
+    }
+}
