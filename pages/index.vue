@@ -1,7 +1,8 @@
 <template lang="pug">
-    .page
-        the-index-header
-        the-index-main
+    .index-page
+        h1.visually-hidden Каталог квартир
+        the-search-result
+        the-filter-bar
 </template>
 
 <script>
@@ -23,3 +24,10 @@ export default {
     },
 };
 </script>
+
+<style lang="scss" scoped>
+.index-page {
+    display: grid;
+    grid-template-columns: 1019px 341px;
+}
+</style>
