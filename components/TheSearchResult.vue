@@ -51,17 +51,16 @@
         justify-content: center;
         align-items: center;
         min-width: 14px;
-        max-width: 50px;
+        max-width: 26px;
         height: 14px;
         padding-right: 4px;
         padding-left: 4px;
         font-size: 9px;
         line-height: 110%;
         font-weight: 500;
-        text-overflow: ellipsis;
         white-space: nowrap;
         color: $colorWhite;
-        border-radius: 50%;
+        border-radius: 7px;
         background-color: $colorGray;
         overflow: hidden;
     }
