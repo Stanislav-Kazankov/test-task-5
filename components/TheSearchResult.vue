@@ -13,7 +13,7 @@
 <style lang="scss" scoped>
 .search-result {
     padding-top: 30px;
-    padding-right: 16px;
+    padding-right: 11px;
     padding-bottom: 37px;
     padding-left: 27px;
 
@@ -34,13 +34,17 @@
     &__group {
         display: flex;
         flex-wrap: wrap;
+        align-items: center;
         column-gap: 10px;
         min-width: 194px;
+        max-width: 560px;
+        margin-top: 12px;
     }
 
     &__filter-counter {
         display: flex;
         flex-wrap: wrap;
+        align-items: center;
         column-gap: 4px;
         min-width: 81px;
         max-width: 117px;
@@ -69,7 +73,7 @@
         width: 63px;
         font-size: 16px;
         line-height: 20px;
-        color: #1E3447;
+        color: $colorDark;
     }
 }
 </style>
