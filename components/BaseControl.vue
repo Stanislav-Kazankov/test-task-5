@@ -8,7 +8,7 @@
             v-if="caption"
             :aria-hidden="!!description"
         )
-            | {{caption.text}}
+            | {{caption}}
 </template>
 
 <script>

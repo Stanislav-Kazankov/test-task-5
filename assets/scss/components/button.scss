@@ -1,6 +1,8 @@
 .button {
     display: grid;
     grid-template: 100% / 100%;
+    font-size: 12px;
+    line-height: 15px;
 
     &__core {
         display: grid;

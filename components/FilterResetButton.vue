@@ -8,9 +8,7 @@ export default {
         outerControlState: {
             description:
                 'Сбросить все фильтры',
-            caption: {
-                text: 'Сбросить все',
-            },
+            caption: 'Сбросить все',
         },
     },
 };
@@ -19,12 +17,12 @@ export default {
 <style lang="scss" scoped>
 .button--filter-reset {
     width: 99px;
-    font-size: 14px;
-    line-height: 140%;
+    min-height: 20px;
     color: $colorBrightBlue;
 
-    ::v-deep .base-control {
+    ::v-deep .button__core {
         font-size: 14px;
+        line-height: 140%;
     }
 }
 </style>

@@ -1,6 +1,6 @@
 <template lang="pug">
     section.search-result
-        header.search-result__bar
+        .search-result__bar
             .search-result__counter-bar
                 h2.search-result__h2 Найдено 236 планировок
                 .search-result__group
@@ -17,6 +17,8 @@
                     :key="index"
                 )
                     | {{filterItemCaption}}
+            .search-result__view-setting-bar
+                cost-sort-toggle
 </template>
 
 <script>
@@ -60,7 +62,7 @@ export default {
     &__group {
         display: flex;
         flex-wrap: wrap;
-        align-items: center;
+        align-items: flex-start;
         column-gap: 10px;
         min-width: 194px;
         max-width: 560px;
@@ -91,7 +93,7 @@ export default {
         white-space: nowrap;
         color: $colorWhite;
         border-radius: 7px;
-        background-color: $colorGray;
+        background-color: $colorLightGray;
         overflow: hidden;
     }
 
@@ -102,9 +104,19 @@ export default {
         color: $colorDark;
     }
 
+    .button--filter-reset {
+        margin-top: 1px;
+    }
+
     &__filter-items {
         padding-left: 4px;
         margin-bottom: 26px;
+    }
+
+    &__view-setting-bar {
+        display: flex;
+        justify-content: space-between;
+        padding-left: 2px;
     }
 }
 </style>
