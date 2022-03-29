@@ -1,6 +1,6 @@
 <template lang="pug">
     section.search-result
-        header.search-result__header
+        header.search-result__bar
             .search-result__counter-bar
                 h2.search-result__h2 Найдено 236 планировок
                 .search-result__group
@@ -8,7 +8,32 @@
                         span.search-result__filter-count 0
                         span.search-result__filter-word Фильтр
                     filter-reset-button
+            ul.search-result__filter-items.list.list--filter-items
+                li.list__item.filter-item(
+                    v-for="\
+                        (filterItemCaption, index)\
+                            in selectedFilterItemCaptions\
+                    "
+                    :key="index"
+                )
+                    | {{filterItemCaption}}
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            selectedFilterItemCaptions: [
+                'До 50 м²',
+                'Готовое жилье',
+                'Два санузла',
+                'Балкон',
+                'Дом сдан',
+            ],
+        };
+    },
+};
+</script>
 
 <style lang="scss" scoped>
 .search-result {
@@ -21,6 +46,7 @@
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
+        margin-bottom: 15px;
     }
 
     &__h2 {
@@ -74,6 +100,11 @@
         font-size: 16px;
         line-height: 20px;
         color: $colorDark;
+    }
+
+    &__filter-items {
+        padding-left: 4px;
+        margin-bottom: 26px;
     }
 }
 </style>
