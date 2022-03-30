@@ -1,14 +1,14 @@
 <template lang="pug">
-    section.search-result
-        .search-result__bar
-            .search-result__counter-bar
-                h2.search-result__h2 Найдено 236 планировок
-                .search-result__group
-                    p.search-result__filter-counter
-                        span.search-result__filter-count 0
-                        span.search-result__filter-word Фильтр
-                    filter-reset-button
-            ul.search-result__filter-items.list.list--filter-items
+    section.search-result-block
+        .search-result-block__bar
+            .search-result-block__counter-bar
+                h2.search-result-block__h2 Найдено 236 планировок
+                .search-result-block__group
+                    p.search-result-block__filter-counter
+                        span.search-result-block__filter-count 0
+                        span.search-result-block__filter-word Фильтр
+                    filter-reset-button.search-result-block__filter-reset-button
+            ul.search-result-block__filter-items.list.list--filter-items
                 li.list__item.filter-item(
                     v-for="\
                         (filterItemCaption, index)\
@@ -17,8 +17,11 @@
                     :key="index"
                 )
                     | {{filterItemCaption}}
-            .search-result__view-setting-bar
+            .search-result-block__view-setting-bar
                 cost-sort-toggle
+                .search-result-block__radios
+                    list-view-radio
+                    bar-view-radio
 </template>
 
 <script>
@@ -38,7 +41,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.search-result {
+.search-result-block {
     padding-top: 30px;
     padding-right: 11px;
     padding-bottom: 37px;
@@ -104,7 +107,7 @@ export default {
         color: $colorDark;
     }
 
-    .button--filter-reset {
+    &__filter-reset-button {
         margin-top: 1px;
     }
 
@@ -116,7 +119,15 @@ export default {
     &__view-setting-bar {
         display: flex;
         justify-content: space-between;
+        align-items: flex-start;
         padding-left: 2px;
+    }
+
+    &__radios {
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        gap: 2px;
+        width: 62px;
     }
 }
 </style>

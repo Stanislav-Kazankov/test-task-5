@@ -1,5 +1,6 @@
 <template lang="pug">
     .filter-bar
+
 </template>
 
 <style lang="scss" scoped>

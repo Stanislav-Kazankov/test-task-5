@@ -1,5 +1,5 @@
 <template lang="pug">
-    span.base-control(
+    span.control(
         :class="{ 'is-visually-hidden': !caption }"
     )
         span.visually-hidden(v-if="description")

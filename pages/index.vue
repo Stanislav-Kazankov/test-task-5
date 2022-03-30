@@ -1,7 +1,7 @@
 <template lang="pug">
     .index-page
         h1.visually-hidden Каталог квартир
-        the-search-result
+        the-search-result-block
         the-filter-bar
 </template>
 
