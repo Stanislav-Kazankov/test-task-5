@@ -1,45 +1,43 @@
 <template lang="pug">
     section.search-result-block
-        .search-result-block__bar
-            .search-result-block__counter-bar
-                h2.search-result-block__h2 Найдено 236 планировок
-                .search-result-block__group
-                    p.search-result-block__filter-counter
-                        span.search-result-block__filter-count 0
-                        span.search-result-block__filter-word Фильтр
-                    filter-reset-button.search-result-block__filter-reset-button
-            ul.search-result-block__filter-items.list.list--filter-items
-                li.list__item.filter-item(
-                    v-for="\
-                        (filterItemCaption, index)\
-                            in selectedFilterItemCaptions\
-                    "
-                    :key="index"
-                )
-                    | {{filterItemCaption}}
-            .search-result-block__view-setting-bar
-                cost-sort-toggle
-                .search-result-block__radios
-                    list-view-radio()
-                    bar-view-radio(checked="true")
+        .search-result-block__control-panel
+            counter-bar.search-result-block__counter-bar
+            filter-item-list.search-result-block__filter-items
+            view-setting-bar
 </template>
 
 <script>
+import CounterBar from './components/CounterBar/CounterBar.vue';
+import FilterItemList from './components/FilterItemList.vue';
+import ViewSettingBar from './components/ViewSettingBar/ViewSettingBar.vue';
+
 export default {
-    data() {
-        return {
-            selectedFilterItemCaptions: [
-                'До 50 м²',
-                'Готовое жилье',
-                'Два санузла',
-                'Балкон',
-                'Дом сдан',
-            ],
-        };
+    components: {
+        CounterBar,
+        FilterItemList,
+        ViewSettingBar,
     },
 };
 </script>
 
 <style lang="scss" scoped>
-@import 'search-result-block.scss';
+    .search-result-block {
+        padding-top: 30px;
+        padding-right: 15px;
+        padding-bottom: 37px;
+        padding-left: 27px;
+
+        &__control-panel {
+            margin-bottom: 8px;
+        }
+
+        &__counter-bar {
+            margin-bottom: 15px;
+        }
+
+        &__filter-items {
+            padding-left: 4px;
+            margin-bottom: 20px;
+        }
+    }
 </style>

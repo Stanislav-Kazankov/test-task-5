@@ -1,5 +1,6 @@
 <template lang="pug">
-    base-toggle.button--cost-sort(
+    base-toggle(
+        :class="'button--cost-sort'"
         :states="states"
         @click.native="onToggleClick"
     )

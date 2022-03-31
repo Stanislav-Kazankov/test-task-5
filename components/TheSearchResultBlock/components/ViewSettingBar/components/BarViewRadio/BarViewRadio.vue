@@ -1,5 +1,5 @@
 <template lang="pug">
-    search-result-view-radio.selector--bar-view(
+    base-view-radio.selector--bar-view(
         view="сетки"
         v-bind="$attrs"
     )
@@ -8,7 +8,14 @@
 </template>
 
 <script>
+import BaseViewRadio from '../BaseViewRadio.vue';
+import BarIcon from './components/BarIcon.vue';
+
 export default {
+    components: {
+        BaseViewRadio,
+        BarIcon,
+    },
     inheritAttrs: false,
 };
 </script>

@@ -1,5 +1,5 @@
 <template lang="pug">
-    p.button
+    p(:class="'button'")
         button.button__core(
             v-bind="$attrs"
             type="button"

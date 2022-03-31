@@ -1,6 +1,6 @@
 <template lang="pug">
-    base-button.button--toggle(
-        :class="classes"
+    base-button(
+        :class="`button--toggle${classes}`"
     )
         template(#icon)
             component(:is="shownIcon")
@@ -51,12 +51,12 @@ export default {
     computed: {
         classes() {
             const { mergedStates: { on, off } } = this;
-            let result;
+            let result = '';
             if (off.icon.size && on.icon.size) {
                 const toggleSize = this.isOff
                     ? off.icon.size
                     : on.icon.size;
-                result = `button--${toggleSize}`;
+                result = ` button--${toggleSize}`;
             }
 
             return result;

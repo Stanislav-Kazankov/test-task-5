@@ -1,5 +1,5 @@
 <template lang="pug">
-    search-result-view-radio.selector--list-view(
+    base-view-radio.selector--list-view(
         view="списка"
         v-bind="$attrs"
     )
@@ -8,7 +8,14 @@
 </template>
 
 <script>
+import BaseViewRadio from '../BaseViewRadio.vue';
+import ListIcon from './components/ListIcon.vue';
+
 export default {
+    components: {
+        BaseViewRadio,
+        ListIcon,
+    },
     inheritAttrs: false,
 };
 </script>
