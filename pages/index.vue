@@ -1,6 +1,6 @@
 <template lang="pug">
     .index-page
-        h1.visually-hidden Каталог квартир
+        h1.visually-hidden Каталог планировок
         the-search-result-block
         the-filter-bar
 </template>
