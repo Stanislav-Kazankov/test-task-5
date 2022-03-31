@@ -2,6 +2,7 @@
     base-selector.selector--radio(
         type="radio"
         name="search-result-view"
+        v-bind="$attrs"
     )
         template(#icon)
             slot(name="icon")
@@ -12,6 +13,7 @@ import { provide } from '@nuxtjs/composition-api';
 import { createStringPropConfig } from '@/modules/propConfigs';
 
 export default {
+    inheritAttrs: false,
     props: {
         view: createStringPropConfig(),
     },

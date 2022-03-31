@@ -1,6 +1,7 @@
 <template lang="pug">
     search-result-view-radio.selector--bar-view(
         view="сетки"
+        v-bind="$attrs"
     )
         template(#icon)
             bar-icon
@@ -8,11 +9,7 @@
 
 <script>
 export default {
-    provide: {
-        outerControlState: {
-            description: 'Отобразить результаты поиска в виде сетки',
-        },
-    },
+    inheritAttrs: false,
 };
 </script>
 

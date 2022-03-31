@@ -4,9 +4,6 @@
             input.selector__input.visually-hidden(
                 ref="input"
                 v-bind="$attrs"
-                @click="$parent.$emit(\
-                    'valuechanged', $refs.input.value)\
-                "
             )
             slot(name="icon")
             base-control
