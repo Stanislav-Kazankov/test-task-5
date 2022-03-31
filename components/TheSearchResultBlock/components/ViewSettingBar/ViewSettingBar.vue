@@ -1,19 +1,19 @@
 <template lang="pug">
     .view-setting-bar
-        cost-sort-toggle.view-setting-bar__cost-sort-toggle
+        price-sort-toggle.view-setting-bar__cost-sort-toggle
         .view-setting-bar__radios
             list-view-radio
             bar-view-radio(checked="true")
 </template>
 
 <script>
-import CostSortToggle from './components/CostSortToggle/CostSortToggle.vue';
+import PriceSortToggle from './components/PriceSortToggle/PriceSortToggle.vue';
 import ListViewRadio from './components/ListViewRadio/ListViewRadio.vue';
 import BarViewRadio from './components/BarViewRadio/BarViewRadio.vue';
 
 export default {
     components: {
-        CostSortToggle,
+        PriceSortToggle,
         ListViewRadio,
         BarViewRadio,
     },

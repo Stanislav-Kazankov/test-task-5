@@ -44,7 +44,7 @@ export default {
         },
     },
     head: {
-        title: 'Сайт, посвящённый творчеству Бориса Кустодиева',
+        title: 'ГК Железно',
         htmlAttrs: {
             lang: 'ru',
         },
@@ -53,15 +53,6 @@ export default {
             { name: 'viewport', content: 'width=device-width, height=device-height, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1' },
             { name: 'format-detection', content: 'telephone=no' },
             { name: 'theme-color', content: '#131313' },
-            {
-                property: 'og:title',
-                content: 'Сайт, посвящённый творчеству Бориса Кустодиева',
-            },
-            {
-                property: 'og:description',
-                content: 'Художник, запечатлевший на своих ярких и жизнерадостных полотнах сцены русских будней и праздников.',
-            },
-            { property: 'og:image', content: '/img/holiday-mobile@4x.jpg' },
         ],
         link: [
             { rel: 'shortcut icon', type: 'image/png', href: '/img/favicon.png' },
