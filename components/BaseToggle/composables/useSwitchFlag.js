@@ -3,8 +3,8 @@ import { inject } from '@nuxtjs/composition-api';
 export default () => {
     const outerToggleState = inject(
         'outerToggleState',
-        { isOff: true },
+        { isOn: false },
     );
 
-    return outerToggleState.isOff;
+    return outerToggleState.isOn;
 };

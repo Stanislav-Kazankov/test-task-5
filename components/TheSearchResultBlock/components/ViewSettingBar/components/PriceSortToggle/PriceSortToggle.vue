@@ -12,26 +12,26 @@ import { ref, provide } from '@nuxtjs/composition-api';
 const states = {
     on: {
         action: 'Отсортировать список квартир по возрастанию цены',
-        caption: 'Сначала дешевле',
+        caption: 'Сначала дороже',
     },
     off: {
         action: 'Отсортировать список квартир по убыванию цены',
-        caption: 'Сначала дороже',
+        caption: 'Сначала дешевле',
     },
 };
 
 export default {
     setup() {
-        const isOrderAscending = ref(true);
+        const isOrderDescending = ref(false);
         const outerToggleState = {
-            isOff: ref(isOrderAscending),
+            isOn: ref(isOrderDescending),
         };
         provide(
             'outerToggleState',
             outerToggleState,
         );
         return {
-            isOrderAscending,
+            isOrderDescending,
         };
     },
     data() {
@@ -39,8 +39,8 @@ export default {
     },
     methods: {
         onToggleClick() {
-            this.isOrderAscending = !this
-                .isOrderAscending;
+            this.isOrderDescending = !this
+                .isOrderDescending;
         },
     },
 };

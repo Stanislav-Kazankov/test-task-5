@@ -1,9 +1,7 @@
 <template lang="pug">
-    base-button(
-        :class="`button--toggle${classes}`"
-    )
+    base-button(:class="'button--toggle'")
         template(#icon)
-            component(:is="shownIcon")
+            slot(name="icon")
 </template>
 
 <script>
@@ -15,18 +13,10 @@ import { createObjectPropConfig } from '@/modules/propConfigs';
 const stateDefault = {
     on: {
         action: 'Выключить',
-        icon: {
-            component: '',
-            size: '',
-        },
         caption: '',
     },
     off: {
         action: 'Включить',
-        icon: {
-            component: '',
-            size: '',
-        },
         caption: '',
     },
 };
@@ -39,37 +29,15 @@ export default {
             ),
     },
     setup(props) {
-        const isOff = useSwitchFlag();
+        const isOn = useSwitchFlag();
         const mergedStates = useMergedStates(stateDefault, props);
         const { on: onState, off: offState } = mergedStates;
-        useOuterControlState(isOff, onState, offState);
+        useOuterControlState(isOn, onState, offState);
+
         return {
-            isOff,
+            isOn,
             mergedStates,
         };
-    },
-    computed: {
-        classes() {
-            const { mergedStates: { on, off } } = this;
-            let result = '';
-            if (off.icon.size && on.icon.size) {
-                const toggleSize = this.isOff
-                    ? off.icon.size
-                    : on.icon.size;
-                result = ` button--${toggleSize}`;
-            }
-
-            return result;
-        },
-        shownIcon() {
-            const { mergedStates } = this;
-
-            return this.isOff
-                ? mergedStates.off
-                    .icon.component
-                : mergedStates.on
-                    .icon.component;
-        },
     },
 };
 </script>

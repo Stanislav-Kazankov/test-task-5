@@ -15,10 +15,11 @@
                     )
                     ul.list__slide-pagination
                         li.list__slide-pagination-item(
-                            v-for="index in 6"
+                            v-for="index in 5"
                         )
                     h3.list__heading {{type}}, {{area}} м
                         span.list__superscript 2
+                    favorites-precense-toggle
                     p.list__p.list__p--housing-complex
                         | {{housingСomplex}}
                     p.list__p.list__p--apartment-info
@@ -30,10 +31,12 @@
 
 <script>
 import ApartmentLayoutImage from './components/ApartmentLayoutImage.vue';
+import FavoritesPrecenseToggle from './components/FavoritesPresenceToggle/FavoritesPresenceToggle.vue';
 
 export default {
     components: {
         ApartmentLayoutImage,
+        FavoritesPrecenseToggle,
     },
     provide: {
         outerControlState: {
@@ -277,11 +280,11 @@ export default {
 }
 
 .list {
-    // &__item:hover {
-    //     width: 319px;
-    //     height: 342px;
-    //     transition: 0.4s transform;
-    // }
+    &__item {
+        width: 319px;
+        height: 342px;
+        transition: 0.4s transform;
+    }
 
     &__link {
         z-index: 100;
@@ -305,7 +308,7 @@ export default {
     }
 
     &__heading {
-        min-height: 33px;
+        min-height: 26px;
         font-size: 22px;
         line-height: 26px;
         font-weight: 600;
@@ -315,6 +318,7 @@ export default {
     &__superscript {
         vertical-align: super;
         font-size: 14px;
+        line-height: 13px;
     }
 
     &__p {
@@ -348,18 +352,32 @@ export default {
         }
     }
 
-    &__item {
+    &__item:hover {
         z-index: 1;
         transform: translateY(-6px);
+    }
+
+    &__apartment-layout-card:hover {
+        min-height: 413px;
+        padding-top: 30px;
+        box-shadow: 0 0 15px $colorDarkGray, 0 25px 15px -15px $colorDarkGray;
 
         .list {
-            &__apartment-layout-card {
-                min-height: 413px;
-                box-shadow: 0 0 15px $colorDarkGray, 0 25px 15px -15px $colorDarkGray;
-            }
-
             &__apartment-layout-image {
                 margin-bottom: 14px;
+            }
+
+            &__slide-pagination {
+                display: flex;
+                width: 100%;
+                column-gap: 6px;
+                margin-bottom: 17px;
+
+                &-item {
+                    flex-grow: 1;
+                    height: 1px;
+                    background-color: $colorLightGray;
+                }
             }
 
             &__heading {

@@ -1,19 +1,19 @@
 import { computed, provide } from '@nuxtjs/composition-api';
 
-export default (isOff, onState, offState) => {
+export default (isOn, onState, offState) => {
     const description = computed(
         () => {
-            const action = isOff.value
-                ? offState.action
-                : onState.action;
+            const action = isOn.value
+                ? onState.action
+                : offState.action;
             return action;
         },
     );
     const caption = computed(
         () => {
-            const caption = isOff.value
-                ? offState.caption
-                : onState.caption;
+            const caption = isOn.value
+                ? onState.caption
+                : offState.caption;
             return caption;
         },
     );

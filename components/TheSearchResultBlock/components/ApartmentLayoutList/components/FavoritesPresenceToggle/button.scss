@@ -1,0 +1,11 @@
+.button--favorites-precense {
+    width: 21px;
+    min-height: 18px;
+}
+
+.is-on {
+    ::v-deep .svg__path {
+        stroke: $colorRed;
+        fill: $colorRed;
+    }
+}
