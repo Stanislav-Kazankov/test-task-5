@@ -1,5 +1,5 @@
 const isProduction = process.env.NODE_ENV === 'production';
-const API_URL = process.env.STRAPI_URL || 'http://localhost:1337';
+const API_URL = '/img'; // 'http://localhost:1337';
 
 export default {
     ssr: true,

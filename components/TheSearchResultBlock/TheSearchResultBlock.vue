@@ -4,18 +4,21 @@
             counter-bar.search-result-block__counter-bar
             filter-item-list.search-result-block__filter-items
             view-setting-bar
+        apartment-layout-list
 </template>
 
 <script>
 import CounterBar from './components/CounterBar/CounterBar.vue';
 import FilterItemList from './components/FilterItemList.vue';
 import ViewSettingBar from './components/ViewSettingBar/ViewSettingBar.vue';
+import ApartmentLayoutList from './components/ApartmentLayoutList/ApartmentLayoutList.vue';
 
 export default {
     components: {
         CounterBar,
         FilterItemList,
         ViewSettingBar,
+        ApartmentLayoutList,
     },
 };
 </script>

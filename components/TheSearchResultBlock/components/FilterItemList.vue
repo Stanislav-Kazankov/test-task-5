@@ -5,7 +5,6 @@
                 (filterItemCaption, index)\
                     in selectedFilterItemCaptions\
             "
-            :key="index"
         )
             | {{filterItemCaption}}
 </template>

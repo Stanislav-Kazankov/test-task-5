@@ -3,22 +3,23 @@ import { ref } from '@nuxtjs/composition-api';
 import get1xWidths from '../utils/get1xWidths';
 import { createSrcSet, createRestSrcSets } from '../utils/srcSets';
 import getRestSrcs from '../utils/getRestSrcs';
+import devices from '@/modules/devices';
 
 export default (image, dimensions) => {
     let zero1xWidth;
-    if (dimensions.mobile) {
-        zero1xWidth = dimensions.mobile.x1Width;
+    if (dimensions[devices[0]]) {
+        zero1xWidth = dimensions[devices[0]].x1Width;
     }
     const restDimensions = _(dimensions)
         .pickBy(
-            (dimension, key) => key !== 'mobile',
+            (dimension, key) => key !== devices[0],
         )
         .value();
     const rest1xWidths = get1xWidths(restDimensions);
     const zeroNotWebpSrcSet = ref(
-        dimensions.mobile
+        dimensions[devices[0]]
             ? createSrcSet(
-                _(image.mobile.notWebp)
+                _(image[devices[0]].notWebp)
                     .slice(1).value(),
                 zero1xWidth,
             )
@@ -33,10 +34,10 @@ export default (image, dimensions) => {
         ).reverse().value(),
     );
     const zeroWebpSrcSet = ref(
-        dimensions.mobile
+        dimensions[devices[0]]
             ? [
                 createSrcSet(
-                    image.mobile.webp,
+                    image[devices[0]].webp,
                     zero1xWidth,
                 ),
             ]

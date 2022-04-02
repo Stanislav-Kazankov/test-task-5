@@ -4,7 +4,7 @@ import devices from '@/modules/devices';
 export default (image, format) => _(image)
     .pickBy(
         (value, key) => _(devices)
-            .includes(key) && key !== 'mobile',
+            .includes(key) && key !== devices[0],
     ).values()
     .map(
         specificDeviceSrcs =>

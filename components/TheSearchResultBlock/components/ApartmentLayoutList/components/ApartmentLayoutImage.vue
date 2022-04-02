@@ -1,5 +1,5 @@
 <template lang="pug">
-    p.second-image
+    p.apartment-layout-image
         base-image(
             :title="image.title"
             :alt="image.alt"
@@ -19,8 +19,8 @@ export default {
         return {
             dimensions: {
                 desktop: {
-                    x1Width: 920,
-                    canvasWidth: '920px',
+                    x1Width: 275,
+                    canvasWidth: '275px',
                 },
             },
         };

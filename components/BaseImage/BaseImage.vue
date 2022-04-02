@@ -37,6 +37,7 @@ import { toRefs } from '@nuxtjs/composition-api';
 import useMedias from './composables/useMedias';
 import useSrcSets from './composables/useSrcSets';
 import useCanvasWidths from './composables/useCanvasWidths';
+import devices from '@/modules/devices';
 import { createObjectPropConfig } from '@/modules/propConfigs';
 
 export default {
@@ -48,9 +49,9 @@ export default {
     setup(props) {
         const { image, dimensions } = toRefs(props);
         const medias = useMedias(dimensions.value);
-        const src = dimensions.value.mobile
+        const src = dimensions.value[devices[0]]
             ? process.env.baseURL +
-                image.value.mobile
+                image.value[devices[0]]
                     .notWebp[0].url
             : '#';
         const {
