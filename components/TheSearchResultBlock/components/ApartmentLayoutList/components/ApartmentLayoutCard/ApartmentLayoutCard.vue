@@ -1,0 +1,165 @@
+<template lang="pug">
+    article.apartment-layout-card
+        apartment-layout-image.apartment-layout-card__image(
+            :image="image"
+        )
+        slider-pagination.apartment-layout-card__slider-pagination
+        .apartment-layout-card__screed
+            h3.apartment-layout-card__heading
+                | {{type}}, {{area}} м
+                span.apartment-layout-card__superscript 2
+            favorites-precense-toggle.apartment-layout-card__favorites-toggle(
+                @click.native.stop.prevent
+            )
+        p.apartment-layout-card__p.apartment-layout-card__p--housing-complex
+            | {{housingСomplex}}
+        p.apartment-layout-card__p.apartment-layout-card__p--apartment-info
+            span.apartment-layout-card__apartment-info
+                | {{apartmentCount}} квартир
+            | ·
+            span.apartment-layout-card__apartment-info
+                | от {{minPrice.toLocaleString()}} млн ₽
+        base-button.apartment-layout-card__choosing-button
+</template>
+
+<script>
+import ApartmentLayoutImage from './components/ApartmentLayoutImage.vue';
+import SliderPagination from './components/SliderPagination.vue';
+import FavoritesPrecenseToggle from './components/FavoritesPresenceToggle/FavoritesPresenceToggle.vue';
+import { createObjectPropConfig } from '@/modules/propConfigs';
+
+export default {
+    components: {
+        ApartmentLayoutImage,
+        SliderPagination,
+        FavoritesPrecenseToggle,
+    },
+    props: {
+        apartmentLayout:
+            createObjectPropConfig(),
+    },
+    setup(props) {
+        return props.apartmentLayout;
+    },
+};
+</script>
+
+<style lang="scss" scoped>
+    .apartment-layout-card {
+        display: grid;
+        justify-items: left;
+        align-content: start;
+        width: 319px;
+        min-height: 342px;
+        padding: 15px;
+        text-align: left;
+        border-radius: 4px;
+        background-color: $colorWhite;
+
+        &__apartment-layout-image {
+            justify-self: center;
+            margin-bottom: 41px;
+        }
+
+        &__slider-pagination {
+            display: none;
+        }
+
+        &__screed {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        &__heading {
+            max-width: 228px;
+            min-height: 26px;
+            font-size: 22px;
+            line-height: 26px;
+            font-weight: 600;
+            color: $colorDark;
+        }
+
+        &__favorites-toggle {
+            display: none;
+        }
+
+        &__superscript {
+            vertical-align: super;
+            font-size: 14px;
+            line-height: 13px;
+        }
+
+        &__p {
+            min-height: 20px;
+            line-height: 140%;
+
+            &--housing-complex {
+                margin-bottom: 8px;
+            }
+
+            &--apartment-info {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                width: 100%;
+                column-gap: 5.5px;
+                margin-bottom: 0;
+            }
+        }
+
+        &__apartment-info {
+            max-width: calc(50% - 7.5px);
+        }
+
+        &__choosing-button {
+            display: none;
+            width: 100%;
+            min-height: 50px;
+
+            ::v-deep .button__core {
+                padding-top: 18px;
+                padding-right: 17px;
+                padding-bottom: 17px;
+                padding-left: 17px;
+                font-weight: 500;
+                letter-spacing: 0.02em;
+                text-transform: uppercase;
+                color: $colorBlack;
+                background-color: $colorLightBlue;
+            }
+        }
+    }
+
+    .list__link:focus-within,
+    .apartment-layout-card:hover {
+        min-height: 413px;
+        box-shadow: 0 0 15px $colorDarkGray, 0 25px 15px -15px $colorDarkGray;
+
+        .apartment-layout-card {
+            &__image {
+                margin-bottom: 29px;
+            }
+
+            &__slider-pagination {
+                display: flex;
+            }
+
+            &__heading {
+                color: $colorBrightBlue;
+            }
+
+            &__favorites-toggle {
+                display: grid;
+            }
+
+            &__p--apartment-info {
+                margin-bottom: 20px;
+            }
+
+            &__choosing-button {
+                display: grid;
+            }
+        }
+    }
+</style>

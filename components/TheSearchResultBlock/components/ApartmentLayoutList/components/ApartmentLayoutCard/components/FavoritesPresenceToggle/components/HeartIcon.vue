@@ -34,11 +34,6 @@ export default {
         stroke: $colorLightGray;
         fill: $colorWhite;
         transition: 0.4s fill, 0.4s stroke;
-
-        &:hover {
-            stroke: $colorRed;
-            fill: $colorRed;
-        }
     }
 }
 </style>
