@@ -4,8 +4,12 @@
             v-for="(layout, index) in apartmentLayouts"
         )
             nuxt-link.list__link(to="d")
+                span.visually-hidden
+                    | Перейти на страницу выбора квартиры
+                    | с данной планировкой
                 apartment-layout-card(
                     :apartmentLayout="layout"
+                    :apartmentLayoutIndex="index"
                 )
 </template>
 

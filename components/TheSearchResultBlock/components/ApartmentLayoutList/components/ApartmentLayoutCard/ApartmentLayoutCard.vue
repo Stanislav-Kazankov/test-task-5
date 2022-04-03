@@ -6,6 +6,8 @@
         slider-pagination.apartment-layout-card__slider-pagination
         .apartment-layout-card__screed
             h3.apartment-layout-card__heading
+                span.visually-hidden
+                    | Планировка №{{apartmentLayoutIndex}}
                 | {{type}}, {{area}} м
                 span.apartment-layout-card__superscript 2
             favorites-precense-toggle.apartment-layout-card__favorites-toggle(
@@ -22,14 +24,13 @@
                 | от {{minPrice.toLocaleString()}} млн ₽
         p.apartment-layout-card__choosing-button
             | выбери свою
-            span.visually-hidden квартиру
 </template>
 
 <script>
 import ApartmentLayoutImage from './components/ApartmentLayoutImage.vue';
 import SliderPagination from './components/SliderPagination.vue';
 import FavoritesPrecenseToggle from './components/FavoritesPresenceToggle/FavoritesPresenceToggle.vue';
-import { createObjectPropConfig } from '@/modules/propConfigs';
+import { createNumberPropConfig, createObjectPropConfig } from '@/modules/propConfigs';
 
 export default {
     components: {
@@ -40,6 +41,8 @@ export default {
     props: {
         apartmentLayout:
             createObjectPropConfig(),
+        apartmentLayoutIndex:
+            createNumberPropConfig(),
     },
     setup(props) {
         return props.apartmentLayout;
