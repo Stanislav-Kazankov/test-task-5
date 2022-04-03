@@ -1,11 +1,17 @@
 <template lang="pug">
-    base-button(:class="'button--toggle'")
+    base-button(
+        :class="{\
+            'button--toggle': true,\
+            'is-on': isOn\
+        }"
+        @click.native="isOn = !isOn"
+    )
         template(#icon)
             slot(name="icon")
 </template>
 
 <script>
-import useSwitchFlag from './composables/useSwitchFlag';
+import { ref } from '@nuxtjs/composition-api';
 import useMergedStates from './composables/useMergedStates';
 import useOuterControlState from './composables/useOuterControlState';
 import { createObjectPropConfig } from '@/modules/propConfigs';
@@ -29,7 +35,7 @@ export default {
             ),
     },
     setup(props) {
-        const isOn = useSwitchFlag();
+        const isOn = ref(false);
         const mergedStates = useMergedStates(stateDefault, props);
         const { on: onState, off: offState } = mergedStates;
         useOuterControlState(isOn, onState, offState);
