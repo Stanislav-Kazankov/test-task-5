@@ -16,10 +16,13 @@
         p.apartment-layout-card__p.apartment-layout-card__p--apartment-info
             span.apartment-layout-card__apartment-info
                 | {{apartmentCount}} квартир
-            | ·
+            span(aria-hidden="true")
+                | ·
             span.apartment-layout-card__apartment-info
                 | от {{minPrice.toLocaleString()}} млн ₽
-        base-button.apartment-layout-card__choosing-button
+        p.apartment-layout-card__choosing-button
+            | выбери свою
+            span.visually-hidden квартиру
 </template>
 
 <script>
@@ -116,23 +119,24 @@ export default {
             display: none;
             width: 100%;
             min-height: 50px;
-
-            ::v-deep .button__core {
-                padding-top: 18px;
-                padding-right: 17px;
-                padding-bottom: 17px;
-                padding-left: 17px;
-                font-weight: 500;
-                letter-spacing: 0.02em;
-                text-transform: uppercase;
-                color: $colorBlack;
-                background-color: $colorLightBlue;
-            }
+            padding-top: 18px;
+            padding-right: 17px;
+            padding-bottom: 17px;
+            padding-left: 17px;
+            font-size: 12px;
+            line-height: 15px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            text-align: center;
+            color: $colorBlack;
+            border-radius: 2px;
+            background-color: $colorLightBlue;
         }
     }
 
-    .list__link:focus-within,
-    .apartment-layout-card:hover {
+    .apartment-layout-card:hover,
+    .list__link:focus-within {
         min-height: 413px;
         box-shadow: 0 0 15px $colorDarkGray, 0 25px 15px -15px $colorDarkGray;
 

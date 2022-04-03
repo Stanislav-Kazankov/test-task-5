@@ -21,7 +21,6 @@ export default {
     color: $colorBrightBlue;
 
     ::v-deep .button__core {
-        font-size: 14px;
         line-height: 140%;
     }
 }

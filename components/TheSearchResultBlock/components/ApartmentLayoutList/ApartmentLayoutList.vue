@@ -16,13 +16,6 @@ export default {
     components: {
         ApartmentLayoutCard,
     },
-    provide: {
-        outerControlState: {
-            description:
-                'Перейти на страницу выбора своей планировки',
-            caption: 'выбери свою',
-        },
-    },
     data() {
         return {
             apartmentLayouts: [
