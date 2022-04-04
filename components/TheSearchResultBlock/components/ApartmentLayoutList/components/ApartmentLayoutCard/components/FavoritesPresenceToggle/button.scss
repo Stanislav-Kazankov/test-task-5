@@ -1,6 +1,10 @@
 .button--favorites-precense {
-    width: 21px;
-    min-height: 18px;
+    width: 41px;
+    min-height: 38px;
+
+    ::v-deep .button__core {
+        padding: 10px;
+    }
 }
 
 .is-on {

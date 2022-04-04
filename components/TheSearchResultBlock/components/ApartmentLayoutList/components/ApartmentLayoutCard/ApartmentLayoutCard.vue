@@ -62,19 +62,22 @@ export default {
         border-radius: 4px;
         background-color: $colorWhite;
 
-        &__apartment-layout-image {
+        &__image {
             justify-self: center;
-            margin-bottom: 41px;
+            margin-bottom: 42px;
         }
 
         &__slider-pagination {
             display: none;
+            margin-bottom: 12px;
         }
 
         &__screed {
             display: flex;
             justify-content: space-between;
+            align-items: flex-start;
             width: 100%;
+            margin-bottom: -6px;
         }
 
         &__heading {
@@ -84,10 +87,17 @@ export default {
             line-height: 26px;
             font-weight: 600;
             color: $colorDark;
+            margin-top: 5px;
+            margin-bottom: 7px;
         }
 
         &__favorites-toggle {
             display: none;
+            margin-right: -8px;
+        }
+
+        .is-on {
+            display: grid;
         }
 
         &__superscript {
@@ -101,7 +111,7 @@ export default {
             line-height: 140%;
 
             &--housing-complex {
-                margin-bottom: 8px;
+                margin-bottom: 6px;
             }
 
             &--apartment-info {
@@ -138,8 +148,7 @@ export default {
         }
     }
 
-    .apartment-layout-card:hover,
-    .list__link:focus-within {
+    .apartment-layout-card:hover {
         min-height: 413px;
         box-shadow: 0 0 15px $colorDarkGray, 0 25px 15px -15px $colorDarkGray;
 
@@ -150,6 +159,10 @@ export default {
 
             &__slider-pagination {
                 display: flex;
+            }
+
+            &__screed {
+                margin-bottom: -6px;
             }
 
             &__heading {

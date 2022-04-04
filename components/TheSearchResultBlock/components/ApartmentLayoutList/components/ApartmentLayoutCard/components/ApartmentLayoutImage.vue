@@ -37,6 +37,6 @@ export default {
     }
 
     ::v-deep .image__core {
-        height: 100%;
+        background-color: $colorSuperLight;
     }
 </style>

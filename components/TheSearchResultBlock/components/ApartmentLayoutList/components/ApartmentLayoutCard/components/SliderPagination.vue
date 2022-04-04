@@ -1,18 +1,17 @@
 <template lang="pug">
-    ul.slide-pagination
-        li.slide-pagination__item(
+    ul.slider-pagination
+        li.slider-pagination__item(
             v-for="index in 5"
         )
 </template>
 
 <style lang="scss" scoped>
-.slide-pagination {
+.slider-pagination {
     display: flex;
     width: 100%;
     column-gap: 6px;
-    margin-bottom: 17px;
 
-    &-item {
+    &__item {
         flex-grow: 1;
         height: 1px;
         background-color: $colorLightGray;
