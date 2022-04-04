@@ -3,9 +3,7 @@
         price-sort-toggle.view-setting-bar__cost-sort-toggle
         .view-setting-bar__radios
             list-view-radio
-            bar-view-radio(
-                checked="true"
-            )
+            bar-view-radio(checked="true")
 </template>
 
 <script>
