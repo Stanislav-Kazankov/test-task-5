@@ -26,7 +26,7 @@ export default {
     fill: none;
 
     .svg__path {
-        stroke: $colorLightGray;
+        stroke: $colorSuperLightGray;
         transition: 0.5s stroke;
     }
 }

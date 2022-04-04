@@ -48,7 +48,7 @@ export default {
     }
 
     .svg__path {
-        fill: $colorLightGray;
+        fill: $colorSuperLightGray;
         transition: 0.5s fill;
     }
 }

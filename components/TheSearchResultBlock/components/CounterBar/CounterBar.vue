@@ -66,7 +66,7 @@ export default {
         white-space: nowrap;
         color: $colorWhite;
         border-radius: 7px;
-        background-color: $colorLightGray;
+        background-color: $colorSuperLightGray;
         overflow: hidden;
     }
 

@@ -44,4 +44,10 @@ export default {
         align-content: center;
     }
 }
+
+::v-deep .selector__input:focus {
+    ~ .selector__label {
+        outline: 2px solid $colorLightGray;
+    }
+}
 </style>

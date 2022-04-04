@@ -14,7 +14,7 @@
     &__item {
         flex-grow: 1;
         height: 1px;
-        background-color: $colorLightGray;
+        background-color: $colorSuperLightGray;
     }
 }
 </style>

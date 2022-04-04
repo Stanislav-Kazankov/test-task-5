@@ -1,5 +1,6 @@
 <template lang="pug">
     base-view-radio.selector--list-view(
+        id="list-view"
         view="списка"
         v-bind="$attrs"
     )
@@ -27,7 +28,7 @@ export default {
 }
 
 ::v-deep .selector__input:checked {
-    ~ .svg {
+    ~ .selector__label {
         .svg__path {
             fill: $colorDark;
         }

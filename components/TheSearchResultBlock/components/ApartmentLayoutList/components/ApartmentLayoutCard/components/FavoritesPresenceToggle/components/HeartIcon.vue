@@ -31,7 +31,7 @@ export default {
 <style lang="scss" scoped>
 .svg--heart {
     .svg__path {
-        stroke: $colorLightGray;
+        stroke: $colorSuperLightGray;
         fill: $colorWhite;
         transition: 0.4s fill, 0.4s stroke;
     }
