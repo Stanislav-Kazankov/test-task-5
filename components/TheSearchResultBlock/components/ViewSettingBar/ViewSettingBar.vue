@@ -1,7 +1,7 @@
 <template lang="pug">
     .view-setting-bar
         price-sort-toggle.view-setting-bar__cost-sort-toggle
-        .view-setting-bar__radios
+        .view-setting-bar__view-switch
             list-view-radio
             bar-view-radio(checked="true")
 </template>
@@ -34,7 +34,7 @@ export default {
         margin-top: 7px;
     }
 
-    &__radios {
+    &__view-switch {
         display: grid;
         grid-template-columns: repeat(2, auto);
         gap: 2px;
