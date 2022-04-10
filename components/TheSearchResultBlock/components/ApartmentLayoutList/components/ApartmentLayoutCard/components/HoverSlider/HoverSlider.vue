@@ -3,6 +3,7 @@
         .hover-slider__screen
             ul.hover-slider__film(ref="film")
                 li.hover-slider__slide(
+                    ref="slide"
                     v-for="(slide, index) in slides"
                 )
                     base-image(
@@ -46,7 +47,10 @@ export default {
             ).removeClass('is-active');
             $(this.$refs.film).css(
                 'transform',
-                `translateX(${-319 * paginationItemIndex}px)`,
+                `translateX(${
+                    -$(this.$refs.slide).width() *
+                    paginationItemIndex
+                }px)`,
             );
             $(
                 this.$refs
