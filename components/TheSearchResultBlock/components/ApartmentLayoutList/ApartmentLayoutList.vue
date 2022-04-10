@@ -24,56 +24,58 @@ export default {
         return {
             apartmentLayouts: [
                 {
-                    image: {
-                        desktop: {
-                            notWebp: [
-                                {
-                                    caption: '1',
-                                    url: '/oblique-apartment-layout@1x.png',
-                                },
-                                {
-                                    caption: '1.5',
-                                    url: '/oblique-apartment-layout@1.5x.png',
-                                },
-                                {
-                                    caption: '2',
-                                    url: '/oblique-apartment-layout@2x.png',
-                                },
-                                {
-                                    caption: '3',
-                                    url: '/oblique-apartment-layout@3x.png',
-                                },
-                                {
-                                    caption: '4',
-                                    url: '/oblique-apartment-layout@4x.png',
-                                },
-                            ],
-                            webp: [
-                                {
-                                    caption: '1',
-                                    url: '/oblique-apartment-layout@1x.webp',
-                                },
-                                {
-                                    caption: '1.5',
-                                    url: '/oblique-apartment-layout@1.5x.webp',
-                                },
-                                {
-                                    caption: '2',
-                                    url: '/oblique-apartment-layout@2x.webp',
-                                },
-                                {
-                                    caption: '3',
-                                    url: '/oblique-apartment-layout@3x.webp',
-                                },
-                                {
-                                    caption: '4',
-                                    url: '/oblique-apartment-layout@4x.webp',
-                                },
-                            ],
+                    slides: [
+                        {
+                            desktop: {
+                                notWebp: [
+                                    {
+                                        caption: '1',
+                                        url: '/oblique-apartment-layout@1x.png',
+                                    },
+                                    {
+                                        caption: '1.5',
+                                        url: '/oblique-apartment-layout@1.5x.png',
+                                    },
+                                    {
+                                        caption: '2',
+                                        url: '/oblique-apartment-layout@2x.png',
+                                    },
+                                    {
+                                        caption: '3',
+                                        url: '/oblique-apartment-layout@3x.png',
+                                    },
+                                    {
+                                        caption: '4',
+                                        url: '/oblique-apartment-layout@4x.png',
+                                    },
+                                ],
+                                webp: [
+                                    {
+                                        caption: '1',
+                                        url: '/oblique-apartment-layout@1x.webp',
+                                    },
+                                    {
+                                        caption: '1.5',
+                                        url: '/oblique-apartment-layout@1.5x.webp',
+                                    },
+                                    {
+                                        caption: '2',
+                                        url: '/oblique-apartment-layout@2x.webp',
+                                    },
+                                    {
+                                        caption: '3',
+                                        url: '/oblique-apartment-layout@3x.webp',
+                                    },
+                                    {
+                                        caption: '4',
+                                        url: '/oblique-apartment-layout@4x.webp',
+                                    },
+                                ],
+                            },
+                            title: 'Планировка №1',
+                            alt: 'Вид сверху на двухкомнатную косоугольную квартиру',
                         },
-                        title: 'Планировка №1',
-                        alt: 'Вид сверху на двухкомнатную косоугольную квартиру',
-                    },
+                    ],
                     type: 'Студия',
                     area: 27,
                     housingСomplex: 'ЖК Ёлки-Park',

@@ -1,0 +1,149 @@
+.apartment-layout-card {
+    display: grid;
+    align-content: start;
+    width: 319px;
+    min-height: 342px;
+    text-align: left;
+    border-radius: 4px;
+    background-color: $colorWhite;
+
+    &__top {
+        display: grid;
+        padding-top: 15px;
+        padding-right: 15px;
+        padding-bottom: 21px;
+        padding-left: 15px;
+    }
+
+    &__image {
+        justify-self: center;
+    }
+
+    &__slider {
+        display: none;
+    }
+
+    &__bottom {
+        display: grid;
+        justify-items: left;
+        align-content: start;
+        padding-top: 21px;
+        padding-right: 15px;
+        padding-bottom: 15px;
+        padding-left: 15px;
+    }
+
+    &__screed {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+        margin-bottom: -6px;
+    }
+
+    &__heading {
+        max-width: 228px;
+        min-height: 26px;
+        font-size: 22px;
+        line-height: 26px;
+        font-weight: 600;
+        color: $colorDark;
+        margin-top: 5px;
+        margin-bottom: 7px;
+    }
+
+    &__favorites-toggle {
+        display: none;
+        margin-right: -8px;
+    }
+
+    .is-on {
+        display: grid;
+    }
+
+    &__superscript {
+        vertical-align: super;
+        font-size: 14px;
+        line-height: 13px;
+    }
+
+    &__p {
+        min-height: 20px;
+        line-height: 140%;
+
+        &--housing-complex {
+            margin-bottom: 6px;
+        }
+
+        &--apartment-info {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            width: 100%;
+            column-gap: 5.5px;
+            margin-bottom: 0;
+        }
+    }
+
+    &__apartment-info {
+        max-width: calc(50% - 7.5px);
+    }
+
+    &__choosing-button {
+        display: none;
+        width: 100%;
+        min-height: 50px;
+        padding-top: 18px;
+        padding-right: 17px;
+        padding-bottom: 17px;
+        padding-left: 17px;
+        font-size: 12px;
+        line-height: 15px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        text-align: center;
+        color: $colorBlack;
+        border-radius: 2px;
+        background-color: $colorLightBlue;
+    }
+}
+
+.apartment-layout-card:hover {
+    min-height: 413px;
+    box-shadow: 0 0 15px $colorDarkGray, 0 25px 15px -15px $colorDarkGray;
+
+    .apartment-layout-card {
+        &__top {
+            display: none;
+        }
+
+        &__slider {
+            display: grid;
+        }
+
+        &__bottom {
+            padding-top: 12px;
+        }
+
+        &__screed {
+            margin-bottom: -6px;
+        }
+
+        &__heading {
+            color: $colorBrightBlue;
+        }
+
+        &__favorites-toggle {
+            display: grid;
+        }
+
+        &__p--apartment-info {
+            margin-bottom: 20px;
+        }
+
+        &__choosing-button {
+            display: grid;
+        }
+    }
+}
