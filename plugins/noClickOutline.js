@@ -21,18 +21,30 @@ export default () => {
         });
 
         $document.on('focusin', ({ target }) => {
+            const $target = $(target);
             if (isFocusWithTab) {
-                $(target).css(
-                    'outline',
-                    '2px solid #a5a5a5',
-                );
+                if ($target.prop('tagName') !== 'INPUT') {
+                    $target.css(
+                        'outline',
+                        '2px solid #a5a5a5',
+                    );
+                } else {
+                    $(`label[for=${$target.attr('id')}]`)
+                        .css('outline', '2px solid #a5a5a5');
+                }
             } else {
-                $(target).css('outline', 'none');
+                $target.css('outline', 'none');
             }
         });
 
         $document.on('blur', '*', ({ target }) => {
-            $(target).css('outline', 'none');
+            const $target = $(target);
+            if ($target.prop('tagName') !== 'INPUT') {
+                $target.css('outline', 'none');
+            } else {
+                $(`label[for=${$target.attr('id')}]`)
+                    .css('outline', 'none');
+            }
         });
     }
 };
