@@ -76,7 +76,7 @@ export default {
 
     &__film {
         display: flex;
-        transition: transform 0.7s;
+        transition: transform 0.5s ease-out;
     }
 
     &__slide {
