@@ -30,6 +30,206 @@ export default {
                                 notWebp: [
                                     {
                                         caption: '1',
+                                        url: '/photo-1@1x.png',
+                                    },
+                                    {
+                                        caption: '1.5',
+                                        url: '/photo-1@1x.png',
+                                    },
+                                    {
+                                        caption: '2',
+                                        url: '/photo-1@1x.png',
+                                    },
+                                    {
+                                        caption: '3',
+                                        url: '/photo-1@1x.png',
+                                    },
+                                    {
+                                        caption: '4',
+                                        url: '/photo-1@1x.png',
+                                    },
+                                ],
+                                webp: [
+                                    {
+                                        caption: '1',
+                                        url: '/photo-1@1x.png',
+                                    },
+                                    {
+                                        caption: '1.5',
+                                        url: '/photo-1@1x.png',
+                                    },
+                                    {
+                                        caption: '2',
+                                        url: '/photo-1@1x.png',
+                                    },
+                                    {
+                                        caption: '3',
+                                        url: '/photo-1@1x.png',
+                                    },
+                                    {
+                                        caption: '4',
+                                        url: '/photo-1@1x.png',
+                                    },
+                                ],
+                            },
+                            title: 'Фото №1',
+                            alt: 'Описание',
+                        },
+                        {
+                            desktop: {
+                                notWebp: [
+                                    {
+                                        caption: '1',
+                                        url: '/photo-2@1x.png',
+                                    },
+                                    {
+                                        caption: '1.5',
+                                        url: '/photo-2@1x.png',
+                                    },
+                                    {
+                                        caption: '2',
+                                        url: '/photo-2@1x.png',
+                                    },
+                                    {
+                                        caption: '3',
+                                        url: '/photo-2@1x.png',
+                                    },
+                                    {
+                                        caption: '4',
+                                        url: '/photo-2@1x.png',
+                                    },
+                                ],
+                                webp: [
+                                    {
+                                        caption: '1',
+                                        url: '/photo-2@1x.png',
+                                    },
+                                    {
+                                        caption: '1.5',
+                                        url: '/photo-2@1x.png',
+                                    },
+                                    {
+                                        caption: '2',
+                                        url: '/photo-2@1x.png',
+                                    },
+                                    {
+                                        caption: '3',
+                                        url: '/photo-2@1x.png',
+                                    },
+                                    {
+                                        caption: '4',
+                                        url: '/photo-2@1x.png',
+                                    },
+                                ],
+                            },
+                            title: 'Фото №2',
+                            alt: 'Описание',
+                        },
+                        {
+                            desktop: {
+                                notWebp: [
+                                    {
+                                        caption: '1',
+                                        url: '/photo-3@1x.png',
+                                    },
+                                    {
+                                        caption: '1.5',
+                                        url: '/photo-3@1x.png',
+                                    },
+                                    {
+                                        caption: '2',
+                                        url: '/photo-3@1x.png',
+                                    },
+                                    {
+                                        caption: '3',
+                                        url: '/photo-3@1x.png',
+                                    },
+                                    {
+                                        caption: '4',
+                                        url: '/photo-3@1x.png',
+                                    },
+                                ],
+                                webp: [
+                                    {
+                                        caption: '1',
+                                        url: '/photo-3@1x.png',
+                                    },
+                                    {
+                                        caption: '1.5',
+                                        url: '/photo-3@1x.png',
+                                    },
+                                    {
+                                        caption: '2',
+                                        url: '/photo-3@1x.png',
+                                    },
+                                    {
+                                        caption: '3',
+                                        url: '/photo-3@1x.png',
+                                    },
+                                    {
+                                        caption: '4',
+                                        url: '/photo-3@1x.png',
+                                    },
+                                ],
+                            },
+                            title: 'Фото №3',
+                            alt: 'Описание',
+                        },
+                        {
+                            desktop: {
+                                notWebp: [
+                                    {
+                                        caption: '1',
+                                        url: '/photo-4@1x.png',
+                                    },
+                                    {
+                                        caption: '1.5',
+                                        url: '/photo-4@1x.png',
+                                    },
+                                    {
+                                        caption: '2',
+                                        url: '/photo-4@1x.png',
+                                    },
+                                    {
+                                        caption: '3',
+                                        url: '/photo-4@1x.png',
+                                    },
+                                    {
+                                        caption: '4',
+                                        url: '/photo-4@1x.png',
+                                    },
+                                ],
+                                webp: [
+                                    {
+                                        caption: '1',
+                                        url: '/photo-4@1x.png',
+                                    },
+                                    {
+                                        caption: '1.5',
+                                        url: '/photo-4@1x.png',
+                                    },
+                                    {
+                                        caption: '2',
+                                        url: '/photo-4@1x.png',
+                                    },
+                                    {
+                                        caption: '3',
+                                        url: '/photo-4@1x.png',
+                                    },
+                                    {
+                                        caption: '4',
+                                        url: '/photo-4@1x.png',
+                                    },
+                                ],
+                            },
+                            title: 'Фото №4',
+                            alt: 'Описание',
+                        },
+                        {
+                            desktop: {
+                                notWebp: [
+                                    {
+                                        caption: '1',
                                         url: '/oblique-apartment-layout@1x.png',
                                     },
                                     {

@@ -13,11 +13,14 @@
                     )
         ul.hover-slider__pagination
             li.hover-slider__pagination-item(
-                v-for="slide in slides"
+                ref="paginationItems"
+                v-for="(slide, index) in slides"
+                @mouseenter="onPaginationMouseEnter(index)"
             )
 </template>
 
 <script>
+import $ from 'jquery';
 import { createArrayPropConfig } from '@/modules/propConfigs';
 
 export default {
@@ -32,25 +35,48 @@ export default {
                     canvasWidth: '319px',
                 },
             },
+            previousActiveSlide: 0,
         };
+    },
+    methods: {
+        onPaginationMouseEnter(paginationItemIndex) {
+            $(
+                this.$refs
+                    .paginationItems[this.previousActiveSlide],
+            ).removeClass('is-active');
+            $(this.$refs.film).css(
+                'transform',
+                `translateX(${-319 * paginationItemIndex}px)`,
+            );
+            $(
+                this.$refs
+                    .paginationItems[paginationItemIndex],
+            ).addClass('is-active');
+            this.previousActiveSlide = paginationItemIndex;
+        },
     },
 };
 </script>
 
 <style lang="scss">
 .hover-slider {
+    position: relative;
+
     &__screen {
         display: grid;
         align-items: center;
         width: 100%;
         height: 220px;
         text-align: center;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
         margin-bottom: 16px;
         overflow-y: hidden;
     }
 
     &__film {
         display: flex;
+        transition: transform 0.7s;
     }
 
     &__slide {
@@ -59,17 +85,18 @@ export default {
     }
 
     &__pagination {
+        position: absolute;
         display: flex;
         column-gap: 6px;
         width: 100%;
+        height: 237px;
         padding-right: 15px;
         padding-left: 15px;
-    }
 
-    &__pagination-item {
-        flex-grow: 1;
-        height: 1px;
-        background-color: $colorSuperLightGray;
+        &-item {
+            flex-grow: 1;
+            border-bottom: 1px solid $colorSuperLightGray;
+        }
     }
 }
 
@@ -78,5 +105,9 @@ export default {
     height: 100%;
     color: $colorBlack;
     object-fit: cover;
+}
+
+.is-active {
+    border-bottom-color: $colorBrightBlue;
 }
 </style>
