@@ -1,6 +1,6 @@
 <template lang="pug">
     ul(:class="'list list--filter-items'")
-        li.filter-item(
+        li.filter-option(
             v-for="\
                 (filterItemCaption, index)\
                     in selectedFilterItemCaptions\

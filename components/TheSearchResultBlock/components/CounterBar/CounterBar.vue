@@ -29,7 +29,6 @@ export default {
         font-size: 30px;
         line-height: 111%;
         font-weight: 600;
-        color: $colorDark;
     }
 
     &__group {
@@ -74,7 +73,6 @@ export default {
         width: 63px;
         font-size: 16px;
         line-height: 20px;
-        color: $colorDark;
     }
 
     &__filter-reset-button {

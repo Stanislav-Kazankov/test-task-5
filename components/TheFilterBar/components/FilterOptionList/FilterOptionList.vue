@@ -3,10 +3,10 @@
         li(
             v-for="\
                 ({ id, caption, checked }, index)\
-                    in filterItems\
+                    in filterOptions\
             "
         )
-            filter-item(
+            filter-option(
                 :id="id"
                 :caption="caption"
                 :checked="checked"
@@ -14,15 +14,15 @@
 </template>
 
 <script>
-import FilterItem from './components/FilterItem.vue';
+import FilterOption from './components/FilterOption.vue';
 import { createArrayPropConfig, createStringPropConfig } from '@/modules/propConfigs';
 
 export default {
     components: {
-        FilterItem,
+        FilterOption,
     },
     props: {
-        filterItems:
+        filterOptions:
             createArrayPropConfig(),
         caption: createStringPropConfig(),
     },

@@ -1,19 +1,19 @@
 <template lang="pug">
-    filter-item-list.list--room-counts(
-        :filter-items="roomCountFilterItems"
+    filter-option-list.list--room-counts(
+        :filter-options="roomCountFilterOptions"
     )
 </template>
 
 <script>
-import FilterItemList from './FilterItemList.vue';
+import FilterOptionList from './FilterOptionList/FilterOptionList.vue';
 
 export default {
     components: {
-        FilterItemList,
+        FilterOptionList,
     },
     data() {
         return {
-            roomCountFilterItems: [
+            roomCountFilterOptions: [
                 {
                     id: 'c',
                     caption: 'C',
@@ -25,7 +25,7 @@ export default {
                     checked: false,
                 },
                 {
-                    id: '1plus',
+                    id: '1Plus',
                     caption: '1+',
                     checked: false,
                 },
@@ -35,7 +35,7 @@ export default {
                     checked: false,
                 },
                 {
-                    id: '2plus',
+                    id: '2Plus',
                     caption: '2+',
                     checked: false,
                 },
@@ -45,12 +45,12 @@ export default {
                     checked: false,
                 },
                 {
-                    id: '3plus',
+                    id: '3Plus',
                     caption: '3+',
                     checked: false,
                 },
                 {
-                    id: '4more',
+                    id: '4OrMore',
                     caption: '4...',
                     checked: false,
                 },
@@ -62,7 +62,7 @@ export default {
 
 <style lang="scss" scoped>
     .list--room-counts {
-        ::v-deep .filter-item {
+        ::v-deep .filter-option {
             width: 33px;
             padding-right: 5px;
             padding-left: 5px;

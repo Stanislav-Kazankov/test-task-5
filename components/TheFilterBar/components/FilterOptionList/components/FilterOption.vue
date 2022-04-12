@@ -1,6 +1,6 @@
 <template lang="pug">
     base-selector(
-        labelClass="filter-item"
+        labelClass="filter-option"
         type="checkbox"
         :id="id"
     )
