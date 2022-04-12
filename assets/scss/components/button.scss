@@ -1,14 +1,9 @@
-.button {
+.button__core {
     display: grid;
-    grid-template: 100% / 100%;
-
-    &__core {
-        display: grid;
-        width: 100%;
-        min-height: inherit;
-        padding: 0;
-        font-size: 14px;
-        border: 0;
-        background-color: transparent;
-    }
+    width: 100%;
+    min-height: inherit;
+    padding: 0;
+    font-size: 14px;
+    border: 0;
+    background-color: transparent;
 }

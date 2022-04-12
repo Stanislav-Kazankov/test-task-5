@@ -16,12 +16,11 @@ export default {
 
 <style lang="scss" scoped>
 .button--filter-reset {
-    width: 99px;
-    min-height: 20px;
-    color: $colorBrightBlue;
-
     ::v-deep .button__core {
+        width: 99px;
+        min-height: 20px;
         line-height: 140%;
+        color: $colorBrightBlue;
     }
 }
 </style>

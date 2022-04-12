@@ -4,8 +4,20 @@
             | Панель фильтров поиска
         h3.filter-bar__filter-heading
             | Количество комнат
-        filter-item-list(:filter-items="roomCountFilterCaptions")
+        room-count-filter.filter-bar__room-count-filter
+        h3.filter-bar__filter-heading
+            | Особенности планировки
 </template>
+
+<script>
+import RoomCountFilter from './components/RoomCountFilter.vue';
+
+export default {
+    components: {
+        RoomCountFilter,
+    },
+};
+</script>
 
 <style lang="scss" scoped>
 .filter-bar {
@@ -22,6 +34,12 @@
         line-height: 20px;
         font-weight: 600;
         color: $colorDark;
+        margin-bottom: 7px;
+    }
+
+    &__room-count-filter {
+        margin-bottom: 26px;
+        margin-left: 1px;
     }
 }
 </style>

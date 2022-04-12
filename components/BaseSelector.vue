@@ -5,7 +5,10 @@
             ref="input"
             v-bind="$attrs"
         )
-        label.selector__label(:for="id")
+        label.selector__label(
+            :class="labelClass"
+            :for="id"
+        )
             slot(name="icon")
             base-control
 </template>
@@ -18,6 +21,7 @@ export default {
         id: createStringPropConfig(
             'selector-input',
         ),
+        labelClass: createStringPropConfig(),
     },
 };
 </script>
