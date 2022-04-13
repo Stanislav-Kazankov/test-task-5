@@ -1,88 +1,74 @@
 <template lang="pug">
     .checkbox-bar
-        ul(
-            ref="checkboxList"
-            :class="'checkbox-bar__checkbox-list list'"
-            :style="{'height': ` ${checkboxListHeight}px`}"
+        checkbox-list(
+            :class="{\
+                'is-not-distanced':\
+                    checkboxCount <= COLLAPSED_BAR_CHECKBOX_COUNT\
+            }"
+            :checkboxDataArray="topCheckboxDataArray"
         )
-            li(
-                v-for="\
-                    ({ id, caption, checked }, index)\
-                        in checkboxDataArray\
-                "
+        sliding
+            checkbox-list.checkbox-bar__checkbox-list(
+                :checkboxDataArray="bottomCheckboxDataArray"
             )
-                checkbox(
-                    ref="checkboxes"
-                    :id="id"
-                    :caption="caption"
-                    :checked="checked"
-                    @hook:mounted="isCheckboxesMounted = true"
-                )
         list-expanding-toggle.checkbox-bar__list-expanding-toggle(
+            v-if="checkboxCount > COLLAPSED_BAR_CHECKBOX_COUNT"
             @click.native="\
-                isCheckboxListExpanded =\
-                !isCheckboxListExpanded\
+                isCheckboxBarCollapsed =\
+                !isCheckboxBarCollapsed\
             "
         )
 </template>
 
 <script>
-import _ from 'lodash';
-import $ from 'jquery';
-import Checkbox from './components/Checkbox.vue';
+import { ref, provide } from '@nuxtjs/composition-api';
+import CheckboxList from './components/CheckboxList/CheckboxList.vue';
+import Sliding from './components/Sliding.vue';
 import ListExpandingToggle from './components/ListExpandingToggle.vue';
 import { createArrayPropConfig } from '@/modules/propConfigs';
 
 export default {
     components: {
-        Checkbox,
+        CheckboxList,
+        Sliding,
         ListExpandingToggle,
     },
     props: {
         checkboxDataArray:
             createArrayPropConfig(),
     },
+    setup() {
+        const isCheckboxBarCollapsed = ref(true);
+        const outerSlidingState = {
+            isHidden: isCheckboxBarCollapsed,
+        };
+        provide(
+            'outerSlidingState',
+            outerSlidingState,
+        );
+        return {
+            isCheckboxBarCollapsed,
+        };
+    },
     data() {
         return {
-            MIN_VISIBLE_CHECKBOX_COUNT: 6,
-            isCheckboxListExpanded: false,
-            isCheckboxesMounted: 0,
-            upperCheckboxesHeight: 0,
-            allCheckboxesHeight: 0,
-            checkboxListRowGap: 0,
+            COLLAPSED_BAR_CHECKBOX_COUNT: 6,
         };
     },
     computed: {
-        checkboxListHeight() {
-            return this.isCheckboxListExpanded
-                ? this.allCheckboxesHeight +
-                    this.checkboxListRowGap *
-                        (this.checkboxDataArray.length - 1)
-                : this.upperCheckboxesHeight +
-                    this.checkboxListRowGap *
-                        (this.MIN_VISIBLE_CHECKBOX_COUNT - 1);
+        checkboxCount() {
+            return this.checkboxDataArray.length;
         },
-    },
-    watch: {
-        isCheckboxesMounted(newValue) {
-            if (newValue) {
-                this.upperCheckboxesHeight = _(this.$refs.checkboxes)
-                    .slice(0, this.MIN_VISIBLE_CHECKBOX_COUNT)
-                    .reduce(
-                        (result, checkbox) => (
-                            result + $(checkbox.$el).height()
-                        ), 0,
-                    );
-                this.allCheckboxesHeight = _(this.$refs.checkboxes)
-                    .reduce(
-                        (result, checkbox) => (
-                            result + $(checkbox.$el).height()
-                        ), 0,
-                    );
-                this.checkboxListRowGap = parseFloat(
-                    $(this.$refs.checkboxList).css('row-gap'),
-                );
-            }
+        topCheckboxDataArray() {
+            return this.checkboxDataArray.slice(
+                0, this.COLLAPSED_BAR_CHECKBOX_COUNT,
+            );
+        },
+        bottomCheckboxDataArray() {
+            return this.checkboxDataArray.slice(
+                this.COLLAPSED_BAR_CHECKBOX_COUNT,
+                this.checkboxDataArray.length,
+            );
         },
     },
 };

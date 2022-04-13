@@ -101,6 +101,10 @@ export default {
                     }
                 }
             }
+
+            .control {
+                width: 271px;
+            }
         }
     }
 </style>

@@ -2,17 +2,13 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    row-gap: 10px;
 
-    &__checkbox-list {
-        display: grid;
-        row-gap: 6px;
-        min-height: 120px;
-        transition: height 0.4s;
-        overflow-y: hidden;
+    .is-not-distanced {
+        margin-bottom: 0;
     }
 
     &__list-expanding-toggle {
         color: $colorBrightBlue;
+        margin-top: 4px;
     }
 }

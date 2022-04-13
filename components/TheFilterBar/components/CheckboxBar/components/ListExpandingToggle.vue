@@ -29,6 +29,7 @@ export default {
         .button__core {
             position: relative;
             max-width: 94px;
+            min-height: 15px;
             padding-right: 11px;
             font-size: 12px;
             line-height: 15px;
