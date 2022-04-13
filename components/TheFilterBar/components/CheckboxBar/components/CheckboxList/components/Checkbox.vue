@@ -62,6 +62,8 @@ export default {
 
             .selector__input:hover {
                 + .selector__label {
+                    color: $colorBrightBlue;
+
                     .checkbox-icon {
                         border-color: $colorUltraLightBlue;
                         background-color: $colorUltraLightBlue;
@@ -71,6 +73,8 @@ export default {
 
             .selector__input:checked {
                 + .selector__label {
+                    color: $colorBrightBlue;
+
                     .checkbox-icon {
                         border-color: $colorSuperLightBlue;
                         background-color: $colorSuperLightBlue;

@@ -38,10 +38,10 @@ export default {
             &::before {
                 content: '';
                 position: absolute;
-                top: 4px;
+                top: calc(50% - 4px);
                 right: 0;
-                width: 5.66px;
-                height: 5.66px;
+                width: 6px;
+                height: 6px;
                 border-top: 1px solid $colorBrightBlue;
                 border-left: 1px solid $colorBrightBlue;
                 transform: rotate(-135deg);
