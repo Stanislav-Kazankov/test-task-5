@@ -1,6 +1,7 @@
 <template lang="pug">
     .checkbox-bar
         ul(
+            ref="checkboxList"
             :class="'checkbox-bar__checkbox-list list'"
             :style="{'height': ` ${checkboxListHeight}px`}"
         )
@@ -17,7 +18,7 @@
                     :checked="checked"
                     @hook:mounted="isCheckboxesMounted = true"
                 )
-        list-expanding-toggle(
+        list-expanding-toggle.checkbox-bar__list-expanding-toggle(
             @click.native="\
                 isCheckboxListExpanded =\
                 !isCheckboxListExpanded\
@@ -48,15 +49,18 @@ export default {
             isCheckboxesMounted: 0,
             upperCheckboxesHeight: 0,
             allCheckboxesHeight: 0,
+            checkboxListRowGap: 0,
         };
     },
     computed: {
         checkboxListHeight() {
             return this.isCheckboxListExpanded
                 ? this.allCheckboxesHeight +
-                    6 * (this.checkboxDataArray.length - 1)
+                    this.checkboxListRowGap *
+                        (this.checkboxDataArray.length - 1)
                 : this.upperCheckboxesHeight +
-                    6 * (this.MIN_VISIBLE_CHECKBOX_COUNT - 1);
+                    this.checkboxListRowGap *
+                        (this.MIN_VISIBLE_CHECKBOX_COUNT - 1);
         },
     },
     watch: {
@@ -75,6 +79,9 @@ export default {
                             result + $(checkbox.$el).height()
                         ), 0,
                     );
+                this.checkboxListRowGap = parseFloat(
+                    $(this.$refs.checkboxList).css('row-gap'),
+                );
             }
         },
     },
@@ -82,10 +89,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .checkbox-bar__checkbox-list {
-        display: grid;
-        row-gap: 6px;
-        transition: height 0.4s;
-        overflow-y: hidden;
-    }
+@import 'checkbox-bar.scss';
 </style>
