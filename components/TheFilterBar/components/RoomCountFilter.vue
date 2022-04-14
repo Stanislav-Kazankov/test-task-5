@@ -1,6 +1,6 @@
 <template lang="pug">
     filter-option-list.list--room-counts(
-        :filter-options="roomCountFilterOptions"
+        :filter-option-data-array="roomCountFilterOptions"
     )
 </template>
 

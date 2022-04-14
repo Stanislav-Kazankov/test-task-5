@@ -53,7 +53,7 @@ export default {
         height: 14px;
         padding-top: 1px;
         padding-right: 4px;
-        padding-left: 3px;
+        padding-left: 2px;
         font-size: 11px;
         line-height: 11px;
         font-weight: 500;

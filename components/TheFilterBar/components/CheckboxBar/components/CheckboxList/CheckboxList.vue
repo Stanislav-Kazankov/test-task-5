@@ -2,15 +2,15 @@
     ul(:class="'list list--checkboxes'")
         li(
             v-for="\
-                ({ id, caption, checked }, index)\
+                ({ id, caption, checked, tooltip }, index)\
                     in checkboxDataArray\
             "
         )
             checkbox(
-                ref="checkboxes"
                 :id="id"
                 :caption="caption"
                 :checked="checked"
+                :tooltip="tooltip"
             )
 </template>
 

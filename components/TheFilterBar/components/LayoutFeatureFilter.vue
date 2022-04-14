@@ -27,7 +27,8 @@ export default {
                 {
                     id: 'dressingRoom',
                     caption: 'Гардеробная',
-                    checked: false,
+                    checked: true,
+                    tooltip: 'Подсказка',
                 },
                 {
                     id: 'kitchenLivingRoom',

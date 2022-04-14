@@ -3,7 +3,7 @@
         li(
             v-for="\
                 ({ id, caption, checked }, index)\
-                    in filterOptions\
+                    in filterOptionDataArray\
             "
         )
             filter-option(
@@ -22,7 +22,7 @@ export default {
         FilterOption,
     },
     props: {
-        filterOptions:
+        filterOptionDataArray:
             createArrayPropConfig(),
         caption: createStringPropConfig(),
     },

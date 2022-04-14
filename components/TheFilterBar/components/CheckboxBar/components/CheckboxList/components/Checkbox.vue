@@ -3,10 +3,12 @@
         base-selector.selector--checkbox(
             type="checkbox"
             :id="id"
+            v-bind="$attrs"
         )
             template(#icon)
                 span.checkbox-icon(aria-hidden="true")
         input-tooltip-trigger.checkbox__tooltip-trigger(
+            v-if="tooltip"
             :inputId="id"
         )
 </template>
@@ -14,12 +16,16 @@
 <script>
 import defineCheckboxOptions from '../../../../../../../mixins/defineCheckboxOptions';
 import InputTooltipTrigger from './components/InputTooltipTrigger.vue';
+import { createStringPropConfig } from '@/modules/propConfigs';
 
 export default {
     components: {
         InputTooltipTrigger,
     },
     mixins: [defineCheckboxOptions],
+    props: {
+        tooltip: createStringPropConfig(),
+    },
 };
 </script>
 
