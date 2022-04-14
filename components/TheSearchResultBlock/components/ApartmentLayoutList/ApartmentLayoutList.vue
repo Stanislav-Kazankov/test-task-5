@@ -293,6 +293,7 @@ export default {
     row-gap: 17px;
     column-gap: 8px;
     width: 975px;
+    padding-left: 3px;
 }
 
 .list {

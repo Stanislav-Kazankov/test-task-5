@@ -3,7 +3,7 @@
         li(
             v-for="\
                 ({ id, caption, checked, tooltip }, index)\
-                    in checkboxDataArray\
+                    in checkboxesData\
             "
         )
             checkbox(
@@ -23,7 +23,7 @@ export default {
         Checkbox,
     },
     props: {
-        checkboxDataArray:
+        checkboxesData:
             createArrayPropConfig(),
     },
 };

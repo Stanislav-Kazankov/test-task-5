@@ -5,11 +5,11 @@
                 'is-not-distanced':\
                     checkboxCount <= COLLAPSED_BAR_CHECKBOX_COUNT\
             }"
-            :checkboxDataArray="topCheckboxDataArray"
+            :checkboxesData="topCheckboxesData"
         )
         sliding
             checkbox-list.checkbox-bar__checkbox-list(
-                :checkboxDataArray="bottomCheckboxDataArray"
+                :checkboxesData="bottomCheckboxesData"
             )
         list-expanding-toggle.checkbox-bar__list-expanding-toggle(
             v-if="checkboxCount > COLLAPSED_BAR_CHECKBOX_COUNT"
@@ -34,7 +34,7 @@ export default {
         ListExpandingToggle,
     },
     props: {
-        checkboxDataArray:
+        checkboxesData:
             createArrayPropConfig(),
     },
     setup() {
@@ -57,17 +57,17 @@ export default {
     },
     computed: {
         checkboxCount() {
-            return this.checkboxDataArray.length;
+            return this.checkboxesData.length;
         },
-        topCheckboxDataArray() {
-            return this.checkboxDataArray.slice(
+        topCheckboxesData() {
+            return this.checkboxesData.slice(
                 0, this.COLLAPSED_BAR_CHECKBOX_COUNT,
             );
         },
-        bottomCheckboxDataArray() {
-            return this.checkboxDataArray.slice(
+        bottomCheckboxesData() {
+            return this.checkboxesData.slice(
                 this.COLLAPSED_BAR_CHECKBOX_COUNT,
-                this.checkboxDataArray.length,
+                this.checkboxesData.length,
             );
         },
     },

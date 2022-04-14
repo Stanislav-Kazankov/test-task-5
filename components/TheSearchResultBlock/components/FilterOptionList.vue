@@ -1,5 +1,5 @@
 <template lang="pug">
-    ul(:class="'list list--filter-items'")
+    ul(:class="'list list--filter-options'")
         li.filter-option(
             v-for="\
                 (filterItemCaption, index)\

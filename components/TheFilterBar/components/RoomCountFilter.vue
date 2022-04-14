@@ -1,21 +1,28 @@
 <template lang="pug">
-    filter-option-list.list--room-counts(
-        :filter-option-data-array="\
-            roomCountFilterOptions\
-        "
+    base-filter.room-count-filter(
+        filterHeading="Количество комнат"
+        dativeCaseFilterHeading="количеству комнат"
     )
+        template(#filterOptionBar)
+            filter-option-list(
+                :filter-options-data="\
+                    filterOptions\
+                "
+            )
 </template>
 
 <script>
+import BaseFilter from './BaseFilter.vue';
 import FilterOptionList from './FilterOptionList/FilterOptionList.vue';
 
 export default {
     components: {
+        BaseFilter,
         FilterOptionList,
     },
     data() {
         return {
-            roomCountFilterOptions: [
+            filterOptions: [
                 {
                     id: 'c',
                     caption: 'C',
@@ -63,7 +70,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .list--room-counts {
+    .room-count-filter {
         ::v-deep .filter-option {
             width: 33px;
             padding-right: 5px;

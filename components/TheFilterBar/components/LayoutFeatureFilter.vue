@@ -1,19 +1,26 @@
 <template lang="pug">
-    checkbox-bar(
-        :checkbox-data-array="layoutFeatureFilterOptions"
+    base-filter(
+        filterHeading="Особенности планировки"
+        dativeCaseFilterHeading="особенностям планировки"
     )
+        template(#filterOptionBar)
+            checkbox-bar(
+                :checkboxes-data="filterOptionsData"
+            )
 </template>
 
 <script>
+import BaseFilter from './BaseFilter.vue';
 import CheckboxBar from './CheckboxBar/CheckboxBar.vue';
 
 export default {
     components: {
+        BaseFilter,
         CheckboxBar,
     },
     data() {
         return {
-            layoutFeatureFilterOptions: [
+            filterOptionsData: [
                 {
                     id: '2OrMoreBathrooms',
                     caption: '2 и более санузла',

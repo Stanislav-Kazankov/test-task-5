@@ -1,15 +1,16 @@
 <template lang="pug">
-    ul(:class="'list list--filter-items'")
+    ul(:class="'list list--filter-options'")
         li(
             v-for="\
-                ({ id, caption, checked }, index)\
-                    in filterOptionDataArray\
+                ({ id, caption, checked, icon }, index)\
+                    in filterOptionsData\
             "
         )
             filter-option(
                 :id="id"
                 :caption="caption"
                 :checked="checked"
+                :icon="icon"
             )
 </template>
 
@@ -22,7 +23,7 @@ export default {
         FilterOption,
     },
     props: {
-        filterOptionDataArray:
+        filterOptionsData:
             createArrayPropConfig(),
         caption: createStringPropConfig(),
     },
