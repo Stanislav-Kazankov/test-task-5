@@ -31,7 +31,8 @@ export default {
 
 <style lang="scss" scoped>
     .list--checkboxes {
-        display: grid;
+        display: flex;
+        flex-direction: column;
         row-gap: 6px;
         margin-bottom: 6px;
     }
