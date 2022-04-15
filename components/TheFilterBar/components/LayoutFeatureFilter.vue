@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import BaseFilter from './BaseFilter.vue';
+import BaseFilter from './BaseFilter/BaseFilter.vue';
 import CheckboxBar from './CheckboxBar/CheckboxBar.vue';
 
 export default {

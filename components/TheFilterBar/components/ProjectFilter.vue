@@ -1,7 +1,12 @@
 <template lang="pug">
     base-filter.project-filter(
-        filterHeading="Проект"
-        dativeCaseFilterHeading="проекту"
+        filter-heading="Проект"
+        dative-case-filter-heading="проекту"
+        selection-object="проект"
+        selection-space="карте"
+        :is-selection-button-enabled="\
+            !!filterOptionsData.length\
+        "
     )
         template(#filterOptionBar)
             filter-option-list(
@@ -12,7 +17,7 @@
 </template>
 
 <script>
-import BaseFilter from './BaseFilter.vue';
+import BaseFilter from './BaseFilter/BaseFilter.vue';
 import FilterOptionList from './FilterOptionList/FilterOptionList.vue';
 
 export default {
@@ -72,11 +77,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss" scoped>
-    // .project-filter {
-    //     ::v-deep .filter-option {
-
-    //     }
-    // }
-</style>

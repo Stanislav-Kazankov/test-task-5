@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import BaseFilter from './BaseFilter.vue';
+import BaseFilter from './BaseFilter/BaseFilter.vue';
 import FilterOptionList from './FilterOptionList/FilterOptionList.vue';
 
 export default {
@@ -72,7 +72,6 @@ export default {
 <style lang="scss" scoped>
     .room-count-filter {
         ::v-deep .filter-option {
-            width: 33px;
             padding-right: 5px;
             padding-left: 5px;
         }
