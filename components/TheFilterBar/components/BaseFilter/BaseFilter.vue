@@ -3,9 +3,9 @@
         .filter__top
             h3.filter__heading
                 span.visually-hidden
-                    | Фильтр по {{dativeCaseFilterHeading}}
+                    | Фильтр по {{areaHeadingCompletion}}
                 span(aria-hidden="true")
-                    | {{filterHeading}}
+                    slot(name="filterHeading")
             selection-button.filter__selection-button(
                 :selection-object="selectionObject"
                 :selection-space="selectionSpace"
@@ -23,8 +23,7 @@ export default {
         SelectionButton,
     },
     props: {
-        filterHeading: createStringPropConfig(),
-        dativeCaseFilterHeading:
+        areaHeadingCompletion:
             createStringPropConfig(),
         selectionObject:
             createStringPropConfig(),

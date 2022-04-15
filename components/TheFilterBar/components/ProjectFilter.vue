@@ -1,13 +1,14 @@
 <template lang="pug">
     base-filter.project-filter(
-        filter-heading="Проект"
-        dative-case-filter-heading="проекту"
+        area-heading-completion="проекту"
         selection-object="проект"
         selection-space="карте"
         :is-selection-button-enabled="\
             !!filterOptionsData.length\
         "
     )
+        template(#filterHeading)
+            span Проект
         template(#filterOptionBar)
             filter-option-list(
                 :filter-options-data="\

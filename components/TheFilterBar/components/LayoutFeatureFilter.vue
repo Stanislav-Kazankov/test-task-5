@@ -1,8 +1,9 @@
 <template lang="pug">
     base-filter(
-        filterHeading="Особенности планировки"
-        dativeCaseFilterHeading="особенностям планировки"
+        area-heading-completion="особенностям планировки"
     )
+        template(#filterHeading)
+            span Особенности планировки
         template(#filterOptionBar)
             checkbox-bar(
                 :checkboxes-data="filterOptionsData"

@@ -2,21 +2,24 @@
     section.filter-bar
         h2.visually-hidden
             | Панель фильтров поиска
-        room-count-filter.filter-bar__room-count-filter
-        layout-feature-filter.filter-bar__layout-feature-filter
-        project-filter.filter-bar__project-filter
+        room-count-filter
+        layout-feature-filter
+        project-filter
+        price-filter
 </template>
 
 <script>
 import RoomCountFilter from './components/RoomCountFilter.vue';
 import LayoutFeatureFilter from './components/LayoutFeatureFilter.vue';
 import ProjectFilter from './components/ProjectFilter.vue';
+import PriceFilter from './components/PriceFilter.vue';
 
 export default {
     components: {
         RoomCountFilter,
         LayoutFeatureFilter,
         ProjectFilter,
+        PriceFilter,
     },
 };
 </script>

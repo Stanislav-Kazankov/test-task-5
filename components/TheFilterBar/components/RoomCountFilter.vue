@@ -1,8 +1,9 @@
 <template lang="pug">
     base-filter.room-count-filter(
-        filterHeading="Количество комнат"
-        dativeCaseFilterHeading="количеству комнат"
+        area-heading-completion="количеству комнат"
     )
+        template(#filterHeading)
+            span Количество комнат
         template(#filterOptionBar)
             filter-option-list(
                 :filter-options-data="\

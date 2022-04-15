@@ -21,6 +21,16 @@ export const createNumberPropConfig = (
         defaultValue,
     );
 
+export const createNaturalPropConfig = (
+    defaultValue = 0,
+) => ({
+    Number,
+    default: defaultValue,
+    validator(value) {
+        return value >= 0;
+    },
+});
+
 export const createStringPropConfig = (
     defaultValue = '',
 ) =>
