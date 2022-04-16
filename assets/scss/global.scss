@@ -86,6 +86,14 @@ input {
 }
 
 button,
-label {
+label[for] {
     cursor: pointer;
+
+    ::selection {
+        background: none;
+    }
+}
+
+label:not([for]) {
+    cursor: text;
 }
