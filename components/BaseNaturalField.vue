@@ -25,7 +25,6 @@ export default {
     },
     mounted() {
         this.$input = $(this.$refs.input);
-
         this.$input.prop(
             'previousValue',
             this.$input.prop('value'),

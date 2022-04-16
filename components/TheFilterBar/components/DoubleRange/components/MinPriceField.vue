@@ -1,5 +1,6 @@
 <template lang="pug">
-    base-numeric-field(
+    base-natural-field(
+        ref="baseNaturalField"
         :min="minPossiblePrice"
         :max="maxPossiblePrice"
     )
