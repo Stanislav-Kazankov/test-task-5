@@ -6,36 +6,43 @@
                 ref="input"
                 v-bind="$attrs"
                 type="text"
+                required
                 pattern="\\d*"
                 inputmode="numeric"
-                @change="onInputChange"
-                :value="initialValue"
+                @change="onChange"
             )
 </template>
 
 <script>
 import $ from 'jquery';
-import { createNaturalPropConfig } from '~/modules/propConfigs';
 
 export default {
     inheritAttrs: false,
-    props: {
-        initialValue:
-            createNaturalPropConfig(),
-    },
     data() {
         return {
-            previousValue: this.initialValue,
+            $input: null,
         };
     },
+    mounted() {
+        this.$input = $(this.$refs.input);
+
+        this.$input.prop(
+            'previousValue',
+            this.$input.prop('value'),
+        );
+    },
     methods: {
-        onInputChange($event) {
-            const $target = $($event.target);
-            if (!$target.prop('validity').valid) {
-                $target.prop('value', this.previousValue);
+        onChange() {
+            if (!this.$refs.input.checkValidity()) {
+                this.$input.prop(
+                    'value',
+                    this.$input.prop('previousValue'),
+                );
             } else {
-                this.previousValue = $target
-                    .prop('value');
+                this.$input.prop(
+                    'previousValue',
+                    this.$input.prop('value'),
+                );
             }
         },
     },
