@@ -60,8 +60,8 @@ export default {
         },
         onMaxFieldChange() {
             if (
-                parseFloat(this.$minPriceInput.prop('value')) >
-                parseFloat(this.$maxPriceInput.prop('value'))
+                parseInt(this.$minPriceInput.prop('value'), 10) >
+                parseInt(this.$maxPriceInput.prop('value'), 10)
             ) {
                 this.$maxPriceInput.prop(
                     'value',
