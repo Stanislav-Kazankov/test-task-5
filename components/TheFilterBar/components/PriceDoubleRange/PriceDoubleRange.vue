@@ -2,13 +2,17 @@
     .range
         min-price-field(
             ref="minPriceField"
-            @hook:mounted="onMinFieldMounted"
-            @change.native="onMinFieldChange"
+            :min-value="minBound"
+            :max-value="maxFieldValue"
+            @value-init="onMinFieldValueInit"
+            @valid-change="onMinFieldValidChange"
         )
         max-price-field(
             ref="maxPriceField"
-            @hook:mounted="onMaxFieldMounted"
-            @change.native="onMaxFieldChange"
+            :min-value="minFieldValue"
+            :max-value="maxBound"
+            @value-init="onMaxFieldValueInit"
+            @valid-change="onMaxFieldValidChange"
         )
         .range__scale
             .range__selection
@@ -17,7 +21,6 @@
 </template>
 
 <script>
-import $ from 'jquery';
 import MinPriceField from './components/MinPriceField.vue';
 import MaxPriceField from './components/MaxPriceField.vue';
 
@@ -28,46 +31,24 @@ export default {
     },
     data() {
         return {
-            minPriceInput: null,
-            maxPriceInput: null,
+            minBound: 0,
+            maxBound: 100000000,
+            minFieldValue: null,
+            maxFieldValue: null,
         };
     },
     methods: {
-        onMinFieldMounted() {
-            this.$minPriceInput = $(
-                this.$refs.minPriceField
-                    .$refs.baseNaturalField
-                    .$refs.input,
-            );
+        onMinFieldValueInit(value) {
+            this.minFieldValue = value;
         },
-        onMaxFieldMounted() {
-            this.$maxPriceInput = $(
-                this.$refs.maxPriceField
-                    .$refs.baseNaturalField
-                    .$refs.input,
-            );
+        onMaxFieldValueInit(value) {
+            this.maxFieldValue = value;
         },
-        onMinFieldChange() {
-            if (
-                parseInt(this.$minPriceInput.prop('value'), 10) >
-                parseInt(this.$maxPriceInput.prop('value'), 10)
-            ) {
-                this.$minPriceInput.prop(
-                    'value',
-                    this.$maxPriceInput.prop('value'),
-                );
-            }
+        onMinFieldValidChange(newValue) {
+            this.minFieldValue = newValue;
         },
-        onMaxFieldChange() {
-            if (
-                parseInt(this.$minPriceInput.prop('value'), 10) >
-                parseInt(this.$maxPriceInput.prop('value'), 10)
-            ) {
-                this.$maxPriceInput.prop(
-                    'value',
-                    this.$minPriceInput.prop('value'),
-                );
-            }
+        onMaxFieldValidChange(newValue) {
+            this.maxFieldValue = newValue;
         },
     },
 };

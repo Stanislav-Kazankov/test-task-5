@@ -5,17 +5,17 @@
         template(#filterHeading)
             span Стоимость, ₽
         template(#filterOptionBar)
-            double-range
+            price-double-range
 </template>
 
 <script>
 import BaseFilter from './BaseFilter/BaseFilter.vue';
-import DoubleRange from './DoubleRange/DoubleRange.vue';
+import PriceDoubleRange from './PriceDoubleRange/PriceDoubleRange.vue';
 
 export default {
     components: {
         BaseFilter,
-        DoubleRange,
+        PriceDoubleRange,
     },
 };
 </script>
