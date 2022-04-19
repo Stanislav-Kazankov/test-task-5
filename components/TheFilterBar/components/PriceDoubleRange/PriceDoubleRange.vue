@@ -1,15 +1,13 @@
 <template lang="pug">
     .range
         min-price-field(
-            ref="minPriceField"
             :min-value="minBound"
-            :max-value="maxFieldValue"
+            :max-value="maxMinFieldValue"
             @value-init="onMinFieldValueInit"
             @valid-change="onMinFieldValidChange"
         )
         max-price-field(
-            ref="maxPriceField"
-            :min-value="minFieldValue"
+            :min-value="minMaxFieldValue"
             :max-value="maxBound"
             @value-init="onMaxFieldValueInit"
             @valid-change="onMaxFieldValidChange"
@@ -33,22 +31,22 @@ export default {
         return {
             minBound: 0,
             maxBound: 100000000,
-            minFieldValue: null,
-            maxFieldValue: null,
+            maxMinFieldValue: null,
+            minMaxFieldValue: null,
         };
     },
     methods: {
-        onMinFieldValueInit(value) {
-            this.minFieldValue = value;
-        },
         onMaxFieldValueInit(value) {
-            this.maxFieldValue = value;
+            this.maxMinFieldValue = value;
         },
-        onMinFieldValidChange(newValue) {
-            this.minFieldValue = newValue;
+        onMinFieldValueInit(value) {
+            this.minMaxFieldValue = value;
         },
         onMaxFieldValidChange(newValue) {
-            this.maxFieldValue = newValue;
+            this.maxMinFieldValue = newValue;
+        },
+        onMinFieldValidChange(newValue) {
+            this.minMaxFieldValue = newValue;
         },
     },
 };
