@@ -1,5 +1,5 @@
 <template lang="pug">
-    base-filter.project-filter(
+    base-filter(
         area-heading-completion="стоимости (в рублях)"
     )
         template(#filterHeading)

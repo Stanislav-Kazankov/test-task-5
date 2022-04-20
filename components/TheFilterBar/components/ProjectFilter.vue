@@ -1,5 +1,5 @@
 <template lang="pug">
-    base-filter.project-filter(
+    base-filter(
         area-heading-completion="проекту"
         selection-object="проект"
         selection-space="карте"

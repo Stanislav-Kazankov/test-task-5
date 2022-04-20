@@ -1,5 +1,5 @@
 <template lang="pug">
-    base-filter.room-count-filter(
+    base-filter.filter--room-count(
         area-heading-completion="количеству комнат"
     )
         template(#filterHeading)
@@ -71,7 +71,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .room-count-filter {
+    .filter--room-count {
         ::v-deep .filter-option {
             padding-right: 5px;
             padding-left: 5px;
