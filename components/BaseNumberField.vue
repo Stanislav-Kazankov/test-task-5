@@ -86,6 +86,7 @@ export default {
 <style lang="scss" scoped>
 .number-field {
     .filter-option {
+        align-items: stretch;
         gap: 0;
         padding-top: 0;
         padding-right: 7px;
@@ -98,6 +99,7 @@ export default {
     }
 
     .control {
+        align-self: center;
         width: 19px;
         color: $colorGray;
     }
