@@ -38,23 +38,25 @@ export default {
             minMaxFieldValue: null,
         };
     },
-    async created() {
-        this.minValueField = (
-            await import(
-                '../' + this.settedParameter +
-                'DoubleRange/components/Min' +
-                this.settedParameter + 'Field.vue'
-            )
-        ).default;
-        this.maxValueField = (
-            await import(
-                '../' + this.settedParameter +
-                'DoubleRange/components/Max' +
-                this.settedParameter + 'Field.vue'
-            )
-        ).default;
+    created() {
+        this.importField('Min');
+        this.importField('Max');
     },
     methods: {
+        async importField(fieldNamePrefix) {
+            this[
+                fieldNamePrefix.toLowerCase() +
+                'ValueField'
+            ] = (
+                await import(
+                    '../' + this.settedParameter +
+                    'DoubleRange/components/' +
+                    fieldNamePrefix +
+                    this.settedParameter +
+                    'Field.vue'
+                )
+            ).default;
+        },
         onMaxFieldValueInit(value) {
             this.maxMinFieldValue = value;
         },
