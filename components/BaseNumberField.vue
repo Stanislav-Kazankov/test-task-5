@@ -1,8 +1,8 @@
 <template lang="pug">
-    p.field
-        label.field__label
+    p.number-field
+        label.filter-option
             base-control
-            input.field__input(
+            input.filter-option__input(
                 ref="input"
                 v-bind="$attrs"
                 type="text"
@@ -84,17 +84,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .field__label {
-        display: flex;
-        column-gap: 5px;
-        height: 33px;
-        padding-right: 8px;
-        padding-left: 8px;
-        border: 1px solid $colorSuperLightGray;
+.number-field {
+    .filter-option {
+        gap: 0;
+        padding-top: 0;
+        padding-right: 7px;
+        padding-bottom: 0;
+        padding-left: 5px;
 
-        &__screed {
-            display: grid;
-            grid-template: 100% / 100%;
+        &__input {
+            width: 100%;
         }
     }
+
+    .control {
+        width: 19px;
+        color: $colorGray;
+    }
+}
 </style>

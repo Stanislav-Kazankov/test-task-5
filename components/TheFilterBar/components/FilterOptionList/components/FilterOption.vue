@@ -58,7 +58,7 @@ export default {
 
         .selector__input:hover {
             + .selector__label {
-                border: 1px solid $colorBrightBlue;
+                border-color: $colorBrightBlue;
             }
         }
 

@@ -1,5 +1,5 @@
 <template lang="pug">
-    .range
+    .double-range
         component(
             :is="minValueField"
             :min-value="minBound"
@@ -14,7 +14,7 @@
             @value-init="onMaxFieldValueInit"
             @valid-change="onMaxFieldValidChange"
         )
-        .range__scale
+        .double-range__scale
             .range__selection
             .range__handle.range__handle--left
             .range__handle.range__handle--right
@@ -73,6 +73,6 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import 'double-range.scss';
 </style>

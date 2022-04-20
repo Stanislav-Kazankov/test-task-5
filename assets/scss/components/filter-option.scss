@@ -5,14 +5,18 @@
     gap: 5px;
     min-width: 33px;
     min-height: 33px;
-    padding-top: 5px;
+    padding-top: 6px;
     padding-right: 13px;
-    padding-bottom: 7px;
+    padding-bottom: 6px;
     padding-left: 13px;
     font-size: 12px;
-    line-height: 15px;
+    line-height: 14.63px;
     text-align: center;
     border: 1px solid $colorLight;
     border-radius: 2px;
     background-color: $colorWhite;
+
+    &:hover {
+        border-color: $colorBrightBlue;
+    }
 }

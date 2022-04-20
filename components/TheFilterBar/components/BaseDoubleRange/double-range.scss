@@ -1,6 +1,7 @@
-.range {
-    display: flex;
-    flex-direction: column;
+.double-range {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 4px;
     min-height: 200px;
     margin: auto;
 
@@ -34,12 +35,5 @@
 
     .right-pin {
         left: 70px;
-    }
-
-    .output {
-        min-width: 20px;
-        padding: 10px;
-        border: 2px solid $colorBlack;
-        margin: 20px auto;
     }
 }
