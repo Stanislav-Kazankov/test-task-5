@@ -1,13 +1,13 @@
 <template lang="pug">
-    base-natural-field
+    base-number-field
 </template>
 
 <script>
-import definePriceFieldOtions from './definePriceFieldOptions.js';
+import definePriceFieldOptions from './definePriceFieldOptions.js';
 
 export default {
     mixins: [
-        definePriceFieldOtions(
+        definePriceFieldOptions(
             'Минимальная цена', 'от',
         ),
     ],

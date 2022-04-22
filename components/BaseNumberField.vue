@@ -14,13 +14,14 @@
 <script>
 import $ from 'jquery';
 import { inject } from '@nuxtjs/composition-api';
+import toNumber from '@/modules/toNumber';
 
 export default {
     inheritAttrs: false,
     setup() {
         const outerStateDefault = {
-            minValue: Number.MIN_VALUE,
-            maxValue: Number.MAX_VALUE,
+            minNumberValue: Number.MIN_VALUE,
+            maxNumberValue: Number.MAX_VALUE,
         };
         const outerFieldState = inject(
             'outerFieldState',
@@ -39,44 +40,46 @@ export default {
         this.$input = $(this.$refs.input);
         this.$input.prop(
             'previousValue',
-            this.$input.prop('value'),
+            this.$input.val(),
         );
         this.$parent.$parent.$emit(
             'value-init',
-            parseFloat(this.$input.prop('value')),
+            Number(this.$input.val()),
         );
         this.validity = this.$input.prop('validity');
     },
     methods: {
         onChange() {
-            if (
-                this.validity.patternMismatch ||
-                this.validity.valueMissing
-            ) {
-                this.$input.prop(
-                    'value',
+            if (this.validity.valueMissing) {
+                this.$input.val(
                     this.$input.prop('previousValue'),
                 );
             } else {
-                this.validateForOutOfRange();
+                this.correctFieldValue();
                 this.$input.prop(
                     'previousValue',
-                    this.$input.prop('value'),
+                    this.$input.val(),
                 );
                 this.emitValidChangeEvent();
             }
         },
-        validateForOutOfRange() {
-            if (this.$input.prop('value') < this.minValue) {
-                this.$input.prop('value', this.minValue);
-            } else if (this.$input.prop('value') > this.maxValue) {
-                this.$input.prop('value', this.maxValue);
+        correctFieldValue() {
+            let fieldNumberValue = toNumber(
+                this.$input.val(),
+            );
+            if (fieldNumberValue < this.minNumberValue) {
+                fieldNumberValue = this.minNumberValue;
+            } else if (fieldNumberValue > this.maxNumberValue) {
+                fieldNumberValue = this.maxNumberValue;
             }
+            this.$input.val(
+                fieldNumberValue.toLocaleString(),
+            );
         },
         emitValidChangeEvent() {
-            this.$parent.$parent.$emit(
+            this.$parent.$emit(
                 'valid-change',
-                parseFloat(this.$input.prop('value')),
+                this.$input.prop('value'),
             );
         },
     },

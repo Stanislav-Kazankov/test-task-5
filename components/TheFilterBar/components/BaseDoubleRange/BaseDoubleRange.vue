@@ -2,15 +2,15 @@
     .double-range
         component(
             :is="minValueField"
-            :min-value="minBound"
-            :max-value="maxMinFieldValue"
+            :min-number-value="minBound"
+            :max-number-value="maxMinFieldNumberValue"
             @value-init="onMinFieldValueInit"
             @valid-change="onMinFieldValidChange"
         )
         component(
             :is="maxValueField"
-            :min-value="minMaxFieldValue"
-            :max-value="maxBound"
+            :min-number-value="minMaxFieldNumberValue"
+            :max-number-value="maxBound"
             @value-init="onMaxFieldValueInit"
             @valid-change="onMaxFieldValidChange"
         )
@@ -21,21 +21,28 @@
 </template>
 
 <script>
-import { createStringPropConfig } from '@/modules/propConfigs';
+import { createNumberPropConfig, createStringPropConfig } from '@/modules/propConfigs';
+import toNumber from '@/modules/toNumber';
 
 export default {
     props: {
         settedParameter:
             createStringPropConfig(),
+        minBound:
+            createNumberPropConfig(
+                Number.MIN_VALUE,
+            ),
+        maxBound:
+            createNumberPropConfig(
+                Number.MAX_VALUE,
+            ),
     },
     data() {
         return {
             minValueField: null,
             maxValueField: null,
-            minBound: 0,
-            maxBound: 100000000,
-            maxMinFieldValue: null,
-            minMaxFieldValue: null,
+            maxMinFieldNumberValue: this.maxBound,
+            minMaxFieldNumberValue: this.minBound,
         };
     },
     created() {
@@ -57,17 +64,17 @@ export default {
                 )
             ).default;
         },
-        onMaxFieldValueInit(value) {
-            this.maxMinFieldValue = value;
-        },
         onMinFieldValueInit(value) {
-            this.minMaxFieldValue = value;
+            this.minMaxFieldNumberValue = toNumber(value);
         },
-        onMaxFieldValidChange(newValue) {
-            this.maxMinFieldValue = newValue;
+        onMaxFieldValueInit(value) {
+            this.maxMinFieldNumberValue = toNumber(value);
         },
         onMinFieldValidChange(newValue) {
-            this.minMaxFieldValue = newValue;
+            this.minMaxFieldNumberValue = toNumber(newValue);
+        },
+        onMaxFieldValidChange(newValue) {
+            this.maxMinFieldNumberValue = toNumber(newValue);
         },
     },
 };
