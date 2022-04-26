@@ -44,7 +44,7 @@ export default {
         );
         this.$parent.$emit(
             'value-init',
-            Number(this.$input.val()),
+            this.$input.val(),
         );
         this.validity = this.$input.prop('validity');
     },
