@@ -1,4 +1,4 @@
-import { toRefs, provide } from '@nuxtjs/composition-api';
+import { provide } from '@nuxtjs/composition-api';
 import { createNumberPropConfig } from '@/modules/propConfigs';
 
 export default
@@ -11,16 +11,7 @@ export default
                 Number.MAX_VALUE,
             ),
     },
-    setup(props) {
-        const { minNumberValue, maxNumberValue } = toRefs(props);
-        const outerFieldState = {
-            minNumberValue,
-            maxNumberValue,
-        };
-        provide(
-            'outerFieldState',
-            outerFieldState,
-        );
+    setup() {
         const outerControlState = {
             description,
             caption,

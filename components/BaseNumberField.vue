@@ -13,22 +13,16 @@
 
 <script>
 import $ from 'jquery';
-import { inject } from '@nuxtjs/composition-api';
+import { createNumberPropConfig } from '@/modules/propConfigs';
 import toNumber from '@/modules/toNumber';
 
 export default {
     inheritAttrs: false,
-    setup() {
-        const outerStateDefault = {
-            minNumberValue: Number.MIN_VALUE,
-            maxNumberValue: Number.MAX_VALUE,
-        };
-        const outerFieldState = inject(
-            'outerFieldState',
-            outerStateDefault,
-        );
-
-        return outerFieldState;
+    props: {
+        minNumberValue:
+            createNumberPropConfig(Number.MIN_VALUE),
+        maxNumberValue:
+            createNumberPropConfig(Number.MAX_VALUE),
     },
     data() {
         return {
