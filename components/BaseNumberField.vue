@@ -42,7 +42,7 @@ export default {
             'previousValue',
             this.$input.val(),
         );
-        this.$parent.$parent.$emit(
+        this.$parent.$emit(
             'value-init',
             Number(this.$input.val()),
         );
