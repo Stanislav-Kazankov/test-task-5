@@ -65,10 +65,14 @@ export default {
             ).default;
         },
         onMinFieldValueInit(value) {
-            this.minMaxFieldNumberValue = toNumber(value);
+            if (value !== '') {
+                this.minMaxFieldNumberValue = toNumber(value);
+            }
         },
         onMaxFieldValueInit(value) {
-            this.maxMinFieldNumberValue = toNumber(value);
+            if (value !== '') {
+                this.maxMinFieldNumberValue = toNumber(value);
+            }
         },
         onMinFieldValidChange(newValue) {
             this.minMaxFieldNumberValue = toNumber(newValue);
