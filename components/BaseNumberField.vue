@@ -14,15 +14,24 @@
 <script>
 import $ from 'jquery';
 import { createNumberPropConfig } from '@/modules/propConfigs';
-import toNumber from '@/modules/toNumber';
 
 export default {
+    inject: {
+        toNumber: {
+            default:
+                value => Number(value),
+        },
+    },
     inheritAttrs: false,
     props: {
         minNumberValue:
-            createNumberPropConfig(Number.MIN_VALUE),
+            createNumberPropConfig(
+                Number.MIN_VALUE,
+            ),
         maxNumberValue:
-            createNumberPropConfig(Number.MAX_VALUE),
+            createNumberPropConfig(
+                Number.MAX_VALUE,
+            ),
     },
     data() {
         return {
@@ -58,7 +67,7 @@ export default {
             }
         },
         correctFieldValue() {
-            let fieldNumberValue = toNumber(
+            let fieldNumberValue = this.toNumber(
                 this.$input.val(),
             );
             if (fieldNumberValue < this.minNumberValue) {

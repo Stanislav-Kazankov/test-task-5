@@ -1,14 +1,12 @@
 <template lang="pug">
     .double-range
-        component(
-            :is="minValueField"
+        min-value-field(
             :min-number-value="minBound"
             :max-number-value="maxMinFieldNumberValue"
             @value-init="onMinFieldValueInit"
             @valid-change="onMinFieldValidChange"
         )
-        component(
-            :is="maxValueField"
+        max-value-field(
             :min-number-value="minMaxFieldNumberValue"
             :max-number-value="maxBound"
             @value-init="onMaxFieldValueInit"
@@ -21,13 +19,17 @@
 </template>
 
 <script>
-import { createNumberPropConfig, createStringPropConfig } from '@/modules/propConfigs';
-import toNumber from '@/modules/toNumber';
+import { provide } from '@nuxtjs/composition-api';
+import MinValueField from './components/MinValueField.vue';
+import MaxValueField from './components/MaxValueField.vue';
+import { createNumberPropConfig, createFunctionPropConfig } from '@/modules/propConfigs';
 
 export default {
+    components: {
+        MinValueField,
+        MaxValueField,
+    },
     props: {
-        settedParameter:
-            createStringPropConfig(),
         minBound:
             createNumberPropConfig(
                 Number.MIN_VALUE,
@@ -36,49 +38,36 @@ export default {
             createNumberPropConfig(
                 Number.MAX_VALUE,
             ),
+        toNumber:
+            createFunctionPropConfig(
+                value => Number(value),
+            ),
+    },
+    setup({ toNumber }) {
+        provide('toNumber', toNumber);
     },
     data() {
         return {
-            minValueField: null,
-            maxValueField: null,
             maxMinFieldNumberValue: this.maxBound,
             minMaxFieldNumberValue: this.minBound,
         };
     },
-    created() {
-        this.importField('Min');
-        this.importField('Max');
-    },
     methods: {
-        async importField(fieldNamePrefix) {
-            this[
-                fieldNamePrefix.toLowerCase() +
-                'ValueField'
-            ] = (
-                await import(
-                    '../' + this.settedParameter +
-                    'DoubleRange/components/' +
-                    fieldNamePrefix +
-                    this.settedParameter +
-                    'Field.vue'
-                )
-            ).default;
-        },
         onMinFieldValueInit(value) {
             if (value !== '') {
-                this.minMaxFieldNumberValue = toNumber(value);
+                this.minMaxFieldNumberValue = this.toNumber(value);
             }
         },
         onMaxFieldValueInit(value) {
             if (value !== '') {
-                this.maxMinFieldNumberValue = toNumber(value);
+                this.maxMinFieldNumberValue = this.toNumber(value);
             }
         },
         onMinFieldValidChange(newValue) {
-            this.minMaxFieldNumberValue = toNumber(newValue);
+            this.minMaxFieldNumberValue = this.toNumber(newValue);
         },
         onMaxFieldValidChange(newValue) {
-            this.maxMinFieldNumberValue = toNumber(newValue);
+            this.maxMinFieldNumberValue = this.toNumber(newValue);
         },
     },
 };

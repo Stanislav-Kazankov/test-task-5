@@ -1,5 +1,8 @@
 <template lang="pug">
-    base-number-field
+    base-number-field(
+        :min-number-value="minNumberValue"
+        :max-number-value="maxNumberValue"
+    )
 </template>
 
 <script>

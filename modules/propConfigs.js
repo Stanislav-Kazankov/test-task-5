@@ -54,3 +54,11 @@ export const createObjectPropConfig = (
         Object,
         defaultValue,
     );
+
+export const createFunctionPropConfig = (
+    defaultValue = () => {},
+) =>
+    createPropCommonConfig(
+        Function,
+        defaultValue,
+    );
