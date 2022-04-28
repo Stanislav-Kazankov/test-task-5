@@ -26,11 +26,11 @@ export default {
     props: {
         minNumberValue:
             createNumberPropConfig(
-                Number.MIN_VALUE,
+                Number.NEGATIVE_INFINITY,
             ),
         maxNumberValue:
             createNumberPropConfig(
-                Number.MAX_VALUE,
+                Number.POSITIVE_INFINITY,
             ),
     },
     data() {
@@ -46,16 +46,19 @@ export default {
             this.$input.val(),
         );
         this.$parent.$emit(
-            'value-init',
-            this.$input.val(),
+            'trigger-change',
+            this.toNumber(this.$input.val()),
         );
         this.validity = this.$input.prop('validity');
     },
     methods: {
         onChange() {
             if (this.validity.valueMissing) {
-                this.$input.val(
-                    this.$input.prop('previousValue'),
+                this.$parent.$emit(
+                    'trigger-change',
+                    this.toNumber(
+                        this.$input.prop('previousValue'),
+                    ),
                 );
             } else {
                 this.correctFieldValue();
@@ -63,26 +66,24 @@ export default {
                     'previousValue',
                     this.$input.val(),
                 );
-                this.emitValidChangeEvent();
             }
         },
         correctFieldValue() {
-            let fieldNumberValue = this.toNumber(
+            let newNumberValue = this.toNumber(
                 this.$input.val(),
             );
-            if (fieldNumberValue < this.minNumberValue) {
-                fieldNumberValue = this.minNumberValue;
-            } else if (fieldNumberValue > this.maxNumberValue) {
-                fieldNumberValue = this.maxNumberValue;
-            }
-            this.$input.val(
-                fieldNumberValue.toLocaleString(),
-            );
-        },
-        emitValidChangeEvent() {
             this.$parent.$emit(
-                'valid-change',
-                this.$input.prop('value'),
+                'trigger-change',
+                newNumberValue,
+            );
+            if (newNumberValue < this.minNumberValue) {
+                newNumberValue = this.minNumberValue;
+            } else if (newNumberValue > this.maxNumberValue) {
+                newNumberValue = this.maxNumberValue;
+            }
+            this.$parent.$emit(
+                'trigger-change',
+                newNumberValue,
             );
         },
     },

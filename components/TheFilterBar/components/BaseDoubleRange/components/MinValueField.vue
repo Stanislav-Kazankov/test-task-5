@@ -1,5 +1,6 @@
 <template lang="pug">
-    base-number-field(
+    base-range-field(
+        v-bind="$attrs"
         :min-number-value="minNumberValue"
         :max-number-value="maxNumberValue"
     )

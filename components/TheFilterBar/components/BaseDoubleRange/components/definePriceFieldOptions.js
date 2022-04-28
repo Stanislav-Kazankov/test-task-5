@@ -1,14 +1,19 @@
 import { provide } from '@nuxtjs/composition-api';
+import BaseRangeField from './BaseRangeField.vue';
 import { createNumberPropConfig } from '@/modules/propConfigs';
 
 export default
 (description, caption) => ({
+    inheritAttrs: false,
+    components: {
+        BaseRangeField,
+    },
     props: {
         minNumberValue:
             createNumberPropConfig(),
         maxNumberValue:
             createNumberPropConfig(
-                Number.MAX_VALUE,
+                Number.POSITIVE_INFINITY,
             ),
     },
     setup() {
