@@ -1,10 +1,9 @@
 import { provide } from '@nuxtjs/composition-api';
 import BaseRangeField from './BaseRangeField.vue';
-import { createNumberPropConfig } from '@/modules/propConfigs';
+import { createNumberPropConfig, createStringPropConfig } from '@/modules/propConfigs';
 
 export default
 (description, caption) => ({
-    inheritAttrs: false,
     components: {
         BaseRangeField,
     },
@@ -15,6 +14,8 @@ export default
             createNumberPropConfig(
                 Number.POSITIVE_INFINITY,
             ),
+        value:
+            createStringPropConfig(),
     },
     setup() {
         const outerControlState = {

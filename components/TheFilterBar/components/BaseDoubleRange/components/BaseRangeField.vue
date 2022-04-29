@@ -4,16 +4,16 @@
             base-control
             input.filter-option__input(
                 ref="input"
-                v-bind="$attrs"
                 type="text"
                 required
+                :value="processedValue"
                 @change="onChange"
             )
 </template>
 
 <script>
 import $ from 'jquery';
-import { createNumberPropConfig } from '@/modules/propConfigs';
+import { createNumberPropConfig, createStringPropConfig } from '@/modules/propConfigs';
 
 export default {
     inject: {
@@ -22,7 +22,6 @@ export default {
                 value => Number(value),
         },
     },
-    inheritAttrs: false,
     props: {
         minNumberValue:
             createNumberPropConfig(
@@ -32,12 +31,25 @@ export default {
             createNumberPropConfig(
                 Number.POSITIVE_INFINITY,
             ),
+        value:
+            createStringPropConfig(),
     },
     data() {
         return {
             $input: null,
             validity: null,
         };
+    },
+    computed: {
+        processedValue() {
+            const result = this.toNumber(this.value)
+                .toLocaleString();
+            this.$parent.$emit(
+                'trigger-change',
+                result,
+            );
+            return result;
+        },
     },
     mounted() {
         this.$input = $(this.$refs.input);
@@ -47,44 +59,48 @@ export default {
         );
         this.$parent.$emit(
             'trigger-change',
-            this.toNumber(this.$input.val()),
+            this.toNumber(this.$input.val())
+                .toLocaleString(),
         );
-        this.validity = this.$input.prop('validity');
+        this.validity = this
+            .$input.prop('validity');
     },
     methods: {
         onChange() {
-            if (this.validity.valueMissing) {
+            this.$parent.$emit(
+                'trigger-change',
+                this.$input.val(),
+            );
+            const newNumberValue = this.toNumber(
+                this.$input.val(),
+            );
+            if (this.validity.valueMissing || isNaN(newNumberValue)) {
                 this.$parent.$emit(
                     'trigger-change',
-                    this.toNumber(
-                        this.$input.prop('previousValue'),
-                    ),
+                    this.$input.prop('previousValue'),
                 );
             } else {
-                this.correctFieldValue();
+                this.correctFieldValue(newNumberValue);
                 this.$input.prop(
                     'previousValue',
                     this.$input.val(),
                 );
             }
         },
-        correctFieldValue() {
-            let newNumberValue = this.toNumber(
-                this.$input.val(),
-            );
-            this.$parent.$emit(
-                'trigger-change',
-                newNumberValue,
-            );
+        correctFieldValue(newNumberValue) {
             if (newNumberValue < this.minNumberValue) {
                 newNumberValue = this.minNumberValue;
+                this.$parent.$emit(
+                    'trigger-change',
+                    newNumberValue.toLocaleString(),
+                );
             } else if (newNumberValue > this.maxNumberValue) {
                 newNumberValue = this.maxNumberValue;
+                this.$parent.$emit(
+                    'trigger-change',
+                    newNumberValue.toLocaleString(),
+                );
             }
-            this.$parent.$emit(
-                'trigger-change',
-                newNumberValue,
-            );
         },
     },
 };

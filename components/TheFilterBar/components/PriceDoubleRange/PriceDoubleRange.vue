@@ -13,9 +13,12 @@ export default {
     },
     methods: {
         toNatural(string) {
-            return Number(
-                string.replace(/\D/g, ''),
-            );
+            let result = NaN;
+            const letterFreeString = string.replace(/\D/g, '');
+            if (letterFreeString !== '') {
+                result = Number(letterFreeString);
+            }
+            return result;
         },
     },
 };
