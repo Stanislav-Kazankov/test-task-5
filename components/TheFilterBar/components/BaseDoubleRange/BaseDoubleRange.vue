@@ -48,22 +48,22 @@ export default {
     },
     data() {
         return {
-            maxMinFieldNumberValue: this.maxBound,
-            minMaxFieldNumberValue: this.minBound,
-            minFieldValue: '0',
-            maxFieldValue: '0',
+            minFieldValue: String(this.minBound),
+            maxFieldValue: String(this.maxBound),
+            maxMinFieldNumberValue: this.minBound,
+            minMaxFieldNumberValue: this.maxBound,
         };
     },
     methods: {
         onMinFieldTriggerChange(newProcessedValue) {
             this.minFieldValue = newProcessedValue;
             this.minMaxFieldNumberValue =
-                this.toNumber(newProcessedValue);
+                this.toNumber(this.minFieldValue);
         },
         onMaxFieldTriggerChange(newProcessedValue) {
             this.maxFieldValue = newProcessedValue;
             this.maxMinFieldNumberValue =
-                this.toNumber(newProcessedValue);
+                this.toNumber(this.maxFieldValue);
         },
     },
 };
