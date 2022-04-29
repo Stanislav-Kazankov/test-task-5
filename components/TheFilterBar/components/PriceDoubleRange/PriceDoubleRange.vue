@@ -1,8 +1,8 @@
 <template lang="pug">
     base-double-range(
         :toNumber="toNatural"
-        :min-bound="10"
-        :max-bound="11"
+        :min-bound="0"
+        :max-bound="10"
     )
 </template>
 

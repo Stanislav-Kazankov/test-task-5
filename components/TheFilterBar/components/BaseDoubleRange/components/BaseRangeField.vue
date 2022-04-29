@@ -81,10 +81,6 @@ export default {
                 );
             } else {
                 this.correctFieldValue(newNumberValue);
-                this.$input.prop(
-                    'previousValue',
-                    this.$input.val(),
-                );
             }
         },
         correctFieldValue(newNumberValue) {
@@ -98,6 +94,11 @@ export default {
                 newNumberValue = this.maxNumberValue;
                 this.$parent.$emit(
                     'trigger-change',
+                    newNumberValue.toLocaleString(),
+                );
+            } else {
+                this.$input.prop(
+                    'previousValue',
                     newNumberValue.toLocaleString(),
                 );
             }
