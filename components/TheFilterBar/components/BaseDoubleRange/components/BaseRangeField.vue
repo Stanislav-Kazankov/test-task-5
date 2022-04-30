@@ -45,7 +45,7 @@ export default {
             const result = this.toNumber(this.value)
                 .toLocaleString();
             this.$parent
-                .$emit('trigger-change', result);
+                .$emit('trigger-value-update', result);
             return result;
         },
     },
@@ -56,7 +56,7 @@ export default {
             this.$input.val(),
         );
         this.$parent.$emit(
-            'trigger-change',
+            'trigger-value-update',
             this.toNumber(this.$input.val())
                 .toLocaleString(),
         );
@@ -66,7 +66,7 @@ export default {
     methods: {
         onChange() {
             this.$parent.$emit(
-                'trigger-change',
+                'trigger-value-update',
                 this.$input.val(),
             );
             const newNumberValue = this.toNumber(
@@ -74,7 +74,7 @@ export default {
             );
             if (this.validity.valueMissing || isNaN(newNumberValue)) {
                 this.$parent.$emit(
-                    'trigger-change',
+                    'trigger-value-update',
                     this.$input.prop('previousValue'),
                 );
             } else {
@@ -85,13 +85,13 @@ export default {
             if (newNumberValue < this.minNumberValue) {
                 newNumberValue = this.minNumberValue;
                 this.$parent.$emit(
-                    'trigger-change',
+                    'trigger-value-update',
                     newNumberValue.toLocaleString(),
                 );
             } else if (newNumberValue > this.maxNumberValue) {
                 newNumberValue = this.maxNumberValue;
                 this.$parent.$emit(
-                    'trigger-change',
+                    'trigger-value-update',
                     newNumberValue.toLocaleString(),
                 );
             } else {

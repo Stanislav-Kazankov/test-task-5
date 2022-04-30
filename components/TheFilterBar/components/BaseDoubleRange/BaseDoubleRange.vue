@@ -4,13 +4,13 @@
             :min-number-value="minBound"
             :max-number-value="maxMinFieldNumberValue"
             :value="minFieldValue"
-            @trigger-change="onMinFieldTriggerChange"
+            @trigger-value-update="onMinFieldTriggerUpdate"
         )
         max-value-field(
             :min-number-value="minMaxFieldNumberValue"
             :max-number-value="maxBound"
             :value="maxFieldValue"
-            @trigger-change="onMaxFieldTriggerChange"
+            @trigger-value-update="onMaxFieldTriggerUpdate"
         )
         .double-range__scale
             .range__selection
@@ -55,12 +55,12 @@ export default {
         };
     },
     methods: {
-        onMinFieldTriggerChange(newProcessedValue) {
+        onMinFieldTriggerUpdate(newProcessedValue) {
             this.minFieldValue = newProcessedValue;
             this.minMaxFieldNumberValue =
                 this.toNumber(this.minFieldValue);
         },
-        onMaxFieldTriggerChange(newProcessedValue) {
+        onMaxFieldTriggerUpdate(newProcessedValue) {
             this.maxFieldValue = newProcessedValue;
             this.maxMinFieldNumberValue =
                 this.toNumber(this.maxFieldValue);
