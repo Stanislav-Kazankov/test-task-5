@@ -82,19 +82,23 @@ export default {
             }
         },
         correctFieldValue(newNumberValue) {
-            const newValue =
-                newNumberValue.toLocaleString();
             if (newNumberValue < this.minNumberValue) {
                 newNumberValue = this.minNumberValue;
-                this.$parent
-                    .$emit('trigger-change', newValue);
+                this.$parent.$emit(
+                    'trigger-change',
+                    newNumberValue.toLocaleString(),
+                );
             } else if (newNumberValue > this.maxNumberValue) {
                 newNumberValue = this.maxNumberValue;
-                this.$parent
-                    .$emit('trigger-change', newValue);
+                this.$parent.$emit(
+                    'trigger-change',
+                    newNumberValue.toLocaleString(),
+                );
             } else {
-                this.$input
-                    .prop('previousValue', newValue);
+                this.$input.prop(
+                    'previousValue',
+                    newNumberValue.toLocaleString(),
+                );
             }
         },
     },
