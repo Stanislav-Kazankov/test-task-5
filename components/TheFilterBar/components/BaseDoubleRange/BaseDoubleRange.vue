@@ -13,9 +13,9 @@
             @trigger-value-update="onMaxFieldTriggerUpdate"
         )
         .double-range__scale
-            .range__selection
-            .range__handle.range__handle--left
-            .range__handle.range__handle--right
+            .double-range__selection
+            .double-range__handle.double-range__handle--left
+            .double-range__handle.double-range__handle--right
 </template>
 
 <script>
