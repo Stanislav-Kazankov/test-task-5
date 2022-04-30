@@ -1,5 +1,5 @@
 <template lang="pug">
-    p.number-field
+    p.range-field
         label.filter-option
             base-control
             input.filter-option__input(
@@ -44,10 +44,8 @@ export default {
         processedValue() {
             const result = this.toNumber(this.value)
                 .toLocaleString();
-            this.$parent.$emit(
-                'trigger-change',
-                result,
-            );
+            this.$parent
+                .$emit('trigger-change', result);
             return result;
         },
     },
@@ -84,23 +82,19 @@ export default {
             }
         },
         correctFieldValue(newNumberValue) {
+            const newValue =
+                newNumberValue.toLocaleString();
             if (newNumberValue < this.minNumberValue) {
                 newNumberValue = this.minNumberValue;
-                this.$parent.$emit(
-                    'trigger-change',
-                    newNumberValue.toLocaleString(),
-                );
+                this.$parent
+                    .$emit('trigger-change', newValue);
             } else if (newNumberValue > this.maxNumberValue) {
                 newNumberValue = this.maxNumberValue;
-                this.$parent.$emit(
-                    'trigger-change',
-                    newNumberValue.toLocaleString(),
-                );
+                this.$parent
+                    .$emit('trigger-change', newValue);
             } else {
-                this.$input.prop(
-                    'previousValue',
-                    newNumberValue.toLocaleString(),
-                );
+                this.$input
+                    .prop('previousValue', newValue);
             }
         },
     },
@@ -108,24 +102,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.number-field {
-    .filter-option {
-        align-items: stretch;
-        gap: 0;
-        padding-top: 0;
-        padding-right: 7px;
-        padding-bottom: 0;
-        padding-left: 5px;
-
-        &__input {
-            width: 100%;
-        }
-    }
-
-    .control {
-        align-self: center;
-        width: 19px;
-        color: $colorGray;
-    }
-}
+@import 'range-field.scss';
 </style>
