@@ -1,6 +1,7 @@
 .double-range {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    row-gap: 8px;
     column-gap: 4px;
     min-height: 47px;
     margin: auto;
@@ -12,8 +13,10 @@
         background-color: $colorSuperLightGray;
         margin: auto;
         overflow: visible;
-        margin-left: 8px;
+        margin-top: 7.5px;
         margin-right: 8px;
+        margin-bottom: 7.5px;
+        margin-left: 8px;
     }
 
     &__selection {
