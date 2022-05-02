@@ -67,6 +67,9 @@ export default {
             $rightHandle: null,
             scaleWidth: null,
             handleWidth: null,
+            leftHandleMinPosition: null,
+            rightHandleMaxPosition: null,
+
         };
     },
     mounted() {
@@ -75,6 +78,9 @@ export default {
         this.$leftHandle = $(this.$refs.leftHandle);
         this.$rightHandle = $(this.$refs.rightHandle);
         this.handleWidth = this.$leftHandle.width();
+        this.leftHandleMinPosition = -this.handleWidth / 2;
+        this.rightHandleMaxPosition =
+            this.scaleWidth - this.handleWidth / 2;
     },
     methods: {
         bindedOnMouseUp: () => {},
@@ -118,13 +124,12 @@ export default {
             this.$document.off('mouseup', this.bindedOnMouseUp);
         },
         setLeftHandle(newHandlePosition) {
-            const { scaleWidth, handleWidth } = this;
-            const leftHandleMaxPosition = scaleWidth - handleWidth / 2;
+            const { scaleWidth, handleWidth, leftHandleMinPosition } = this;
             const rightHandlePosition = this.$rightHandle.position().left;
             const validHandlePosition = _.clamp(
                 newHandlePosition,
-                -this.handleWidth / 2,
-                leftHandleMaxPosition,
+                leftHandleMinPosition,
+                rightHandlePosition,
             );
             this.$leftHandle
                 .css('left', String(validHandlePosition) + 'px');
@@ -138,11 +143,10 @@ export default {
             const leftCenterPosition = validHandlePosition + handleWidth / 2;
             this.lesserValue =
                 leftCenterPosition / scaleWidth * this.maxBound;
-            this.stringLesserValue = this.lesserValue.toLocalString();
+            // this.stringLesserValue = this.lesserValue.toLocalString();
         },
         setRightHandle(newHandlePosition) {
-            const { scaleWidth, handleWidth } = this;
-            const rightHandleMaxPosition = this.scaleWidth - handleWidth / 2;
+            const { scaleWidth, handleWidth, rightHandleMaxPosition } = this;
             const leftHandlePosition = this.$leftHandle.position().left;
             const validHandlePosition = _.clamp(
                 newHandlePosition,
@@ -158,27 +162,6 @@ export default {
                 validHandlePosition + handleWidth / 2;
             this.highValue =
                 rightCenterPosition / scaleWidth * this.maxBound;
-        },
-        correctHandlePositions($handle) {
-            const leftHandlePosition = this.$leftHandle.offset().left;
-            const { handleWidth } = this;
-            const rightHandlePosition = this.$rightHandle.offset().left;
-
-            if (leftHandlePosition + handleWidth >= rightHandlePosition) {
-                if ($handle === this.$leftHandle) {
-                    const newRightHandlePosition = leftHandlePosition + handleWidth;
-                    this.setRightPin(newRightHandlePosition);
-                }
-                if ($handle === this.$rightHandle) {
-                    // не удается правильно "пододвинуть" левый ползунок,
-                    // двигая правый (хотя наоборот - получается)
-                    // при изменении свойства leftPin.style.left в методе setLeftPin()
-                    // более трех раз подряд свойство leftPin.offsetLeft
-                    // перестает изменяться
-
-                    // this.setLeftPin(leftPinPosition - 1);
-                }
-            }
         },
     },
 };
