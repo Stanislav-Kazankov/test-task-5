@@ -1,15 +1,15 @@
 <template lang="pug">
     .double-range
         lesser-value-field(
-            :min-number-value="minBound"
-            :max-number-value="maxLesserValue"
-            :value="stringLesserValue"
+            :min-value="minBound"
+            :max-value="maxLesserValue"
+            :value="lesserValue"
             @trigger-value-update="onLesserValueTriggerUpdate"
         )
         greater-value-field(
-            :min-number-value="minGreaterValue"
-            :max-number-value="maxBound"
-            :value="stringGreaterValue"
+            :min-value="minGreaterValue"
+            :max-value="maxBound"
+            :value="greaterValue"
             @trigger-value-update="onGreaterValueTriggerUpdate"
         )
         .double-range__scale(ref="scale")
@@ -59,12 +59,11 @@ export default {
             $document: null,
             lesserValue: this.minBound,
             greaterValue: this.maxBound,
-            stringLesserValue: String(this.lesserValue),
-            stringGreaterValue: String(this.greaterValue),
             maxLesserValue: this.maxBound,
             minGreaterValue: this.minBound,
             $leftHandle: null,
             $rightHandle: null,
+            $scale: null,
             scaleWidth: null,
             handleWidth: null,
             leftHandleMinPosition: null,
@@ -74,7 +73,8 @@ export default {
     },
     mounted() {
         this.$document = $(document);
-        this.scaleWidth = $(this.$refs.scale).width();
+        this.$scale = $(this.$refs.scale);
+        this.scaleWidth = this.$scale.width();
         this.$leftHandle = $(this.$refs.leftHandle);
         this.$rightHandle = $(this.$refs.rightHandle);
         this.handleWidth = this.$leftHandle.width();
@@ -86,21 +86,17 @@ export default {
         bindedOnMouseUp: () => {},
         bindedOnMouseMove: () => {},
         onLesserValueTriggerUpdate(newValue) {
-            this.stringLesserValue = newValue;
-            this.lesserValue =
-                this.toNumber(this.stringLesserValue);
+            this.lesserValue = newValue;
             this.minGreaterValue = this.lesserValue;
         },
         onGreaterValueTriggerUpdate(newValue) {
-            this.stringGreaterValue = newValue;
-            this.greaterValue =
-                this.toNumber(this.stringGreaterValue);
+            this.greaterValue = newValue;
             this.maxLesserValue = this.greaterValue;
         },
         onHandleMouseDown($event) {
             const $target = $($event.target);
             const innerOffsetLeft =
-                $event.clientX - $target.position().left;
+                $event.clientX - $target.offset().left;
             this.bindedOnMouseMove = this.onHandleMouseMove
                 .bind(null, $target, innerOffsetLeft);
             this.$document.on('mousemove', this.bindedOnMouseMove);
@@ -108,15 +104,16 @@ export default {
             this.$document.on('mouseup', this.bindedOnMouseUp);
         },
         onHandleMouseMove($handle, innerOffsetLeft, $event) {
+            const { $scale, $leftHandle, $rightHandle } = this;
             $event.preventDefault();
-            const newPosition = $event.clientX - innerOffsetLeft;
-            if ($handle[0] === this.$leftHandle[0]) {
+            const newPosition =
+                $event.clientX - $scale.offset().left - innerOffsetLeft;
+            if ($handle[0] === $leftHandle[0]) {
                 this.setLeftHandle(newPosition);
             }
-            if ($handle[0] === this.$rightHandle[0]) {
+            if ($handle[0] === $rightHandle[0]) {
                 this.setRightHandle(newPosition);
             }
-            this.correctHandlePositions($handle);
         },
         onMouseUp($event) {
             $event.preventDefault();
@@ -129,38 +126,37 @@ export default {
             const validHandlePosition = _.clamp(
                 newHandlePosition,
                 leftHandleMinPosition,
-                rightHandlePosition,
+                rightHandlePosition + 1,
             );
             this.$leftHandle
-                .css('left', String(validHandlePosition) + 'px');
+                .css('left', validHandlePosition - 1 + 'px');
             $(this.$refs.selection).css(
                 'left',
-                String(validHandlePosition + handleWidth / 2 + 1) + 'px',
+                validHandlePosition + handleWidth / 2 + 'px',
             );
             const newSelectionWidth = rightHandlePosition - validHandlePosition;
             $(this.$refs.selection)
-                .css('width', String(newSelectionWidth) + 'px');
+                .css('width', newSelectionWidth + 1 + 'px');
             const leftCenterPosition = validHandlePosition + handleWidth / 2;
             this.lesserValue =
                 leftCenterPosition / scaleWidth * this.maxBound;
-            // this.stringLesserValue = this.lesserValue.toLocalString();
         },
         setRightHandle(newHandlePosition) {
             const { scaleWidth, handleWidth, rightHandleMaxPosition } = this;
             const leftHandlePosition = this.$leftHandle.position().left;
             const validHandlePosition = _.clamp(
                 newHandlePosition,
-                leftHandlePosition,
+                leftHandlePosition + 1,
                 rightHandleMaxPosition,
             );
             this.$rightHandle
-                .css('left', String(validHandlePosition) + 'px');
+                .css('left', validHandlePosition - 1 + 'px');
             const newSelectionWidth = validHandlePosition - leftHandlePosition;
             $(this.$refs.selection)
-                .css('width', String(newSelectionWidth) + 'px');
+                .css('width', newSelectionWidth + 'px');
             const rightCenterPosition =
                 validHandlePosition + handleWidth / 2;
-            this.highValue =
+            this.greaterValue =
                 rightCenterPosition / scaleWidth * this.maxBound;
         },
     },

@@ -1,7 +1,7 @@
 <template lang="pug">
     base-range-field(
-        :min-number-value="minNumberValue"
-        :max-number-value="maxNumberValue"
+        :min-value="minValue"
+        :max-value="maxValue"
         :value="value"
     )
 </template>

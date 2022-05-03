@@ -6,33 +6,29 @@
                 ref="input"
                 type="text"
                 required
-                :value="processedValue"
+                :value="formattedValue"
                 @change="onChange"
             )
 </template>
 
 <script>
 import $ from 'jquery';
-import { createNumberPropConfig, createStringPropConfig } from '@/modules/propConfigs';
+import { createNumberPropConfig } from '@/modules/propConfigs';
 
 export default {
     inject: {
         toNumber: {
-            default:
-                value => Number(value),
+            default: value => Number(value),
         },
     },
     props: {
-        minNumberValue:
-            createNumberPropConfig(
-                Number.NEGATIVE_INFINITY,
-            ),
-        maxNumberValue:
-            createNumberPropConfig(
-                Number.POSITIVE_INFINITY,
-            ),
-        value:
-            createStringPropConfig(),
+        minValue: createNumberPropConfig(
+            Number.NEGATIVE_INFINITY,
+        ),
+        maxValue: createNumberPropConfig(
+            Number.POSITIVE_INFINITY,
+        ),
+        value: createNumberPropConfig(),
     },
     data() {
         return {
@@ -41,64 +37,45 @@ export default {
         };
     },
     computed: {
-        processedValue() {
-            const result = this.toNumber(this.value)
-                .toLocaleString();
-            this.$parent
-                .$emit('trigger-value-update', result);
-            return result;
+        formattedValue() {
+            return this.value.toLocaleString();
         },
     },
     mounted() {
         this.$input = $(this.$refs.input);
-        this.$input.prop(
-            'previousValue',
-            this.$input.val(),
-        );
-        this.$parent.$emit(
-            'trigger-value-update',
-            this.toNumber(this.$input.val())
-                .toLocaleString(),
-        );
-        this.validity = this
-            .$input.prop('validity');
+        this.$input.prop('previousValue', this.value);
+        this.$parent
+            .$emit('trigger-value-update', this.value);
+        this.validity = this.$input.prop('validity');
     },
     methods: {
         onChange() {
-            this.$parent.$emit(
-                'trigger-value-update',
+            const newValue = this.toNumber(
                 this.$input.val(),
             );
-            const newNumberValue = this.toNumber(
-                this.$input.val(),
-            );
-            if (this.validity.valueMissing || isNaN(newNumberValue)) {
+            this.$parent
+                .$emit('trigger-value-update', newValue);
+            this.$forceUpdate();
+            if (this.validity.valueMissing || isNaN(newValue)) {
                 this.$parent.$emit(
                     'trigger-value-update',
                     this.$input.prop('previousValue'),
                 );
             } else {
-                this.correctFieldValue(newNumberValue);
+                this.correctFieldValue(newValue);
             }
         },
-        correctFieldValue(newNumberValue) {
-            if (newNumberValue < this.minNumberValue) {
-                newNumberValue = this.minNumberValue;
-                this.$parent.$emit(
-                    'trigger-value-update',
-                    newNumberValue.toLocaleString(),
-                );
-            } else if (newNumberValue > this.maxNumberValue) {
-                newNumberValue = this.maxNumberValue;
-                this.$parent.$emit(
-                    'trigger-value-update',
-                    newNumberValue.toLocaleString(),
-                );
+        correctFieldValue(newValue) {
+            if (newValue < this.minValue) {
+                newValue = this.minValue;
+                this.$parent
+                    .$emit('trigger-value-update', newValue);
+            } else if (newValue > this.maxValue) {
+                newValue = this.maxValue;
+                this.$parent
+                    .$emit('trigger-value-update', newValue);
             } else {
-                this.$input.prop(
-                    'previousValue',
-                    newNumberValue.toLocaleString(),
-                );
+                this.$input.prop('previousValue', newValue);
             }
         },
     },
