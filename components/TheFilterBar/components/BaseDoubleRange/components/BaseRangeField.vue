@@ -18,7 +18,18 @@ import { createNumberPropConfig } from '@/modules/propConfigs';
 export default {
     inject: {
         toNumber: {
-            default: value => Number(value),
+            default: () =>
+                stringFieldValue => {
+                    let result = NaN;
+                    if (stringFieldValue) {
+                        const letterFreeString =
+                            stringFieldValue.replace(/\D/g, '');
+                        if (letterFreeString !== '') {
+                            result = Number(letterFreeString);
+                        }
+                    }
+                    return result;
+                },
         },
     },
     props: {

@@ -27,7 +27,6 @@
 <script>
 import _ from 'lodash';
 import $ from 'jquery';
-import { provide } from '@nuxtjs/composition-api';
 import LesserValueField from './components/LesserValueField.vue';
 import GreaterValueField from './components/GreaterValueField.vue';
 import { createNumberPropConfig, createFunctionPropConfig } from '@/modules/propConfigs';
@@ -46,13 +45,11 @@ export default {
             createNumberPropConfig(
                 Number.POSITIVE_INFINITY,
             ),
-        toNumber:
+        parse:
             createFunctionPropConfig(
-                value => Number(value),
+                calculatedRealFieldValue =>
+                    parseInt(calculatedRealFieldValue, 10),
             ),
-    },
-    setup({ toNumber }) {
-        provide('toNumber', toNumber);
     },
     data() {
         return {
@@ -139,7 +136,7 @@ export default {
                 .css('width', newSelectionWidth + 1 + 'px');
             const leftCenterPosition = validHandlePosition + handleWidth / 2;
             this.lesserValue =
-                leftCenterPosition / scaleWidth * this.maxBound;
+                this.parse(leftCenterPosition / scaleWidth * this.maxBound);
         },
         setRightHandle(newHandlePosition) {
             const { scaleWidth, handleWidth, rightHandleMaxPosition } = this;
@@ -157,7 +154,7 @@ export default {
             const rightCenterPosition =
                 validHandlePosition + handleWidth / 2;
             this.greaterValue =
-                rightCenterPosition / scaleWidth * this.maxBound;
+                this.parse(rightCenterPosition / scaleWidth * this.maxBound);
         },
     },
 };
