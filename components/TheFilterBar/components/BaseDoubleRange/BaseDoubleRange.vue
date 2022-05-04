@@ -45,6 +45,10 @@ export default {
             createNumberPropConfig(
                 Number.POSITIVE_INFINITY,
             ),
+        initialLesserValue:
+            createNumberPropConfig(this.minBound),
+        initialGreaterValue:
+            createNumberPropConfig(this.maxBound),
         parse:
             createFunctionPropConfig(
                 calculatedRealFieldValue =>
@@ -54,8 +58,8 @@ export default {
     data() {
         return {
             $document: null,
-            lesserValue: this.minBound,
-            greaterValue: this.maxBound,
+            lesserValue: this.initialLesserValue,
+            greaterValue: this.initialGreaterValue,
             maxLesserValue: this.maxBound,
             minGreaterValue: this.minBound,
             $leftHandle: null,
@@ -83,8 +87,14 @@ export default {
         bindedOnMouseUp: () => {},
         bindedOnMouseMove: () => {},
         onLesserValueTriggerUpdate(newValue) {
+            const { maxBound, scaleWidth } = this;
             this.lesserValue = newValue;
-            this.minGreaterValue = this.lesserValue;
+            if (this.$leftHandle) {
+                this.setLeftHandle(
+                    newValue / maxBound * scaleWidth,
+                );
+            }
+            this.minGreaterValue = newValue;
         },
         onGreaterValueTriggerUpdate(newValue) {
             this.greaterValue = newValue;
@@ -124,7 +134,7 @@ export default {
             this.$document.off('mouseup', this.bindedOnMouseUp);
         },
         setLeftHandle(newHandlePosition) {
-            const { scaleWidth, handleWidth, leftHandleMinPosition } = this;
+            const { scaleWidth, handleWidth, leftHandleMinPosition, maxBound } = this;
             const rightHandlePosition = this.$rightHandle.position().left;
             const validHandlePosition = _.clamp(
                 newHandlePosition,
@@ -142,10 +152,10 @@ export default {
                 .css('width', newSelectionWidth + 1 + 'px');
             const leftCenterPosition = validHandlePosition + handleWidth / 2;
             this.lesserValue =
-                this.parse(leftCenterPosition / scaleWidth * this.maxBound);
+                this.parse(leftCenterPosition / scaleWidth * maxBound);
         },
         setRightHandle(newHandlePosition) {
-            const { scaleWidth, handleWidth, rightHandleMaxPosition } = this;
+            const { scaleWidth, handleWidth, rightHandleMaxPosition, maxBound } = this;
             const leftHandlePosition = this.$leftHandle.position().left;
             const validHandlePosition = _.clamp(
                 newHandlePosition,
@@ -160,7 +170,7 @@ export default {
             const rightCenterPosition =
                 validHandlePosition + handleWidth / 2;
             this.greaterValue =
-                this.parse(rightCenterPosition / scaleWidth * this.maxBound);
+                this.parse(rightCenterPosition / scaleWidth * maxBound);
         },
     },
 };
