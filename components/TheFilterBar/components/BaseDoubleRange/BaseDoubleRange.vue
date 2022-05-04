@@ -125,15 +125,15 @@ export default {
             this.bindedOnMouseUp = this.onMouseUp.bind(this);
             this.$document.on('mouseup', this.bindedOnMouseUp);
         },
-        onHandleMouseMove($handle, innerOffsetLeft, $event) {
+        onHandleMouseMove($capturedHandle, innerOffsetLeft, $event) {
             const { $scale, $leftHandle, $rightHandle } = this;
             $event.preventDefault();
             const newPosition =
                 $event.clientX - $scale.offset().left - innerOffsetLeft;
-            if ($handle[0] === $leftHandle[0]) {
+            if ($capturedHandle[0] === $leftHandle[0]) {
                 this.setLeftHandle(newPosition);
             }
-            if ($handle[0] === $rightHandle[0]) {
+            if ($capturedHandle[0] === $rightHandle[0]) {
                 this.setRightHandle(newPosition);
             }
         },
