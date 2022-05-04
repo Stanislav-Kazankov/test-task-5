@@ -45,10 +45,6 @@ export default {
             createNumberPropConfig(
                 Number.POSITIVE_INFINITY,
             ),
-        initialLesserValue:
-            createNumberPropConfig(this.minBound),
-        initialGreaterValue:
-            createNumberPropConfig(this.maxBound),
         parse:
             createFunctionPropConfig(
                 calculatedRealFieldValue =>
@@ -58,8 +54,8 @@ export default {
     data() {
         return {
             $document: null,
-            lesserValue: this.initialLesserValue,
-            greaterValue: this.initialGreaterValue,
+            lesserValue: this.minBound,
+            greaterValue: this.maxBound,
             maxLesserValue: this.maxBound,
             minGreaterValue: this.minBound,
             $leftHandle: null,
@@ -97,7 +93,13 @@ export default {
             this.minGreaterValue = newValue;
         },
         onGreaterValueTriggerUpdate(newValue) {
+            const { maxBound, scaleWidth } = this;
             this.greaterValue = newValue;
+            if (this.$rightHandle) {
+                this.setRightHandle(
+                    newValue / maxBound * scaleWidth,
+                );
+            }
             this.maxLesserValue = this.greaterValue;
         },
         onHandleMouseDown($event) {
