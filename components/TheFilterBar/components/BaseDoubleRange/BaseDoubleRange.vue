@@ -91,11 +91,17 @@ export default {
             this.maxLesserValue = this.greaterValue;
         },
         onHandleMouseDown($event) {
-            const $target = $($event.target);
+            const $handle = $($event.target);
+            $handle.css('z-index', '1');
+            if ($handle[0] === this.$leftHandle[0]) {
+                this.$rightHandle.css('z-index', '0');
+            } else {
+                this.$leftHandle.css('z-index', '0');
+            }
             const innerOffsetLeft =
-                $event.clientX - $target.offset().left;
+                $event.clientX - $handle.offset().left;
             this.bindedOnMouseMove = this.onHandleMouseMove
-                .bind(null, $target, innerOffsetLeft);
+                .bind(null, $handle, innerOffsetLeft);
             this.$document.on('mousemove', this.bindedOnMouseMove);
             this.bindedOnMouseUp = this.onMouseUp.bind(this);
             this.$document.on('mouseup', this.bindedOnMouseUp);
