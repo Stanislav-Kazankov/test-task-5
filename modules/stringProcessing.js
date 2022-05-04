@@ -17,27 +17,15 @@ export const trimEachWord = string =>
 export const mapWords = (
     string, mapIteratee,
 ) => {
-    let result;
     const trimmedString = trimEachWord(string);
-    if (trimmedString) {
-        result = _(trimmedString)
-            .split(' ')
-            .map(mapIteratee)
-            .join(' ');
-    } else {
-        result = '';
-    }
+    const result = trimmedString
+        ? _(trimmedString)
+            .split(' ').map(mapIteratee)
+            .join(' ')
+        : '';
 
     return result;
 };
-
-export const prependToEachWord = (
-    string, prependedPrefix,
-) =>
-    mapWords(
-        string,
-        word => `${prependedPrefix}${word}`,
-    );
 
 export const appendToEachWord = (
     string, appendedPrefix,

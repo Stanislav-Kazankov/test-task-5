@@ -6,10 +6,9 @@ import getRestSrcs from '../utils/getRestSrcs';
 import devices from '@/modules/devices';
 
 export default (image, dimensions) => {
-    let zero1xWidth;
-    if (dimensions[devices[0]]) {
-        zero1xWidth = dimensions[devices[0]].x1Width;
-    }
+    const zero1xWidth = dimensions[devices[0]]
+        ? dimensions[devices[0]].x1Width
+        : undefined;
     const restDimensions = _(dimensions)
         .pickBy(
             (dimension, key) => key !== devices[0],
