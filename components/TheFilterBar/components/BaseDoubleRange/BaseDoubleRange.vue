@@ -105,7 +105,7 @@ export default {
         onGreaterValueTriggerUpdate(newValue) {
             this.greaterValue = newValue;
             if (this.$rightHandle) {
-                this.autoSetLeftHandle();
+                this.autoSetRightHandle();
             }
             this.maxLesserValue = newValue;
         },
