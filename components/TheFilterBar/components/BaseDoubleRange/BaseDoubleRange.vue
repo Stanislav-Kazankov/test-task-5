@@ -131,10 +131,10 @@ export default {
             const newPosition =
                 $event.clientX - $scale.offset().left - innerOffsetLeft;
             if ($capturedHandle[0] === $leftHandle[0]) {
-                this.setLeftHandle(newPosition);
+                this.manualSetLeftHandle(newPosition);
             }
             if ($capturedHandle[0] === $rightHandle[0]) {
-                this.setRightHandle(newPosition);
+                this.manualSetRightHandle(newPosition);
             }
         },
         onMouseUp($event) {
@@ -154,8 +154,24 @@ export default {
                 greaterValue / maxBound * scaleWidth - handleHalf,
             );
         },
+        manualSetLeftHandle(newHandlePosition) {
+            this.setLeftHandle(newHandlePosition);
+            const { $leftHandle, scaleWidth, handleHalf, maxBound } = this;
+            const leftCenterPosition =
+                $leftHandle.position().left + handleHalf;
+            this.lesserValue =
+                this.parse(leftCenterPosition / scaleWidth * maxBound);
+        },
+        manualSetRightHandle(newHandlePosition) {
+            this.setRightHandle(newHandlePosition);
+            const { $rightHandle, scaleWidth, handleHalf, maxBound } = this;
+            const rightCenterPosition =
+                $rightHandle.position().left + handleHalf;
+            this.greaterValue =
+                this.parse(rightCenterPosition / scaleWidth * maxBound);
+        },
         setLeftHandle(newHandlePosition) {
-            const { scaleWidth, handleHalf, leftHandleMinPosition, maxBound } = this;
+            const { handleHalf, leftHandleMinPosition } = this;
             const rightHandlePosition = this.$rightHandle.position().left;
             const validHandlePosition = _.clamp(
                 newHandlePosition,
@@ -171,12 +187,9 @@ export default {
             const newSelectionWidth = rightHandlePosition - validHandlePosition;
             $(this.$refs.selection)
                 .css('width', newSelectionWidth + 1 + 'px');
-            const leftCenterPosition = validHandlePosition + handleHalf;
-            this.lesserValue =
-                this.parse(leftCenterPosition / scaleWidth * maxBound);
         },
         setRightHandle(newHandlePosition) {
-            const { scaleWidth, handleHalf, rightHandleMaxPosition, maxBound } = this;
+            const { rightHandleMaxPosition } = this;
             const leftHandlePosition = this.$leftHandle.position().left;
             const validHandlePosition = _.clamp(
                 newHandlePosition,
@@ -188,9 +201,6 @@ export default {
             const newSelectionWidth = validHandlePosition - leftHandlePosition;
             $(this.$refs.selection)
                 .css('width', newSelectionWidth + 'px');
-            const rightCenterPosition = validHandlePosition + handleHalf;
-            this.greaterValue =
-                this.parse(rightCenterPosition / scaleWidth * maxBound);
         },
     },
 };
