@@ -32,15 +32,21 @@ export default {
 
 <style lang="scss" scoped>
 .selector--radio {
-    box-shadow: 0 4px 10px $colorLightBlack;
+    ::v-deep .selector {
+        &__label {
+            display: grid;
+            justify-content: center;
+            align-content: center;
+            width: 30px;
+            min-height: 30px;
+            background-color: $colorWhite;
+        }
 
-    ::v-deep .selector__label {
-        display: grid;
-        justify-content: center;
-        align-content: center;
-        width: 30px;
-        min-height: 30px;
-        background-color: $colorWhite;
+        &__input:not(:checked) {
+            ~ .selector__label {
+                box-shadow: 0 4px 10px $colorLightBlack;
+            }
+        }
     }
 }
 </style>
