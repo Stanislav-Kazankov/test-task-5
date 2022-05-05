@@ -1,6 +1,9 @@
 <template lang="pug">
     p.trigger
-        label.trigger__label(:for="inputId")
+        label.trigger__label(
+            ref="triggerLabel"
+            :for="inputId"
+        )
             base-button.button--trigger(
                 :class="{'is-on': isTriggerOn}"
                 @click.native="isTriggerOn = true"
@@ -33,12 +36,10 @@ export default {
     },
     mounted() {
         $(this.$root.$el).on('click', $event => {
-            const $inputLabels = $(`label[for='${this.inputId}'`);
+            const $inputLabel = $(this.$refs.triggerLabel);
             if (
-                $event.target !== $inputLabels[0] &&
-                !$inputLabels[0].contains($event.target) &&
-                $event.target !== $inputLabels[1] &&
-                !$inputLabels[1].contains($event.target)
+                $event.target !== $inputLabel[0] &&
+                !$inputLabel[0].contains($event.target)
             ) {
                 this.isTriggerOn = false;
             }
