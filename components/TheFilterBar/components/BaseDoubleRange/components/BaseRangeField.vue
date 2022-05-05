@@ -23,8 +23,7 @@ export default {
                     let result = NaN;
                     if (stringFieldValue) {
                         const letterFreeString =
-                            stringFieldValue.replace(/((.+\\-)|(^\\-))+\D/g, '');
-                        console.log(letterFreeString);
+                            stringFieldValue.replace(/(?!^-)\D+/g, '');
                         result = letterFreeString
                             ? Number(letterFreeString)
                             : result;
