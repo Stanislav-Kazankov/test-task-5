@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import defineCheckboxOptions from '../../../../../mixins/defineCheckboxOptions';
+import defineCheckboxOptions from '@/mixins/defineCheckboxOptions';
 import { createObjectPropConfig } from '@/modules/propConfigs';
 
 export default {

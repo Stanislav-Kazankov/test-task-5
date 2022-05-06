@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import defineCheckboxOptions from '../../../../../../../mixins/defineCheckboxOptions';
 import InputTooltipTrigger from './components/InputTooltipTrigger.vue';
+import defineCheckboxOptions from '@/mixins/defineCheckboxOptions';
 import { createStringPropConfig } from '@/modules/propConfigs';
 
 export default {

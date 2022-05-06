@@ -2,23 +2,56 @@
     section.search-result-block
         .search-result-block__control-panel
             counter-bar.search-result-block__counter-bar
-            filter-option-list.search-result-block__filter-items
+            filter-option-list.search-result-block__filter-items(
+                :filter-options-data="\
+                    filterOptions\
+                "
+            )
             view-setting-bar
         apartment-layout-list
 </template>
 
 <script>
 import CounterBar from './components/CounterBar/CounterBar.vue';
-import FilterOptionList from './components/FilterOptionList.vue';
 import ViewSettingBar from './components/ViewSettingBar/ViewSettingBar.vue';
 import ApartmentLayoutList from './components/ApartmentLayoutList/ApartmentLayoutList.vue';
 
 export default {
     components: {
         CounterBar,
-        FilterOptionList,
         ViewSettingBar,
         ApartmentLayoutList,
+    },
+    data() {
+        return {
+            filterOptions: [
+                {
+                    id: 'lessThen50SquareMeters',
+                    caption: 'До 50 м²',
+                    checked: false,
+                },
+                {
+                    id: 'readyMadeHousing',
+                    caption: 'Готовое жилье',
+                    checked: false,
+                },
+                {
+                    id: 'twoBathrooms',
+                    caption: 'Два санузла',
+                    checked: false,
+                },
+                {
+                    id: 'balcony',
+                    caption: 'Балкон',
+                    checked: false,
+                },
+                {
+                    id: 'theHouseIsRented',
+                    caption: 'Дом сдан',
+                    checked: false,
+                },
+            ],
+        };
     },
 };
 </script>

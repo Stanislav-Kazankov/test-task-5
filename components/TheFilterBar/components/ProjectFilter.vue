@@ -19,12 +19,10 @@
 
 <script>
 import BaseFilter from './BaseFilter/BaseFilter.vue';
-import FilterOptionList from './FilterOptionList/FilterOptionList.vue';
 
 export default {
     components: {
         BaseFilter,
-        FilterOptionList,
     },
     data() {
         return {
