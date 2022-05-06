@@ -12,7 +12,10 @@
             :value="greaterValue"
             @trigger-value-update="onGreaterValueTriggerUpdate"
         )
-        .double-range__scale(ref="scale")
+        .double-range__scale(
+            ref="scale"
+            @click="onScaleClick"
+        )
             .double-range__selection(ref="selection")
             .double-range__handle.double-range__handle--left(
                 ref="leftHandle"
@@ -70,6 +73,7 @@ export default {
             $rightHandle: null,
             $scale: null,
             scaleWidth: null,
+            handleWidth: null,
             handleHalf: null,
             leftHandleMinPosition: null,
             rightHandleMaxPosition: null,
@@ -85,7 +89,8 @@ export default {
         this.scaleWidth = this.$scale.width();
         this.$leftHandle = $(this.$refs.leftHandle);
         this.$rightHandle = $(this.$refs.rightHandle);
-        this.handleHalf = this.$leftHandle.width() / 2;
+        this.handleWidth = this.$leftHandle.width();
+        this.handleHalf = this.handleWidth / 2;
         this.leftHandleMinPosition = -this.handleHalf;
         this.rightHandleMaxPosition =
             this.scaleWidth - this.handleHalf;
@@ -141,6 +146,21 @@ export default {
             $event.preventDefault();
             this.$document.off('mousemove', this.bindedOnMouseMove);
             this.$document.off('mouseup', this.bindedOnMouseUp);
+        },
+        onScaleClick($event) {
+            const {
+                $leftHandle, $scale, handleHalf,
+                $rightHandle, handleWidth,
+            } = this;
+            if ($event.clientX < $leftHandle.offset().left) {
+                this.manualSetLeftHandle(
+                    $event.clientX - $scale.offset().left - handleHalf,
+                );
+            } else if ($event.clientX > $rightHandle.offset().left + handleWidth) {
+                this.manualSetRightHandle(
+                    $event.clientX - $scale.offset().left - handleHalf,
+                );
+            }
         },
         autoSetLeftHandle() {
             const { lesserValue, maxBound, scaleWidth, handleHalf } = this;
