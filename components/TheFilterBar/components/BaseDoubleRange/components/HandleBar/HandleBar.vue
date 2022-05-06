@@ -2,11 +2,11 @@
     .handle-bar
         .handle-bar__scale(
             ref="scale"
-            @click="onScaleClick"
+            @mousedown="onScaleMouseDown"
         )
             .handle-bar__selection(
                 ref="selection"
-                @click="onSelectionClick"
+                @mousedown="onSelectionMouseDown"
             )
             .handle-bar__handle.handle-bar__handle--left(
                 ref="leftHandle"
@@ -123,7 +123,7 @@ export default {
             this.$document.off('mousemove', this.bindedOnMouseMove);
             this.$document.off('mouseup', this.bindedOnMouseUp);
         },
-        onScaleClick($event) {
+        onScaleMouseDown($event) {
             const { clientX } = $event;
             const { $leftHandle, $rightHandle, handleWidth } = this;
             if (clientX < $leftHandle.offset().left) {
@@ -132,7 +132,7 @@ export default {
                 this.setHandleToClientX('Right', clientX);
             }
         },
-        onSelectionClick($event) {
+        onSelectionMouseDown($event) {
             const { clientX } = $event;
             const { $selection } = this;
             const selectionHalf = $selection.width() / 2;
