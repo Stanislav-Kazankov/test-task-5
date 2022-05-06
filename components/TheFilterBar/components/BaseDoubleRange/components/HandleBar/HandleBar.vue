@@ -68,20 +68,6 @@ export default {
             rightHandleMaxPosition: null,
         };
     },
-    // watch: {
-    //     lesserValue() {
-    //         if (this.$leftHandle) {
-    //             // this.$leftHandle.css('transition', 'left 0.4s');
-    //             // this.autoSetLeftHandle();
-    //         }
-    //     },
-    //     greaterValue() {
-    //         if (this.$rightHandle) {
-    //             // this.$rightHandle.css('transition', 'left 0.4s');
-    //             // this.autoSetRightHandle();
-    //         }
-    //     },
-    // },
     mounted() {
         this.$document = $(document);
         this.$scale = $(this.$refs.scale);
