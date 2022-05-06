@@ -16,7 +16,10 @@
             ref="scale"
             @click="onScaleClick"
         )
-            .double-range__selection(ref="selection")
+            .double-range__selection(
+                ref="selection"
+                @click="onSelectionClick"
+            )
             .double-range__handle.double-range__handle--left(
                 ref="leftHandle"
                 @mousedown.prevent="onHandleMouseDown"
@@ -72,6 +75,7 @@ export default {
             $leftHandle: null,
             $rightHandle: null,
             $scale: null,
+            $selection: null,
             scaleWidth: null,
             handleWidth: null,
             handleHalf: null,
@@ -86,6 +90,7 @@ export default {
     mounted() {
         this.$document = $(document);
         this.$scale = $(this.$refs.scale);
+        this.$selection = $(this.$refs.selection);
         this.scaleWidth = this.$scale.width();
         this.$leftHandle = $(this.$refs.leftHandle);
         this.$rightHandle = $(this.$refs.rightHandle);
@@ -148,19 +153,29 @@ export default {
             this.$document.off('mouseup', this.bindedOnMouseUp);
         },
         onScaleClick($event) {
-            const {
-                $leftHandle, $scale, handleHalf,
-                $rightHandle, handleWidth,
-            } = this;
-            if ($event.clientX < $leftHandle.offset().left) {
-                this.manualSetLeftHandle(
-                    $event.clientX - $scale.offset().left - handleHalf,
-                );
-            } else if ($event.clientX > $rightHandle.offset().left + handleWidth) {
-                this.manualSetRightHandle(
-                    $event.clientX - $scale.offset().left - handleHalf,
-                );
+            const { clientX } = $event;
+            const { $leftHandle, $rightHandle, handleWidth } = this;
+            if (clientX < $leftHandle.offset().left) {
+                this.setHandleToClientX('Left', clientX);
+            } else if (clientX > $rightHandle.offset().left + handleWidth) {
+                this.setHandleToClientX('Right', clientX);
             }
+        },
+        onSelectionClick($event) {
+            const { clientX } = $event;
+            const { $selection } = this;
+            const selectionHalf = $selection.width() / 2;
+            if (clientX <= $selection.offset().left + selectionHalf) {
+                this.setHandleToClientX('Left', clientX);
+            } else {
+                this.setHandleToClientX('Right', clientX);
+            }
+        },
+        setHandleToClientX(handleLocation, clientX) {
+            const { $scale, handleHalf } = this;
+            this[`manualSet${handleLocation}Handle`](
+                clientX - $scale.offset().left - handleHalf,
+            );
         },
         autoSetLeftHandle() {
             const { lesserValue, maxBound, scaleWidth, handleHalf } = this;
