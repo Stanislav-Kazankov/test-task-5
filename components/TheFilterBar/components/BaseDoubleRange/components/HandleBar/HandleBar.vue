@@ -176,7 +176,9 @@ export default {
                 $leftHandle.position().left + handleHalf + 1;
             this.$emit(
                 'trigger-lesser-value-update',
-                this.parse(leftCenterPosition / scaleWidth * maxBound),
+                this.parse(
+                    (leftCenterPosition + 1) / scaleWidth * maxBound,
+                ),
             );
         },
         manualSetRightHandle(newHandlePosition) {
@@ -186,7 +188,9 @@ export default {
                 $rightHandle.position().left + handleHalf + 1;
             this.$emit(
                 'trigger-greater-value-update',
-                this.parse(rightCenterPosition / scaleWidth * maxBound),
+                this.parse(
+                    (rightCenterPosition + 1) / scaleWidth * maxBound,
+                ),
             );
         },
         setLeftHandle(newHandlePosition) {
