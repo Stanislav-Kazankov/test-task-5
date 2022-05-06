@@ -11,10 +11,16 @@
             .handle-bar__handle.handle-bar__handle--left(
                 ref="leftHandle"
                 @mousedown.prevent="onHandleMouseDown"
+                @transitionend="\
+                    $leftHandle.css('transition', '')\
+                "
             )
             .handle-bar__handle.handle-bar__handle--right(
                 ref="rightHandle"
                 @mousedown.prevent="onHandleMouseDown"
+                @transitionend="\
+                    $rightHandle.css('transition', '')\
+                "
             )
 </template>
 
@@ -62,18 +68,20 @@ export default {
             rightHandleMaxPosition: null,
         };
     },
-    watch: {
-        lesserValue() {
-            if (this.$leftHandle) {
-                this.autoSetLeftHandle();
-            }
-        },
-        greaterValue() {
-            if (this.$rightHandle) {
-                this.autoSetRightHandle();
-            }
-        },
-    },
+    // watch: {
+    //     lesserValue() {
+    //         if (this.$leftHandle) {
+    //             // this.$leftHandle.css('transition', 'left 0.4s');
+    //             // this.autoSetLeftHandle();
+    //         }
+    //     },
+    //     greaterValue() {
+    //         if (this.$rightHandle) {
+    //             // this.$rightHandle.css('transition', 'left 0.4s');
+    //             // this.autoSetRightHandle();
+    //         }
+    //     },
+    // },
     mounted() {
         this.$document = $(document);
         this.$scale = $(this.$refs.scale);
@@ -148,14 +156,14 @@ export default {
                 clientX - $scale.offset().left - handleHalf,
             );
         },
-        autoSetLeftHandle() {
-            const { lesserValue, maxBound, scaleWidth, handleHalf } = this;
+        autoSetLeftHandle(lesserValue = this.lesserValue) {
+            const { maxBound, scaleWidth, handleHalf } = this;
             this.setLeftHandle(
                 lesserValue / maxBound * scaleWidth - handleHalf,
             );
         },
-        autoSetRightHandle() {
-            const { greaterValue, maxBound, scaleWidth, handleHalf } = this;
+        autoSetRightHandle(greaterValue = this.greaterValue) {
+            const { maxBound, scaleWidth, handleHalf } = this;
             this.setRightHandle(
                 greaterValue / maxBound * scaleWidth - handleHalf,
             );

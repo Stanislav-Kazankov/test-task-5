@@ -2,34 +2,25 @@
     .double-range
         lesser-value-field(
             :min-value="minBound"
-            :max-value="maxLesserValue"
-            :value="fieldLesserValue"
-            @trigger-value-update="\
-                fieldLesserValue =\
-                    handleBarLesserValue = $event\
-            "
+            :max-value="greaterValue"
+            :value="lesserValue"
+            @trigger-value-update="onTriggerLesserValueUpdate"
         )
         greater-value-field(
-            :min-value="minGreaterValue"
+            :min-value="lesserValue"
             :max-value="maxBound"
-            :value="fieldGreaterValue"
-            @trigger-value-update="\
-                fieldGreaterValue =\
-                    handleBarGreaterValue = $event\
-            "
+            :value="greaterValue"
+            @trigger-value-update="onTriggerGreaterValueUpdate"
         )
         handle-bar(
             ref="handleBar"
             :min-bound="minBound"
             :max-bound="maxBound"
-            :lesser-value="handleBarLesserValue"
-            :greater-value="handleBarGreaterValue"
-            @trigger-lesser-value-update="\
-                fieldLesserValue = $event\
-            "
-            @trigger-greater-value-update="\
-                fieldGreaterValue = $event\
-            "
+            :lesser-value="lesserValue"
+            :greater-value="greaterValue"
+            @hook:mounted="handleBar = $refs.handleBar"
+            @trigger-lesser-value-update="lesserValue = $event"
+            @trigger-greater-value-update="greaterValue = $event"
         )
 </template>
 
@@ -55,41 +46,41 @@ export default {
                 Number.POSITIVE_INFINITY,
             ),
         initialLesserValue:
-            createNumberPropConfig(null),
+            createNumberPropConfig(
+                null,
+            ),
         initialGreaterValue:
-            createNumberPropConfig(null),
+            createNumberPropConfig(
+                null,
+            ),
     },
     data() {
         return {
             $document: null,
-            fieldLesserValue: this.minBound,
-            fieldGreaterValue: this.maxBound,
-            handleBarLesserValue: this.minBound,
-            handleBarGreaterValue: this.maxBound,
+            lesserValue: this.minBound,
+            greaterValue: this.maxBound,
             maxLesserValue: this.maxBound,
             minGreaterValue: this.minBound,
             handleBar: null,
         };
     },
-    watch: {
-        fieldLesserValue(newValue) {
-            this.minGreaterValue = newValue;
-        },
-        fieldGreaterValue(newValue) {
-            this.maxLesserValue = newValue;
-        },
-        handleBarLesserValue(newValue) {
-            this.minGreaterValue = newValue;
-        },
-        handleBarGreaterValue(newValue) {
-            this.maxLesserValue = newValue;
-        },
-    },
     created() {
-        this.fieldLesserValue = this.initialLesserValue || this.minBound;
-        this.fieldGreaterValue = this.initialGreaterValue || this.maxBound;
-        this.handleBarLesserValue = this.initialLesserValue || this.minBound;
-        this.handleBarGreaterValue = this.initialGreaterValue || this.maxBound;
+        this.lesserValue = this.initialLesserValue || this.minBound;
+        this.greaterValue = this.initialGreaterValue || this.maxBound;
+    },
+    methods: {
+        onTriggerLesserValueUpdate(newValue) {
+            this.lesserValue = newValue;
+            if (this.handleBar) {
+                this.handleBar.autoSetLeftHandle(newValue);
+            }
+        },
+        onTriggerGreaterValueUpdate(newValue) {
+            this.greaterValue = newValue;
+            if (this.handleBar) {
+                this.handleBar.autoSetRightHandle(newValue);
+            }
+        },
     },
 };
 </script>
