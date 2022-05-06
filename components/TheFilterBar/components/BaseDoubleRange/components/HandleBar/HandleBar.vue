@@ -103,8 +103,8 @@ export default {
             this.bindedOnMouseMove = this.onHandleMouseMove
                 .bind(null, $handle, innerOffsetLeft);
             this.$document.on('mousemove', this.bindedOnMouseMove);
-            this.bindedOnMouseUp = this.onMouseUp.bind(this);
-            this.$document.on('mouseup', this.bindedOnMouseUp);
+            this.bindedOnMouseUp = this.onMouseUp.bind(null);
+            this.$document.on('mouseup', this.onMouseUp);
         },
         onHandleMouseMove($capturedHandle, innerOffsetLeft, $event) {
             const { $scale, $leftHandle, $rightHandle } = this;
@@ -121,7 +121,7 @@ export default {
         onMouseUp($event) {
             $event.preventDefault();
             this.$document.off('mousemove', this.bindedOnMouseMove);
-            this.$document.off('mouseup', this.bindedOnMouseUp);
+            this.$document.off('mouseup', this.onMouseUp);
         },
         onScaleMouseDown($event) {
             const { clientX } = $event;
@@ -160,7 +160,6 @@ export default {
                 greaterValue / maxBound * scaleWidth - handleHalf,
             );
         },
-        bindedOnMouseUp: () => {},
         bindedOnMouseMove: () => {},
         manualSetLeftHandle(newHandlePosition) {
             this.setLeftHandle(newHandlePosition);
