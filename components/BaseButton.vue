@@ -1,5 +1,8 @@
 <template lang="pug">
-    p(:class="'button'")
+    component(
+        :class="'button'"
+        :is="rootElement"
+    )
         button.button__core(
             v-bind="$attrs"
             type="button"
@@ -9,7 +12,13 @@
 </template>
 
 <script>
+import { createStringPropConfig } from '@/modules/propConfigs';
+
 export default {
     inheritAttrs: false,
+    props: {
+        rootElement:
+            createStringPropConfig('p'),
+    },
 };
 </script>

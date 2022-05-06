@@ -6,6 +6,7 @@
         )
             base-button.button--trigger(
                 :class="{'is-on': isTriggerOn}"
+                rootElement="span"
                 @click.native="isTriggerOn = true"
             )
 </template>
