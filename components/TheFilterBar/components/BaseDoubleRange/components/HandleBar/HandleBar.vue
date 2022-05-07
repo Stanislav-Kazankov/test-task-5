@@ -123,8 +123,12 @@ export default {
             const { clientX } = $event;
             const { $leftHandle, $rightHandle, handleWidth } = this;
             if (clientX < $leftHandle.offset().left) {
+                this.$leftHandle.css('transition', 'left 0.5s');
+                this.$selection.css('transition', 'left 0.5s, width 0.5s');
                 this.setHandleToClientX('Left', clientX);
             } else if (clientX > $rightHandle.offset().left + handleWidth) {
+                this.$leftHandle.css('transition', 'left 0.5s');
+                this.$selection.css('transition', 'left 0.5s, width 0.5s');
                 this.setHandleToClientX('Right', clientX);
             }
         },
@@ -133,8 +137,12 @@ export default {
             const { $selection } = this;
             const selectionHalf = $selection.width() / 2;
             if (clientX <= $selection.offset().left + selectionHalf) {
+                this.$leftHandle.css('transition', 'left 0.5s');
+                this.$selection.css('transition', 'left 0.5s, width 0.5s');
                 this.setHandleToClientX('Left', clientX);
             } else {
+                this.$rightHandle.css('transition', 'left 0.5s');
+                this.$selection.css('transition', 'width 0.5s');
                 this.setHandleToClientX('Right', clientX);
             }
         },
@@ -145,7 +153,7 @@ export default {
         },
         transitionalSetRightHandle(greaterValue = this.greaterValue) {
             this.$rightHandle.css('transition', 'left 0.5s');
-            this.$selection.css('transition', 'left 0.5s, width 0.5s');
+            this.$selection.css('transition', 'width 0.5s');
             this.autoSetRightHandle(greaterValue);
         },
         setHandleToClientX(handleLocation, clientX) {
