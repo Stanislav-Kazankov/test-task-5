@@ -127,8 +127,8 @@ export default {
                 this.$selection.css('transition', 'left 0.5s, width 0.5s');
                 this.setHandleToClientX('Left', clientX);
             } else if (clientX > $rightHandle.offset().left + handleWidth) {
-                this.$leftHandle.css('transition', 'left 0.5s');
-                this.$selection.css('transition', 'left 0.5s, width 0.5s');
+                this.$rightHandle.css('transition', 'left 0.5s');
+                this.$selection.css('transition', 'width 0.5s');
                 this.setHandleToClientX('Right', clientX);
             }
         },
