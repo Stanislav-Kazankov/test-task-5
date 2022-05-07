@@ -6,20 +6,22 @@
         )
             .handle-bar__selection(
                 ref="selection"
-                @mousedown="onSelectionMouseDown"
+                @mousedown.prevent="onSelectionMouseDown"
             )
             .handle-bar__handle.handle-bar__handle--left(
                 ref="leftHandle"
                 @mousedown.prevent="onHandleMouseDown"
                 @transitionend="\
-                    $leftHandle.css('transition', '')\
+                    $leftHandle.css('transition', '');\
+                    $selection.css('transition', '')\
                 "
             )
             .handle-bar__handle.handle-bar__handle--right(
                 ref="rightHandle"
                 @mousedown.prevent="onHandleMouseDown"
                 @transitionend="\
-                    $rightHandle.css('transition', '')\
+                    $rightHandle.css('transition', '');\
+                    $selection.css('transition', '')\
                 "
             )
 </template>
@@ -136,12 +138,23 @@ export default {
                 this.setHandleToClientX('Right', clientX);
             }
         },
+        transitionalSetLeftHandle(lesserValue = this.lesserValue) {
+            this.$leftHandle.css('transition', 'left 0.5s');
+            this.$selection.css('transition', 'left 0.5s, width 0.5s');
+            this.autoSetLeftHandle(lesserValue);
+        },
+        transitionalSetRightHandle(greaterValue = this.greaterValue) {
+            this.$rightHandle.css('transition', 'left 0.5s');
+            this.$selection.css('transition', 'left 0.5s, width 0.5s');
+            this.autoSetRightHandle(greaterValue);
+        },
         setHandleToClientX(handleLocation, clientX) {
             const { $scale, handleHalf } = this;
             this[`manualSet${handleLocation}Handle`](
                 clientX - $scale.offset().left - handleHalf,
             );
         },
+        bindedOnMouseMove: () => {},
         autoSetLeftHandle(lesserValue = this.lesserValue) {
             const { maxBound, scaleWidth, handleHalf } = this;
             this.setLeftHandle(
@@ -154,7 +167,6 @@ export default {
                 greaterValue / maxBound * scaleWidth - handleHalf,
             );
         },
-        bindedOnMouseMove: () => {},
         manualSetLeftHandle(newHandlePosition) {
             this.setLeftHandle(newHandlePosition);
             const { $leftHandle, scaleWidth, handleHalf, maxBound } = this;

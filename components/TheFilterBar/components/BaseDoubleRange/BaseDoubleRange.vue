@@ -72,13 +72,15 @@ export default {
         onTriggerLesserValueUpdate(newValue) {
             this.lesserValue = newValue;
             if (this.handleBar) {
-                this.handleBar.autoSetLeftHandle(newValue);
+                this.handleBar
+                    .transitionalSetLeftHandle(newValue);
             }
         },
         onTriggerGreaterValueUpdate(newValue) {
             this.greaterValue = newValue;
             if (this.handleBar) {
-                this.handleBar.autoSetRightHandle(newValue);
+                this.handleBar
+                    .transitionalSetRightHandle(newValue);
             }
         },
     },
