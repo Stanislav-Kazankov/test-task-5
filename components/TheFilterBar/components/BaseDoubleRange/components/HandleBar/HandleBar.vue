@@ -149,30 +149,20 @@ export default {
             this.autoSetRightHandle(greaterValue);
         },
         transitLeftHandleAbsolutely(clientX) {
-            const { $scale, scaleWidth, handleHalf, maxBound } = this;
-            const newLeftCenterPosition = clientX - $scale.offset().left;
-            this.$emit(
-                'trigger-lesser-value-update',
-                this.parse(
-                    (newLeftCenterPosition + 1) / scaleWidth * maxBound,
-                ),
-            );
+            const { $scale, handleHalf } = this;
+            const newLeftCenter = clientX - $scale.offset().left;
+            this.triggerUpdateByHandlePosition('lesser', newLeftCenter);
             this.$leftHandle.css('transition', 'left 0.5s');
             this.$selection.css('transition', 'left 0.5s, width 0.5s');
-            this.setLeftHandle(newLeftCenterPosition - handleHalf);
+            this.setLeftHandle(newLeftCenter - handleHalf);
         },
         transitRightHandleAbsolutely(clientX) {
-            const { $scale, scaleWidth, handleHalf, maxBound } = this;
-            const newRightCenterPosition = clientX - $scale.offset().left;
-            this.$emit(
-                'trigger-greater-value-update',
-                this.parse(
-                    (newRightCenterPosition + 1) / scaleWidth * maxBound,
-                ),
-            );
+            const { $scale, handleHalf } = this;
+            const newRightCenter = clientX - $scale.offset().left;
+            this.triggerUpdateByHandlePosition('greater', newRightCenter);
             this.$rightHandle.css('transition', 'left 0.5s');
             this.$selection.css('transition', 'width 0.5s');
-            this.setRightHandle(newRightCenterPosition - handleHalf);
+            this.setRightHandle(newRightCenter - handleHalf);
         },
         bindedOnMouseMove: () => {},
         autoSetLeftHandle(lesserValue = this.lesserValue) {
@@ -189,27 +179,17 @@ export default {
         },
         manualSetLeftHandle(newHandlePosition) {
             this.setLeftHandle(newHandlePosition);
-            const { $leftHandle, scaleWidth, handleHalf, maxBound } = this;
-            const leftCenterPosition =
+            const { $leftHandle, handleHalf } = this;
+            const leftCenter =
                 $leftHandle.position().left + handleHalf + 1;
-            this.$emit(
-                'trigger-lesser-value-update',
-                this.parse(
-                    (leftCenterPosition + 1) / scaleWidth * maxBound,
-                ),
-            );
+            this.triggerUpdateByHandlePosition('lesser', leftCenter);
         },
         manualSetRightHandle(newHandlePosition) {
             this.setRightHandle(newHandlePosition);
-            const { $rightHandle, scaleWidth, handleHalf, maxBound } = this;
-            const rightCenterPosition =
+            const { $rightHandle, handleHalf } = this;
+            const rightCenter =
                 $rightHandle.position().left + handleHalf + 1;
-            this.$emit(
-                'trigger-greater-value-update',
-                this.parse(
-                    (rightCenterPosition + 1) / scaleWidth * maxBound,
-                ),
-            );
+            this.triggerUpdateByHandlePosition('greater', rightCenter);
         },
         setLeftHandle(newHandlePosition) {
             const { handleHalf, leftHandleMinPosition } = this;
@@ -240,6 +220,15 @@ export default {
             const newSelectionWidth = validHandlePosition - leftHandlePosition;
             $(this.$refs.selection)
                 .css('width', newSelectionWidth + 'px');
+        },
+        triggerUpdateByHandlePosition(valueName, handleCenter) {
+            const { scaleWidth, maxBound } = this;
+            this.$emit(
+                `trigger-${valueName}-value-update`,
+                this.parse(
+                    (handleCenter + 1) / scaleWidth * maxBound,
+                ),
+            );
         },
     },
 };
