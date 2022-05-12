@@ -73,14 +73,14 @@ export default {
             this.lesserValue = newValue;
             if (this.handleBar) {
                 this.handleBar
-                    .transitionalSetLeftHandle(newValue);
+                    .transitLeftHandle(newValue);
             }
         },
         onTriggerGreaterValueUpdate(newValue) {
             this.greaterValue = newValue;
             if (this.handleBar) {
                 this.handleBar
-                    .transitionalSetRightHandle(newValue);
+                    .transitRightHandle(newValue);
             }
         },
     },
