@@ -46,13 +46,9 @@ export default {
                 Number.POSITIVE_INFINITY,
             ),
         initialLesserValue:
-            createNumberPropConfig(
-                null,
-            ),
+            createNumberPropConfig(null),
         initialGreaterValue:
-            createNumberPropConfig(
-                null,
-            ),
+            createNumberPropConfig(null),
     },
     data() {
         return {

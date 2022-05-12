@@ -138,12 +138,12 @@ export default {
                 this.transitRightHandleAbsolutely(clientX);
             }
         },
-        transitLeftHandle(lesserValue = this.lesserValue) {
+        transitLeftHandle(lesserValue) {
             this.$leftHandle.css('transition', 'left 0.5s');
             this.$selection.css('transition', 'left 0.5s, width 0.5s');
             this.autoSetLeftHandle(lesserValue);
         },
-        transitRightHandle(greaterValue = this.greaterValue) {
+        transitRightHandle(greaterValue) {
             this.$rightHandle.css('transition', 'left 0.5s');
             this.$selection.css('transition', 'width 0.5s');
             this.autoSetRightHandle(greaterValue);
@@ -225,9 +225,7 @@ export default {
             const { scaleWidth, maxBound } = this;
             this.$emit(
                 `trigger-${valueName}-value-update`,
-                this.parse(
-                    (handleCenter + 1) / scaleWidth * maxBound,
-                ),
+                this.parse((handleCenter + 1) / scaleWidth * maxBound),
             );
         },
     },
