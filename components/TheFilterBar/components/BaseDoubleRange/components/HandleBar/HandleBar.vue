@@ -12,16 +12,14 @@
                 ref="leftHandle"
                 @mousedown.prevent="onHandleMouseDown"
                 @transitionend="\
-                    $leftHandle.css('transition', '');\
-                    $selection.css('transition', '')\
+                    $leftHandle.css('transition', '')\
                 "
             )
             .handle-bar__handle.handle-bar__handle--right(
                 ref="rightHandle"
                 @mousedown.prevent="onHandleMouseDown"
                 @transitionend="\
-                    $rightHandle.css('transition', '');\
-                    $selection.css('transition', '')\
+                    $rightHandle.css('transition', '')\
                 "
             )
 </template>
@@ -87,6 +85,7 @@ export default {
     },
     methods: {
         onHandleMouseDown($event) {
+            this.$selection.css('transition', '');
             const $handle = $($event.target);
             $handle.css('z-index', '1');
             if ($handle[0] === this.$leftHandle[0]) {
