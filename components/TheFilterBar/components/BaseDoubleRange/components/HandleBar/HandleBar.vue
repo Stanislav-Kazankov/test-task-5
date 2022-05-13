@@ -6,20 +6,22 @@
         )
             .handle-bar__selection(
                 ref="selection"
-                @mousedown.prevent="onSelectionMouseDown"
+                @mousedown="onSelectionMouseDown"
             )
             .handle-bar__handle.handle-bar__handle--left(
                 ref="leftHandle"
-                @mousedown.prevent="onHandleMouseDown"
+                @mousedown="onHandleMouseDown"
                 @transitionend="\
-                    $leftHandle.css('transition', '')\
+                    $leftHandle.css('transition', '');\
+                    $selection.css('transition', '')\
                 "
             )
             .handle-bar__handle.handle-bar__handle--right(
                 ref="rightHandle"
-                @mousedown.prevent="onHandleMouseDown"
+                @mousedown="onHandleMouseDown"
                 @transitionend="\
-                    $rightHandle.css('transition', '')\
+                    $rightHandle.css('transition', '');\
+                    $selection.css('transition', '')\
                 "
             )
 </template>
@@ -85,7 +87,6 @@ export default {
     },
     methods: {
         onHandleMouseDown($event) {
-            this.$selection.css('transition', '');
             const $handle = $($event.target);
             $handle.css('z-index', '1');
             if ($handle[0] === this.$leftHandle[0]) {
@@ -119,48 +120,52 @@ export default {
             this.$document.off('mouseup', this.onMouseUp);
         },
         onScaleMouseDown($event) {
-            const { clientX } = $event;
-            const { $leftHandle, $rightHandle, handleWidth } = this;
-            if (clientX < $leftHandle.offset().left) {
-                this.transitLeftHandleAbsolutely(clientX);
-            } else if (clientX > $rightHandle.offset().left + handleWidth) {
-                this.transitRightHandleAbsolutely(clientX);
+            if (this.$selection.css('transition-duration') === '0s') {
+                const { clientX } = $event;
+                const { $leftHandle, $rightHandle, handleWidth } = this;
+                if (clientX < $leftHandle.offset().left) {
+                    this.transitLeftHandleAbsolutely(clientX);
+                } else if (clientX > $rightHandle.offset().left + handleWidth) {
+                    this.transitRightHandleAbsolutely(clientX);
+                }
             }
         },
         onSelectionMouseDown($event) {
-            const { clientX } = $event;
-            const { $selection } = this;
-            const selectionHalf = $selection.width() / 2;
-            if (clientX < $selection.offset().left + selectionHalf) {
-                this.transitLeftHandleAbsolutely(clientX);
-            } else {
-                this.transitRightHandleAbsolutely(clientX);
+            if (this.$selection.css('transition-duration') === '0s') {
+                const { clientX } = $event;
+                const { $selection } = this;
+                const selectionHalf = $selection.width() / 2;
+                if (clientX < $selection.offset().left + selectionHalf) {
+                    this.transitLeftHandleAbsolutely(clientX);
+                } else {
+                    this.transitRightHandleAbsolutely(clientX);
+                }
             }
         },
         transitLeftHandle(lesserValue) {
-            this.$leftHandle.css('transition', 'left 0.5s');
-            this.$selection.css('transition', 'left 0.5s, width 0.5s');
+            this.$leftHandle.css('transition', 'left 0.33s');
+            this.$selection.css('transition', 'left 0.33s, width 0.33s');
             this.autoSetLeftHandle(lesserValue);
         },
         transitRightHandle(greaterValue) {
-            this.$rightHandle.css('transition', 'left 0.5s');
-            this.$selection.css('transition', 'width 0.5s');
+            this.$rightHandle.css('transition', 'left 0.33s');
+            this.$selection.css('transition', 'width 0.33s');
             this.autoSetRightHandle(greaterValue);
         },
         transitLeftHandleAbsolutely(clientX) {
             const { $scale, handleHalf } = this;
             const newLeftCenter = clientX - $scale.offset().left;
             this.triggerUpdateByHandlePosition('lesser', newLeftCenter);
-            this.$leftHandle.css('transition', 'left 0.5s');
-            this.$selection.css('transition', 'left 0.5s, width 0.5s');
+            this.$leftHandle.css('transition', 'left 0.33s');
+            this.$selection.css('transition', 'left 0.33s, width 0.33s');
             this.setLeftHandle(newLeftCenter - handleHalf);
         },
         transitRightHandleAbsolutely(clientX) {
             const { $scale, handleHalf } = this;
             const newRightCenter = clientX - $scale.offset().left;
             this.triggerUpdateByHandlePosition('greater', newRightCenter);
-            this.$rightHandle.css('transition', 'left 0.5s');
-            this.$selection.css('transition', 'width 0.5s');
+            this.$rightHandle.css('transition', 'left 0.33s');
+            this.$selection.css('transition', 'width 0.33s');
             this.setRightHandle(newRightCenter - handleHalf);
         },
         bindedOnMouseMove: () => {},
