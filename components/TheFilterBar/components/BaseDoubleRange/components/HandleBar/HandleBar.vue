@@ -149,29 +149,25 @@ export default {
             }
         },
         transitLeftHandle(lesserValue) {
-            this.$leftHandle.css('transition', 'left 0.33s');
-            this.$selection.css('transition', 'left 0.33s, width 0.33s');
+            this.setTransitionForHandle('left');
             this.autoSetLeftHandle(lesserValue);
         },
         transitRightHandle(greaterValue) {
-            this.$rightHandle.css('transition', 'left 0.33s');
-            this.$selection.css('transition', 'width 0.33s');
+            this.setTransitionForHandle('right');
             this.autoSetRightHandle(greaterValue);
         },
         transitLeftHandleAbsolutely(clientX) {
             const { $scale, handleHalf } = this;
             const newLeftCenter = clientX - $scale.offset().left;
             this.triggerUpdateByHandlePosition('lesser', newLeftCenter);
-            this.$leftHandle.css('transition', 'left 0.33s');
-            this.$selection.css('transition', 'left 0.33s, width 0.33s');
+            this.setTransitionForHandle('left');
             this.setLeftHandle(newLeftCenter - handleHalf);
         },
         transitRightHandleAbsolutely(clientX) {
             const { $scale, handleHalf } = this;
             const newRightCenter = clientX - $scale.offset().left;
             this.triggerUpdateByHandlePosition('greater', newRightCenter);
-            this.$rightHandle.css('transition', 'left 0.33s');
-            this.$selection.css('transition', 'width 0.33s');
+            this.setTransitionForHandle('right');
             this.setRightHandle(newRightCenter - handleHalf);
         },
         bindedOnMouseMove: () => {},
@@ -230,6 +226,14 @@ export default {
             const newSelectionWidth = validHandlePosition - leftHandlePosition;
             $(this.$refs.selection)
                 .css('width', newSelectionWidth + 'px');
+        },
+        setTransitionForHandle(handleLocation) {
+            this[`$${handleLocation}Handle`].css('transition', 'left 0.33s');
+            const variativePart =
+                handleLocation === 'left' ? 'left 0.33s, ' : '';
+            this.$selection.css(
+                'transition', `${variativePart}width 0.33s`,
+            );
         },
         triggerUpdateByHandlePosition(valueName, handleCenter) {
             const { scaleWidth, maxBound } = this;
