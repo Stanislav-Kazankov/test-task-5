@@ -81,7 +81,7 @@ export default {
             }
         },
         onTriggerGreaterValueUpdate(newValue) {
-            const oldValue = this.lesserValue;
+            const oldValue = this.greaterValue;
             this.greaterValue = newValue;
             if (this.handleBar) {
                 if (newValue !== oldValue) {

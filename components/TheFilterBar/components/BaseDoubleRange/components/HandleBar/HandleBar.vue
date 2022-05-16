@@ -76,8 +76,8 @@ export default {
         this.leftHandleMinPosition = -this.handleHalf;
         this.rightHandleMaxPosition =
             this.scaleWidth - this.handleHalf;
-        this.autoSetLeftHandle();
-        this.autoSetRightHandle();
+        this.autoSetLeftHandle(this.lesserValue);
+        this.autoSetRightHandle(this.greaterValue);
     },
     methods: {
         onHandleMouseDown($event) {
@@ -171,13 +171,13 @@ export default {
             this.setRightHandle(newRightCenter - handleHalf);
         },
         bindedOnMouseMove: () => {},
-        autoSetLeftHandle(lesserValue = this.lesserValue) {
+        autoSetLeftHandle(lesserValue) {
             const { maxBound, scaleWidth, handleHalf } = this;
             this.setLeftHandle(
                 lesserValue / maxBound * scaleWidth - handleHalf,
             );
         },
-        autoSetRightHandle(greaterValue = this.greaterValue) {
+        autoSetRightHandle(greaterValue) {
             const { maxBound, scaleWidth, handleHalf } = this;
             this.setRightHandle(
                 greaterValue / maxBound * scaleWidth - handleHalf,
