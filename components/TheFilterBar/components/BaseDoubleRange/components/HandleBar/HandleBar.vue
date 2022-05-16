@@ -90,10 +90,12 @@ export default {
             const $handle = $($event.target);
             $handle.css('z-index', '1');
             if ($handle[0] === this.$leftHandle[0]) {
+                this.$emit('trigger-lesser-value-block');
                 this.$emit('trigger-greater-value-block');
                 this.$rightHandle.css('z-index', '0');
             } else {
                 this.$emit('trigger-lesser-value-block');
+                this.$emit('trigger-greater-value-block');
                 this.$leftHandle.css('z-index', '0');
             }
             const innerOffsetLeft =
@@ -121,9 +123,11 @@ export default {
             this.$document.off('mousemove', this.bindedOnMouseMove);
             this.$document.off('mouseup', this.onMouseUp);
             if ($event.target === this.$leftHandle[0]) {
+                this.$emit('trigger-lesser-value-unblock');
                 this.$emit('trigger-greater-value-unblock');
             } else if ($event.target === this.$rightHandle[0]) {
                 this.$emit('trigger-lesser-value-unblock');
+                this.$emit('trigger-greater-value-unblock');
             }
         },
         onScaleMouseDown($event) {
