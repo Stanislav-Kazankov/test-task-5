@@ -40,7 +40,7 @@ export default {
             Number.POSITIVE_INFINITY,
         ),
         value: createNumberPropConfig(),
-        isChangeBlocked: falsePropConfig,
+        isValueChangeBlocked: falsePropConfig,
     },
     data() {
         return {
@@ -62,7 +62,7 @@ export default {
     },
     methods: {
         onChange() {
-            if (!this.isChangeBlocked) {
+            if (!this.isValueChangeBlocked) {
                 const newValue = this.toNumber(
                     this.$input.val(),
                 );

@@ -12,6 +12,7 @@
                 ref="leftHandle"
                 @mousedown="onHandleMouseDown"
                 @transitionend="\
+                    $emit('trigger-value-change-unblock');\
                     $leftHandle.css('transition', '');\
                     $selection.css('transition', '')\
                 "
@@ -20,6 +21,7 @@
                 ref="rightHandle"
                 @mousedown="onHandleMouseDown"
                 @transitionend="\
+                    $emit('trigger-value-change-unblock');\
                     $rightHandle.css('transition', '');\
                     $selection.css('transition', '')\
                 "
@@ -89,13 +91,10 @@ export default {
         onHandleMouseDown($event) {
             const $handle = $($event.target);
             $handle.css('z-index', '1');
+            this.$emit('trigger-value-change-block');
             if ($handle[0] === this.$leftHandle[0]) {
-                this.$emit('trigger-lesser-value-block');
-                this.$emit('trigger-greater-value-block');
                 this.$rightHandle.css('z-index', '0');
             } else {
-                this.$emit('trigger-lesser-value-block');
-                this.$emit('trigger-greater-value-block');
                 this.$leftHandle.css('z-index', '0');
             }
             const innerOffsetLeft = $event.clientX - $handle.offset().left;
@@ -119,12 +118,12 @@ export default {
         },
         onMouseUp($event) {
             $event.preventDefault();
-            this.$emit('trigger-lesser-value-unblock');
-            this.$emit('trigger-greater-value-unblock');
+            this.$emit('trigger-value-change-unblock');
             this.$document.off('mousemove', this.bindedOnMouseMove);
             this.$document.off('mouseup', this.onMouseUp);
         },
         onScaleMouseDown($event) {
+            this.$emit('trigger-value-change-block');
             if (this.$selection.css('transition-duration') === '0s') {
                 const { clientX } = $event;
                 const { $leftHandle, $rightHandle, handleWidth } = this;
@@ -140,6 +139,7 @@ export default {
             }
         },
         onSelectionMouseDown($event) {
+            this.$emit('trigger-value-change-block');
             if (this.$selection.css('transition-duration') === '0s') {
                 const { clientX } = $event;
                 const { $selection } = this;

@@ -13,7 +13,7 @@ export default
             Number.POSITIVE_INFINITY,
         ),
         value: createNumberPropConfig(),
-        isChangeBlocked: falsePropConfig,
+        isValueChangeBlocked: falsePropConfig,
     },
     setup() {
         const outerControlState = {

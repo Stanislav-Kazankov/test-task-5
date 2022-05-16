@@ -4,14 +4,14 @@
             :min-value="minBound"
             :max-value="greaterValue"
             :value="lesserValue"
-            :isChangeBlocked="isLesserValueBlocked"
+            :isValueChangeBlocked="isValueChangeBlocked"
             @trigger-value-update="onTriggerLesserValueUpdate"
         )
         greater-value-field(
             :min-value="lesserValue"
             :max-value="maxBound"
             :value="greaterValue"
-            :isChangeBlocked="isGreaterValueBlocked"
+            :isValueChangeBlocked="isValueChangeBlocked"
             @trigger-value-update="onTriggerGreaterValueUpdate"
         )
         handle-bar(
@@ -23,10 +23,8 @@
             @hook:mounted="handleBar = $refs.handleBar"
             @trigger-lesser-value-update="lesserValue = $event"
             @trigger-greater-value-update="greaterValue = $event"
-            @trigger-lesser-value-block="isLesserValueBlocked = true"
-            @trigger-lesser-value-unblock="isLesserValueBlocked = false"
-            @trigger-greater-value-block="isGreaterValueBlocked = true"
-            @trigger-greater-value-unblock="isGreaterValueBlocked = false"
+            @trigger-value-change-block="isValueChangeBlocked = true"
+            @trigger-value-change-unblock="isValueChangeBlocked = false"
         )
 </template>
 
@@ -63,8 +61,7 @@ export default {
             greaterValue: this.maxBound,
             maxLesserValue: this.maxBound,
             minGreaterValue: this.minBound,
-            isLesserValueBlocked: false,
-            isGreaterValueBlocked: false,
+            isValueChangeBlocked: false,
             handleBar: null,
         };
     },

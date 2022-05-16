@@ -3,7 +3,7 @@
         :min-value="minValue"
         :max-value="maxValue"
         :value="value"
-        :isChangeBlocked="isChangeBlocked"
+        :is-value-change-blocked="isValueChangeBlocked"
     )
 </template>
 
