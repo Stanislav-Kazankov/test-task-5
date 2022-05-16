@@ -98,8 +98,7 @@ export default {
                 this.$emit('trigger-greater-value-block');
                 this.$leftHandle.css('z-index', '0');
             }
-            const innerOffsetLeft =
-                $event.clientX - $handle.offset().left;
+            const innerOffsetLeft = $event.clientX - $handle.offset().left;
             this.bindedOnMouseMove = this.onHandleMouseMove
                 .bind(null, $handle, innerOffsetLeft);
             this.$document.on('mousemove', this.bindedOnMouseMove);
@@ -120,15 +119,10 @@ export default {
         },
         onMouseUp($event) {
             $event.preventDefault();
+            this.$emit('trigger-lesser-value-unblock');
+            this.$emit('trigger-greater-value-unblock');
             this.$document.off('mousemove', this.bindedOnMouseMove);
             this.$document.off('mouseup', this.onMouseUp);
-            if ($event.target === this.$leftHandle[0]) {
-                this.$emit('trigger-lesser-value-unblock');
-                this.$emit('trigger-greater-value-unblock');
-            } else if ($event.target === this.$rightHandle[0]) {
-                this.$emit('trigger-lesser-value-unblock');
-                this.$emit('trigger-greater-value-unblock');
-            }
         },
         onScaleMouseDown($event) {
             if (this.$selection.css('transition-duration') === '0s') {
