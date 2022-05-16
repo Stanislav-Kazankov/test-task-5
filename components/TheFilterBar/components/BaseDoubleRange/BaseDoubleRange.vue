@@ -4,12 +4,14 @@
             :min-value="minBound"
             :max-value="greaterValue"
             :value="lesserValue"
+            :isChangeBlocked="isLesserValueBlocked"
             @trigger-value-update="onTriggerLesserValueUpdate"
         )
         greater-value-field(
             :min-value="lesserValue"
             :max-value="maxBound"
             :value="greaterValue"
+            :isChangeBlocked="isGreaterValueBlocked"
             @trigger-value-update="onTriggerGreaterValueUpdate"
         )
         handle-bar(
@@ -21,6 +23,10 @@
             @hook:mounted="handleBar = $refs.handleBar"
             @trigger-lesser-value-update="lesserValue = $event"
             @trigger-greater-value-update="greaterValue = $event"
+            @trigger-lesser-value-block="isLesserValueBlocked = true"
+            @trigger-lesser-value-unblock="isLesserValueBlocked = false"
+            @trigger-greater-value-block="isGreaterValueBlocked = true"
+            @trigger-greater-value-unblock="isGreaterValueBlocked = false"
         )
 </template>
 
@@ -57,6 +63,8 @@ export default {
             greaterValue: this.maxBound,
             maxLesserValue: this.maxBound,
             minGreaterValue: this.minBound,
+            isLesserValueBlocked: false,
+            isGreaterValueBlocked: false,
             handleBar: null,
         };
     },
@@ -66,17 +74,23 @@ export default {
     },
     methods: {
         onTriggerLesserValueUpdate(newValue) {
+            const oldValue = this.lesserValue;
             this.lesserValue = newValue;
             if (this.handleBar) {
-                this.handleBar
-                    .transitLeftHandle(newValue);
+                if (newValue !== oldValue) {
+                    this.handleBar
+                        .transitLeftHandle(newValue);
+                }
             }
         },
         onTriggerGreaterValueUpdate(newValue) {
+            const oldValue = this.lesserValue;
             this.greaterValue = newValue;
             if (this.handleBar) {
-                this.handleBar
-                    .transitRightHandle(newValue);
+                if (newValue !== oldValue) {
+                    this.handleBar
+                        .transitRightHandle(newValue);
+                }
             }
         },
     },

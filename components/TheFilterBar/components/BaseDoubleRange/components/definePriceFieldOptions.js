@@ -1,6 +1,6 @@
 import { provide } from '@nuxtjs/composition-api';
 import BaseRangeField from './BaseRangeField.vue';
-import { createNumberPropConfig } from '@/modules/propConfigs';
+import { createNumberPropConfig, falsePropConfig } from '@/modules/propConfigs';
 
 export default
 (description, caption) => ({
@@ -13,6 +13,7 @@ export default
             Number.POSITIVE_INFINITY,
         ),
         value: createNumberPropConfig(),
+        isChangeBlocked: falsePropConfig,
     },
     setup() {
         const outerControlState = {

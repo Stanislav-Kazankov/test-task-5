@@ -13,7 +13,7 @@
 
 <script>
 import $ from 'jquery';
-import { createNumberPropConfig } from '@/modules/propConfigs';
+import { createNumberPropConfig, falsePropConfig } from '@/modules/propConfigs';
 
 export default {
     inject: {
@@ -40,6 +40,7 @@ export default {
             Number.POSITIVE_INFINITY,
         ),
         value: createNumberPropConfig(),
+        isChangeBlocked: falsePropConfig,
     },
     data() {
         return {
@@ -61,19 +62,23 @@ export default {
     },
     methods: {
         onChange() {
-            const newValue = this.toNumber(
-                this.$input.val(),
-            );
-            this.$parent
-                .$emit('trigger-value-update', newValue);
-            this.$forceUpdate();
-            if (this.validity.valueMissing || isNaN(newValue)) {
-                this.$parent.$emit(
-                    'trigger-value-update',
-                    this.$input.prop('previousValue'),
+            if (!this.isChangeBlocked) {
+                const newValue = this.toNumber(
+                    this.$input.val(),
                 );
+                this.$parent
+                    .$emit('trigger-value-update', newValue);
+                this.$forceUpdate();
+                if (this.validity.valueMissing || isNaN(newValue)) {
+                    this.$parent.$emit(
+                        'trigger-value-update',
+                        this.$input.prop('previousValue'),
+                    );
+                } else {
+                    this.correctFieldValue(newValue);
+                }
             } else {
-                this.correctFieldValue(newValue);
+                this.$forceUpdate();
             }
         },
         correctFieldValue(newValue) {
