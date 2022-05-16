@@ -11,20 +11,12 @@
             .handle-bar__handle.handle-bar__handle--left(
                 ref="leftHandle"
                 @mousedown="onHandleMouseDown"
-                @transitionend="\
-                    $emit('trigger-value-change-unblock');\
-                    $leftHandle.css('transition', '');\
-                    $selection.css('transition', '')\
-                "
+                @transitionend="onHandleTransitionEnd"
             )
             .handle-bar__handle.handle-bar__handle--right(
                 ref="rightHandle"
                 @mousedown="onHandleMouseDown"
-                @transitionend="\
-                    $emit('trigger-value-change-unblock');\
-                    $rightHandle.css('transition', '');\
-                    $selection.css('transition', '')\
-                "
+                @transitionend="onHandleTransitionEnd"
             )
 </template>
 
@@ -121,6 +113,11 @@ export default {
             this.$emit('trigger-value-change-unblock');
             this.$document.off('mousemove', this.bindedOnMouseMove);
             this.$document.off('mouseup', this.onMouseUp);
+        },
+        onHandleTransitionEnd($event) {
+            this.$emit('trigger-value-change-unblock');
+            $($event.target).css('transition', '');
+            this.$selection.css('transition', '');
         },
         onScaleMouseDown($event) {
             this.$emit('trigger-value-change-block');
