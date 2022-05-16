@@ -76,8 +76,8 @@ export default {
         this.leftHandleMinPosition = -this.handleHalf;
         this.rightHandleMaxPosition =
             this.scaleWidth - this.handleHalf;
-        this.autoSetLeftHandle(this.lesserValue);
-        this.autoSetRightHandle(this.greaterValue);
+        this.setLeftHandleAutomatically(this.lesserValue);
+        this.setRightHandleAutomatically(this.greaterValue);
     },
     methods: {
         onHandleMouseDown($event) {
@@ -150,11 +150,11 @@ export default {
         },
         transitLeftHandle(lesserValue) {
             this.setTransitionForHandle('left');
-            this.autoSetLeftHandle(lesserValue);
+            this.setLeftHandleAutomatically(lesserValue);
         },
         transitRightHandle(greaterValue) {
             this.setTransitionForHandle('right');
-            this.autoSetRightHandle(greaterValue);
+            this.setRightHandleAutomatically(greaterValue);
         },
         transitLeftHandleAbsolutely(clientX) {
             const { $scale, handleHalf } = this;
@@ -171,13 +171,13 @@ export default {
             this.setRightHandle(newRightCenter - handleHalf);
         },
         bindedOnMouseMove: () => {},
-        autoSetLeftHandle(lesserValue) {
+        setLeftHandleAutomatically(lesserValue) {
             const { maxBound, scaleWidth, handleHalf } = this;
             this.setLeftHandle(
                 lesserValue / maxBound * scaleWidth - handleHalf,
             );
         },
-        autoSetRightHandle(greaterValue) {
+        setRightHandleAutomatically(greaterValue) {
             const { maxBound, scaleWidth, handleHalf } = this;
             this.setRightHandle(
                 greaterValue / maxBound * scaleWidth - handleHalf,
