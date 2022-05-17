@@ -225,7 +225,7 @@ export default {
                 .css('left', validHandlePosition - 1 + 'px');
             const newSelectionWidth = validHandlePosition - leftHandlePosition;
             $(this.$refs.selection)
-                .css('width', newSelectionWidth + 'px');
+                .css('width', newSelectionWidth - 1 + 'px');
         },
         setTransitionForHandle(handleLocation) {
             this[`$${handleLocation}Handle`].css('transition', 'left 0.33s');
