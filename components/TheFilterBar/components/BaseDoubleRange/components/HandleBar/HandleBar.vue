@@ -23,6 +23,7 @@
 <script>
 import _ from 'lodash';
 import $ from 'jquery';
+import { capitalizeWord } from '@/modules/stringProcessing';
 import { createNumberPropConfig } from '@/modules/propConfigs';
 
 export default {
@@ -102,10 +103,10 @@ export default {
             const newPosition =
                 $event.clientX - $scale.offset().left - innerOffsetLeft;
             if ($capturedHandle[0] === $leftHandle[0]) {
-                this.manualSetLeftHandle(newPosition);
+                this.setHandleManually('left', newPosition);
             }
             if ($capturedHandle[0] === $rightHandle[0]) {
-                this.manualSetRightHandle(newPosition);
+                this.setHandleManually('right', newPosition);
             }
         },
         onMouseUp($event) {
@@ -183,19 +184,17 @@ export default {
                 greaterValue / maxBound * scaleWidth - handleHalf,
             );
         },
-        manualSetLeftHandle(newHandlePosition) {
-            this.setLeftHandle(newHandlePosition);
-            const { $leftHandle, handleHalf } = this;
+        setHandleManually(handleLocation, newHandlePosition) {
+            this[`set${capitalizeWord(handleLocation)}Handle`](
+                newHandlePosition,
+            );
+            const { handleHalf } = this;
             const leftCenter =
-                $leftHandle.position().left + handleHalf + 1;
-            this.triggerUpdateByHandlePosition('lesser', leftCenter);
-        },
-        manualSetRightHandle(newHandlePosition) {
-            this.setRightHandle(newHandlePosition);
-            const { $rightHandle, handleHalf } = this;
-            const rightCenter =
-                $rightHandle.position().left + handleHalf + 1;
-            this.triggerUpdateByHandlePosition('greater', rightCenter);
+                this[`$${handleLocation}Handle`].position().left +
+                    handleHalf + 1;
+            const valueName =
+                handleLocation === 'left' ? 'lesser' : 'greater';
+            this.triggerUpdateByHandlePosition(valueName, leftCenter);
         },
         setLeftHandle(newHandlePosition) {
             const { handleHalf, leftHandleMinPosition } = this;
