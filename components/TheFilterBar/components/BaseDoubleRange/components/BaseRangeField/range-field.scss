@@ -1,0 +1,29 @@
+.range-field {
+    &__label {
+        position: relative;
+        font-size: 12px;
+        line-height: 14.63px;
+    }
+
+    .filter-option {
+        width: 100%;
+        padding-top: 9px;
+        padding-right: 10px;
+        padding-bottom: 7px;
+        padding-left: 23px;
+        text-align: left;
+
+        &:focus {
+            border-color: $colorBrightBlue;
+        }
+    }
+
+    .control {
+        position: absolute;
+        z-index: 1;
+        left: 8px;
+        top: 10px;
+        width: 19px;
+        color: $colorGray;
+    }
+}

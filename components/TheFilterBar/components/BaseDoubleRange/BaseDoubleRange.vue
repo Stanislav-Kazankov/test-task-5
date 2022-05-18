@@ -74,7 +74,10 @@ export default {
             const oldValue = this.lesserValue;
             this.lesserValue = newValue;
             if (this.handleBar) {
-                if (newValue !== oldValue) {
+                if (
+                    newValue !== oldValue &&
+                    oldValue > this.minBound && newValue > this.minBound
+                ) {
                     this.handleBar
                         .transitLeftHandle(newValue);
                 }
@@ -84,7 +87,10 @@ export default {
             const oldValue = this.greaterValue;
             this.greaterValue = newValue;
             if (this.handleBar) {
-                if (newValue !== oldValue) {
+                if (
+                    newValue !== oldValue &&
+                    oldValue < this.maxBound && newValue < this.maxBound
+                ) {
                     this.handleBar
                         .transitRightHandle(newValue);
                 }

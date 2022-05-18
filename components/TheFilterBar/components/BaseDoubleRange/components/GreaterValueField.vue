@@ -1,5 +1,5 @@
 <template lang="pug">
-    base-range-field(
+    base-range-field.range-field--greater-value(
         :min-value="minValue"
         :max-value="maxValue"
         :value="value"
@@ -18,3 +18,11 @@ export default {
     ],
 };
 </script>
+
+<style lang="scss" scoped>
+.range-field--greater-value {
+    ::v-deep .filter-option {
+        padding-left: 26px;
+    }
+}
+</style>

@@ -15,6 +15,7 @@
     border: 1px solid $colorLight;
     border-radius: 2px;
     background-color: $colorWhite;
+    transition: border-color 0.3s, background-color 0.3s;
 
     &:hover {
         border-color: $colorBrightBlue;

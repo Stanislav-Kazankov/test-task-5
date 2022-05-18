@@ -32,7 +32,7 @@ export default {
     padding-top: 42px;
     padding-right: 33px;
     padding-bottom: 41px;
-    padding-left: 15px;
+    padding-left: 16px;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
     background-color: $colorWhite;

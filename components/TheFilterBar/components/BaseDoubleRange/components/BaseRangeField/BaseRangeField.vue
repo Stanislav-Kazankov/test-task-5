@@ -1,8 +1,8 @@
 <template lang="pug">
     p.range-field
-        label.filter-option
+        label.range-field__label
             base-control
-            input.filter-option__input(
+            input.filter-option(
                 ref="input"
                 type="text"
                 required

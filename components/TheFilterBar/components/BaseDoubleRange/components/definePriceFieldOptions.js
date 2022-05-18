@@ -1,5 +1,5 @@
 import { provide } from '@nuxtjs/composition-api';
-import BaseRangeField from './BaseRangeField.vue';
+import BaseRangeField from './BaseRangeField/BaseRangeField.vue';
 import { createNumberPropConfig, falsePropConfig } from '@/modules/propConfigs';
 
 export default

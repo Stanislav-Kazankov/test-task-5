@@ -1,7 +1,7 @@
 <template lang="pug">
     base-double-range(
-        :min-bound="0"
-        :max-bound="10"
+        :min-bound="2354000"
+        :max-bound="3700000"
     )
 </template>
 
