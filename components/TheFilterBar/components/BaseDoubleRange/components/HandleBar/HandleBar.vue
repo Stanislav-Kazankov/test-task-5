@@ -82,9 +82,9 @@ export default {
     },
     methods: {
         onHandleMouseDown($event) {
+            this.$emit('trigger-value-change-block');
             const $handle = $($event.target);
             $handle.css('z-index', '1');
-            this.$emit('trigger-value-change-block');
             if ($handle[0] === this.$leftHandle[0]) {
                 this.$rightHandle.css('z-index', '0');
             } else {
@@ -173,6 +173,8 @@ export default {
         },
         bindedOnMouseMove: () => {},
         setLeftHandleAutomatically(lesserValue) {
+            this.$leftHandle.css('z-index', '1');
+            this.$rightHandle.css('z-index', '0');
             const { maxBound, minBound, scaleWidth, handleHalf } = this;
             this.setLeftHandle(
                 (lesserValue - minBound) / (maxBound - minBound) *
@@ -180,6 +182,8 @@ export default {
             );
         },
         setRightHandleAutomatically(greaterValue) {
+            this.$rightHandle.css('z-index', '1');
+            this.$leftHandle.css('z-index', '0');
             const { maxBound, minBound, scaleWidth, handleHalf } = this;
             this.setRightHandle(
                 (greaterValue - minBound) / (maxBound - minBound) *
