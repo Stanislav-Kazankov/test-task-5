@@ -76,10 +76,10 @@ export default {
             if (this.handleBar) {
                 if (
                     newValue !== oldValue &&
-                    oldValue > this.minBound && newValue > this.minBound
+                    oldValue >= this.minBound && newValue > this.minBound
                 ) {
                     this.handleBar
-                        .transitLeftHandle(newValue);
+                        .transitLeftHandleAutomatically(newValue);
                 }
             }
         },
@@ -89,10 +89,10 @@ export default {
             if (this.handleBar) {
                 if (
                     newValue !== oldValue &&
-                    oldValue < this.maxBound && newValue < this.maxBound
+                    oldValue <= this.maxBound && newValue < this.maxBound
                 ) {
                     this.handleBar
-                        .transitRightHandle(newValue);
+                        .transitRightHandleAutomatically(newValue);
                 }
             }
         },

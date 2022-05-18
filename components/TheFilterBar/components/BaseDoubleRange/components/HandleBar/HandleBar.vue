@@ -149,11 +149,11 @@ export default {
                 }
             }
         },
-        transitLeftHandle(lesserValue) {
+        transitLeftHandleAutomatically(lesserValue) {
             this.setTransitionForHandle('left');
             this.setLeftHandleAutomatically(lesserValue);
         },
-        transitRightHandle(greaterValue) {
+        transitRightHandleAutomatically(greaterValue) {
             this.setTransitionForHandle('right');
             this.setRightHandleAutomatically(greaterValue);
         },
