@@ -16,6 +16,10 @@
         &:focus {
             border-color: $colorBrightBlue;
         }
+
+        &::selection {
+            background-color: $colorSkyBlue;
+        }
     }
 
     .control {

@@ -7,6 +7,7 @@
                 type="text"
                 required
                 :value="formattedValue"
+                @click="$refs.input.select();"
                 @change="onChange"
             )
 </template>
