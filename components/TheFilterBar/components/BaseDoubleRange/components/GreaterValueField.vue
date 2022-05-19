@@ -21,8 +21,14 @@ export default {
 
 <style lang="scss" scoped>
 .range-field--greater-value {
-    ::v-deep .filter-option {
-        padding-left: 26px;
+    ::v-deep {
+        .filter-option {
+            padding-left: 25.5px;
+        }
+
+        .control {
+            width: 15.45px;
+        }
     }
 }
 </style>
