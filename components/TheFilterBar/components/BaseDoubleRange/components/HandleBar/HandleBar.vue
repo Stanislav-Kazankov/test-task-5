@@ -212,13 +212,12 @@ export default {
                 leftHandleMinPosition,
                 rightHandlePosition,
             );
-            this.$leftHandle
-                .css('left', validHandlePosition + 'px');
+            this.$leftHandle.css('left', validHandlePosition + 'px');
             this.$selection.css(
                 'left', validHandlePosition + flooredHandleHalf + 'px',
             );
-            const newSelectionWidth = rightHandlePosition - validHandlePosition +
-                intHandleWidthOdd;
+            const newSelectionWidth =
+                rightHandlePosition - validHandlePosition + intHandleWidthOdd;
             this.$selection.css('width', newSelectionWidth + 'px');
         },
         setRightHandle(newHandlePosition) {
@@ -230,8 +229,8 @@ export default {
                 rightHandleMaxPosition,
             );
             this.$rightHandle.css('left', validHandlePosition + 'px');
-            const newSelectionWidth = validHandlePosition - leftHandlePosition +
-                intHandleWidthOdd;
+            const newSelectionWidth =
+                validHandlePosition - leftHandlePosition + intHandleWidthOdd;
             this.$selection.css('width', newSelectionWidth + 'px');
         },
         triggerUpdateByHandlePosition(valueName, handleCenter) {
