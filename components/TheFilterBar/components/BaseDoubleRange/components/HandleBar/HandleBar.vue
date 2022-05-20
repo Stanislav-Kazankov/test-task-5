@@ -133,7 +133,7 @@ export default {
                     this.transitRightHandleAbsolutely(clientX);
                     this.triggerUpdateByHandlePosition(
                         'lesser',
-                        this.$leftHandle.position().left + flooredHandleHalf,
+                        this.getLeftHandlePosition() + flooredHandleHalf,
                     );
                 }
             }
@@ -194,19 +194,18 @@ export default {
         },
         setHandleManually(handleLocation, newHandlePosition) {
             const { flooredHandleHalf } = this;
-            this[`set${capitalizeWord(handleLocation)}Handle`](
+            const capitalizedHandleLocation = capitalizeWord(handleLocation);
+            this[`set${capitalizedHandleLocation}Handle`](
                 newHandlePosition,
             );
-            const handleCenter =
-                this[`$${handleLocation}Handle`].position().left +
-                    flooredHandleHalf;
+            const handleCenter = newHandlePosition + flooredHandleHalf;
             const valueName =
                 handleLocation === 'left' ? 'lesser' : 'greater';
             this.triggerUpdateByHandlePosition(valueName, handleCenter);
         },
         setLeftHandle(newHandlePosition) {
-            const { leftHandleMinPosition, flooredHandleHalf, intHandleWidthOdd } = this;
-            const rightHandlePosition = this.$rightHandle.position().left;
+            const { leftHandleMinPosition, flooredHandleHalf } = this;
+            const rightHandlePosition = this.getRightHandlePosition();
             const validHandlePosition = _.clamp(
                 newHandlePosition,
                 leftHandleMinPosition,
@@ -216,22 +215,18 @@ export default {
             this.$selection.css(
                 'left', validHandlePosition + flooredHandleHalf + 'px',
             );
-            const newSelectionWidth =
-                rightHandlePosition - validHandlePosition + intHandleWidthOdd;
-            this.$selection.css('width', newSelectionWidth + 'px');
+            this.setSelectionWidth(validHandlePosition, rightHandlePosition);
         },
         setRightHandle(newHandlePosition) {
-            const { rightHandleMaxPosition, intHandleWidthOdd } = this;
-            const leftHandlePosition = this.$leftHandle.position().left;
+            const { rightHandleMaxPosition } = this;
+            const leftHandlePosition = this.getLeftHandlePosition();
             const validHandlePosition = _.clamp(
                 newHandlePosition,
                 leftHandlePosition,
                 rightHandleMaxPosition,
             );
             this.$rightHandle.css('left', validHandlePosition + 'px');
-            const newSelectionWidth =
-                validHandlePosition - leftHandlePosition + intHandleWidthOdd;
-            this.$selection.css('width', newSelectionWidth + 'px');
+            this.setSelectionWidth(leftHandlePosition, validHandlePosition);
         },
         triggerUpdateByHandlePosition(valueName, handleCenter) {
             const { scaleWidth, maxBound, minBound } = this;
@@ -243,6 +238,12 @@ export default {
                 ),
             );
         },
+        getLeftHandlePosition() {
+            return this.getHandlePosition('left');
+        },
+        getRightHandlePosition() {
+            return this.getHandlePosition('right');
+        },
         setTransitionForHandle(handleLocation) {
             this[`$${handleLocation}Handle`].css('transition', 'left 0.33s');
             const variativePart =
@@ -250,6 +251,15 @@ export default {
             this.$selection.css(
                 'transition', `${variativePart}width 0.33s`,
             );
+        },
+        setSelectionWidth(leftHandlePosition, rightHandlePosition) {
+            const { intHandleWidthOdd } = this;
+            const newSelectionWidth =
+                rightHandlePosition - leftHandlePosition + intHandleWidthOdd;
+            this.$selection.css('width', newSelectionWidth + 'px');
+        },
+        getHandlePosition(handleLocation) {
+            return this[`$${handleLocation}Handle`].position().left;
         },
     },
 };
