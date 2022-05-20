@@ -73,10 +73,12 @@ export default {
         this.$leftHandle = $(this.$refs.leftHandle);
         this.$rightHandle = $(this.$refs.rightHandle);
         this.handleWidth = this.$leftHandle.outerWidth();
-        this.handleHalf = this.handleWidth / 2;
-        this.leftHandleMinPosition = -this.handleHalf;
+        const { handleWidth } = this;
+        this.flooredHandleHalf = Math.floor(handleWidth / 2);
+        this.intHandleWidthOdd = Math.ceil(handleWidth % 2);
+        this.leftHandleMinPosition = -this.flooredHandleHalf;
         this.rightHandleMaxPosition =
-            this.scaleWidth - this.handleHalf - 1;
+            this.scaleWidth - 1 - this.flooredHandleHalf;
         this.setLeftHandleAutomatically(this.lesserValue);
         this.setRightHandleAutomatically(this.greaterValue);
     },
@@ -124,14 +126,14 @@ export default {
             this.$emit('trigger-value-change-block');
             if (this.$selection.css('transition-duration') === '0s') {
                 const { clientX } = $event;
-                const { $leftHandle, $rightHandle, handleWidth } = this;
+                const { $leftHandle, $rightHandle, handleWidth, flooredHandleHalf } = this;
                 if (clientX < $leftHandle.offset().left) {
                     this.transitLeftHandleAbsolutely(clientX);
-                } else if (clientX > $rightHandle.offset().left + handleWidth) {
+                } else if (clientX > $rightHandle.offset().left + handleWidth - 1) {
                     this.transitRightHandleAbsolutely(clientX);
                     this.triggerUpdateByHandlePosition(
                         'lesser',
-                        this.$leftHandle.position().left + this.handleHalf,
+                        this.$leftHandle.position().left + flooredHandleHalf,
                     );
                 }
             }
@@ -158,52 +160,52 @@ export default {
             this.setRightHandleAutomatically(greaterValue);
         },
         transitLeftHandleAbsolutely(clientX) {
-            const { $scale, handleHalf } = this;
+            const { $scale, flooredHandleHalf } = this;
             const newLeftCenter = clientX - $scale.offset().left;
             this.triggerUpdateByHandlePosition('lesser', newLeftCenter);
             this.setTransitionForHandle('left');
-            this.setLeftHandle(newLeftCenter - handleHalf);
+            this.setLeftHandle(newLeftCenter - flooredHandleHalf);
         },
         transitRightHandleAbsolutely(clientX) {
-            const { $scale, handleHalf } = this;
+            const { $scale, flooredHandleHalf } = this;
             const newRightCenter = clientX - $scale.offset().left;
             this.triggerUpdateByHandlePosition('greater', newRightCenter);
             this.setTransitionForHandle('right');
-            this.setRightHandle(newRightCenter - handleHalf);
+            this.setRightHandle(newRightCenter - flooredHandleHalf);
         },
         bindedOnMouseMove: () => {},
         setLeftHandleAutomatically(lesserValue) {
             this.$leftHandle.css('z-index', '1');
             this.$rightHandle.css('z-index', '0');
-            const { maxBound, minBound, scaleWidth, handleHalf } = this;
+            const { maxBound, minBound, scaleWidth, flooredHandleHalf } = this;
             this.setLeftHandle(
                 (lesserValue - minBound) / (maxBound - minBound) *
-                    scaleWidth - handleHalf,
+                    scaleWidth - flooredHandleHalf,
             );
         },
         setRightHandleAutomatically(greaterValue) {
             this.$rightHandle.css('z-index', '1');
             this.$leftHandle.css('z-index', '0');
-            const { maxBound, minBound, scaleWidth, handleHalf } = this;
+            const { maxBound, minBound, scaleWidth, flooredHandleHalf } = this;
             this.setRightHandle(
                 (greaterValue - minBound) / (maxBound - minBound) *
-                    scaleWidth - handleHalf,
+                    scaleWidth - flooredHandleHalf,
             );
         },
         setHandleManually(handleLocation, newHandlePosition) {
-            const { handleHalf } = this;
+            const { flooredHandleHalf } = this;
             this[`set${capitalizeWord(handleLocation)}Handle`](
                 newHandlePosition,
             );
             const handleCenter =
                 this[`$${handleLocation}Handle`].position().left +
-                    handleHalf;
+                    flooredHandleHalf;
             const valueName =
                 handleLocation === 'left' ? 'lesser' : 'greater';
             this.triggerUpdateByHandlePosition(valueName, handleCenter);
         },
         setLeftHandle(newHandlePosition) {
-            const { handleHalf, leftHandleMinPosition } = this;
+            const { leftHandleMinPosition, flooredHandleHalf, intHandleWidthOdd } = this;
             const rightHandlePosition = this.$rightHandle.position().left;
             const validHandlePosition = _.clamp(
                 newHandlePosition,
@@ -212,25 +214,25 @@ export default {
             );
             this.$leftHandle
                 .css('left', validHandlePosition + 'px');
-            $(this.$refs.selection)
-                .css('left', validHandlePosition + handleHalf + 'px');
-            const newSelectionWidth = rightHandlePosition - validHandlePosition;
-            $(this.$refs.selection)
-                .css('width', newSelectionWidth + 'px');
+            this.$selection.css(
+                'left', validHandlePosition + flooredHandleHalf + 'px',
+            );
+            const newSelectionWidth = rightHandlePosition - validHandlePosition +
+                intHandleWidthOdd;
+            this.$selection.css('width', newSelectionWidth + 'px');
         },
         setRightHandle(newHandlePosition) {
-            const { rightHandleMaxPosition } = this;
+            const { rightHandleMaxPosition, intHandleWidthOdd } = this;
             const leftHandlePosition = this.$leftHandle.position().left;
             const validHandlePosition = _.clamp(
                 newHandlePosition,
                 leftHandlePosition,
                 rightHandleMaxPosition,
             );
-            this.$rightHandle
-                .css('left', validHandlePosition + 'px');
-            const newSelectionWidth = validHandlePosition - leftHandlePosition;
-            $(this.$refs.selection)
-                .css('width', newSelectionWidth + 'px');
+            this.$rightHandle.css('left', validHandlePosition + 'px');
+            const newSelectionWidth = validHandlePosition - leftHandlePosition +
+                intHandleWidthOdd;
+            this.$selection.css('width', newSelectionWidth + 'px');
         },
         triggerUpdateByHandlePosition(valueName, handleCenter) {
             const { scaleWidth, maxBound, minBound } = this;
