@@ -76,7 +76,8 @@ export default {
             if (this.handleBar) {
                 if (
                     newValue !== oldValue &&
-                    oldValue >= this.minBound && newValue > this.minBound
+                    (oldValue !== this.minBound || newValue > this.minBound) &&
+                    (newValue !== this.minBound || oldValue > this.minBound)
                 ) {
                     this.handleBar
                         .transitLeftHandleAutomatically(newValue);
@@ -89,7 +90,8 @@ export default {
             if (this.handleBar) {
                 if (
                     newValue !== oldValue &&
-                    oldValue <= this.maxBound && newValue < this.maxBound
+                    (oldValue !== this.maxBound || newValue < this.maxBound) &&
+                    (newValue !== this.maxBound || oldValue < this.maxBound)
                 ) {
                     this.handleBar
                         .transitRightHandleAutomatically(newValue);
