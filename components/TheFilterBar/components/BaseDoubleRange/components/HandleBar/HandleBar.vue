@@ -195,10 +195,11 @@ export default {
         setHandleManually(handleLocation, newHandlePosition) {
             const { flooredHandleHalf } = this;
             const capitalizedHandleLocation = capitalizeWord(handleLocation);
-            const newValidHandlePosition = this[
-                `set${capitalizedHandleLocation}Handle`
-            ](newHandlePosition);
-            const handleCenter = newValidHandlePosition + flooredHandleHalf;
+            this[`set${capitalizedHandleLocation}Handle`](
+                newHandlePosition,
+            );
+            const settedHandlePosition = this.getHandlePosition(handleLocation);
+            const handleCenter = settedHandlePosition + flooredHandleHalf;
             const valueName =
                 handleLocation === 'left' ? 'lesser' : 'greater';
             this.triggerUpdateByHandlePosition(valueName, handleCenter);
@@ -216,7 +217,6 @@ export default {
                 'left', validHandlePosition + flooredHandleHalf + 'px',
             );
             this.setSelectionWidth(validHandlePosition, rightHandlePosition);
-            return validHandlePosition;
         },
         setRightHandle(newHandlePosition) {
             const { rightHandleMaxPosition } = this;
@@ -228,7 +228,6 @@ export default {
             );
             this.$rightHandle.css('left', validHandlePosition + 'px');
             this.setSelectionWidth(leftHandlePosition, validHandlePosition);
-            return validHandlePosition;
         },
         triggerUpdateByHandlePosition(valueName, handleCenter) {
             const { scaleWidth, maxBound, minBound } = this;
