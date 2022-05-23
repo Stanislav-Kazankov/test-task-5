@@ -86,11 +86,10 @@ export default {
         onHandleMouseDown($event) {
             this.$emit('trigger-value-change-block');
             const $handle = $($event.target);
-            $handle.css('z-index', '1');
             if ($handle[0] === this.$leftHandle[0]) {
-                this.$rightHandle.css('z-index', '0');
+                this.setLeftHandleToFront();
             } else {
-                this.$leftHandle.css('z-index', '0');
+                this.setRightHandleToFront();
             }
             const innerOffsetLeft = $event.clientX - $handle.offset().left;
             this.bindedOnMouseMove = this.onHandleMouseMove
@@ -175,20 +174,17 @@ export default {
         },
         bindedOnMouseMove: () => {},
         setLeftHandleAutomatically(lesserValue) {
-            this.$leftHandle.css('z-index', '1');
-            this.$rightHandle.css('z-index', '0');
-            const { maxBound, minBound, scaleWidth, flooredHandleHalf } = this;
-            this.setLeftHandle(
-                (lesserValue - minBound) / (maxBound - minBound) *
-                    scaleWidth - flooredHandleHalf,
-            );
+            this.setHandleAutomatically('left', lesserValue);
         },
         setRightHandleAutomatically(greaterValue) {
-            this.$rightHandle.css('z-index', '1');
-            this.$leftHandle.css('z-index', '0');
+            this.setHandleAutomatically('right', greaterValue);
+        },
+        setHandleAutomatically(handleLocation, value) {
+            const capitalizedHandleLocation = capitalizeWord(handleLocation);
+            this[`set${capitalizedHandleLocation}HandleToFront`]();
             const { maxBound, minBound, scaleWidth, flooredHandleHalf } = this;
-            this.setRightHandle(
-                (greaterValue - minBound) / (maxBound - minBound) *
+            this[`set${capitalizedHandleLocation}Handle`](
+                (value - minBound) / (maxBound - minBound) *
                     scaleWidth - flooredHandleHalf,
             );
         },
@@ -203,6 +199,12 @@ export default {
             const valueName =
                 handleLocation === 'left' ? 'lesser' : 'greater';
             this.triggerUpdateByHandlePosition(valueName, handleCenter);
+        },
+        setLeftHandleToFront() {
+            this.$leftHandle.css('z-index', 1);
+        },
+        setRightHandleToFront() {
+            this.$leftHandle.css('z-index', 0);
         },
         setLeftHandle(newHandlePosition) {
             const { leftHandleMinPosition, flooredHandleHalf } = this;
