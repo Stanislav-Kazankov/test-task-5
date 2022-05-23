@@ -104,10 +104,10 @@ export default {
             const newPosition =
                 $event.clientX - $scale.offset().left - innerOffsetLeft;
             if ($capturedHandle[0] === $leftHandle[0]) {
-                this.setHandleManually('left', newPosition);
+                this.setLeftHandleManually(newPosition);
             }
             if ($capturedHandle[0] === $rightHandle[0]) {
-                this.setHandleManually('right', newPosition);
+                this.setRightHandleManually(newPosition);
             }
         },
         onMouseUp($event) {
@@ -187,6 +187,12 @@ export default {
                 (value - minBound) / (maxBound - minBound) *
                     scaleWidth - flooredHandleHalf,
             );
+        },
+        setLeftHandleManually(newHandlePosition) {
+            this.setHandleManually('left', newHandlePosition);
+        },
+        setRightHandleManually(newHandlePosition) {
+            this.setHandleManually('right', newHandlePosition);
         },
         setHandleManually(handleLocation, newHandlePosition) {
             const { flooredHandleHalf } = this;
