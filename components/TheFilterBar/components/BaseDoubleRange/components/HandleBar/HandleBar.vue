@@ -58,7 +58,7 @@ export default {
             $rightHandle: null,
             $scale: null,
             $selection: null,
-            scaleWidth: null,
+            mathScaleLength: null,
             handleWidth: null,
             handleHalf: null,
             leftHandleMinPosition: null,
@@ -69,7 +69,7 @@ export default {
         this.$document = $(document);
         this.$scale = $(this.$refs.scale);
         this.$selection = $(this.$refs.selection);
-        this.scaleWidth = this.$scale.width();
+        this.mathScaleLength = this.$scale.width() - 1;
         this.$leftHandle = $(this.$refs.leftHandle);
         this.$rightHandle = $(this.$refs.rightHandle);
         this.handleWidth = this.$leftHandle.outerWidth();
@@ -78,7 +78,7 @@ export default {
         this.intHandleWidthOdd = Math.ceil(handleWidth % 2);
         this.leftHandleMinPosition = -this.flooredHandleHalf;
         this.rightHandleMaxPosition =
-            this.scaleWidth - 1 - this.flooredHandleHalf;
+            this.mathScaleLength - this.flooredHandleHalf;
         this.setLeftHandleAutomatically(this.lesserValue);
         this.setRightHandleAutomatically(this.greaterValue);
     },
@@ -184,10 +184,10 @@ export default {
         setHandleAutomatically(handleLocation, value) {
             const capitalizedHandleLocation = capitalizeWord(handleLocation);
             this[`set${capitalizedHandleLocation}HandleToFront`]();
-            const { maxBound, minBound, scaleWidth, flooredHandleHalf } = this;
+            const { maxBound, minBound, mathScaleLength, flooredHandleHalf } = this;
             this[`set${capitalizedHandleLocation}Handle`](
                 (value - minBound) / (maxBound - minBound) *
-                    (scaleWidth - 1) - flooredHandleHalf,
+                    mathScaleLength - flooredHandleHalf,
             );
         },
         setLeftHandleManually(newHandlePosition) {
@@ -242,11 +242,11 @@ export default {
             return handleLocation === 'left' ? 'lesser' : 'greater';
         },
         triggerUpdateByHandlePosition(valueName, handleCenter) {
-            const { scaleWidth, maxBound, minBound } = this;
+            const { mathScaleLength, maxBound, minBound } = this;
             this.$emit(
                 `trigger-${valueName}-value-update`,
                 this.parse(
-                    (maxBound - minBound) / (scaleWidth - 1) *
+                    (maxBound - minBound) / mathScaleLength *
                         handleCenter + minBound,
                 ),
             );
