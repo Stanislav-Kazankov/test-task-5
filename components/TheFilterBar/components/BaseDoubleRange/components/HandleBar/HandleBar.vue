@@ -122,7 +122,7 @@ export default {
         },
         onScaleMouseDown($event) {
             this.$emit('trigger-value-change-block');
-            if (this.$selection.css('transition-duration') === '0s') {
+            if (this.isSelectionNotTransitional()) {
                 const { clientX } = $event;
                 const { $leftHandle, $rightHandle, handleWidth, flooredHandleHalf } = this;
                 if (clientX < $leftHandle.offset().left) {
@@ -138,7 +138,7 @@ export default {
         },
         onSelectionMouseDown($event) {
             this.$emit('trigger-value-change-block');
-            if (this.$selection.css('transition-duration') === '0s') {
+            if (this.isSelectionNotTransitional()) {
                 const { clientX } = $event;
                 const { $selection } = this;
                 const selectionHalf = $selection.width() / 2;
@@ -256,6 +256,9 @@ export default {
         },
         getRightHandlePosition() {
             return this.getHandlePosition('right');
+        },
+        isSelectionNotTransitional() {
+            return this.$selection.css('transition-duration') === '0s';
         },
         setTransitionForHandle(handleLocation) {
             this[`$${handleLocation}Handle`].css('transition', 'left 0.33s');
