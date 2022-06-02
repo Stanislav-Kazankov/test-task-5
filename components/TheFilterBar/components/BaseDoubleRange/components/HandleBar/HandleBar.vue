@@ -187,7 +187,7 @@ export default {
             const { maxBound, minBound, scaleWidth, flooredHandleHalf } = this;
             this[`set${capitalizedHandleLocation}Handle`](
                 (value - minBound) / (maxBound - minBound) *
-                    scaleWidth - flooredHandleHalf,
+                    (scaleWidth - 1) - flooredHandleHalf,
             );
         },
         setLeftHandleManually(newHandlePosition) {
