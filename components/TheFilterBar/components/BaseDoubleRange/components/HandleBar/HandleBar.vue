@@ -118,8 +118,7 @@ export default {
         },
         onHandleTransitionEnd($event) {
             this.$emit('trigger-value-change-unblock');
-            $($event.target).css('transition', '');
-            this.$selection.css('transition', '');
+            this.unsetTransitionForHandle($($event.target));
         },
         onScaleMouseDown($event) {
             this.$emit('trigger-value-change-block');
@@ -265,6 +264,10 @@ export default {
             this.$selection.css(
                 'transition', `${variativePart}width 0.33s`,
             );
+        },
+        unsetTransitionForHandle($handle) {
+            $handle.css('transition', '');
+            this.$selection.css('transition', '');
         },
         setSelectionWidth(leftHandlePosition, rightHandlePosition) {
             const { intHandleWidthOdd } = this;
