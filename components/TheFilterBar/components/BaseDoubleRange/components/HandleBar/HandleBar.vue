@@ -70,6 +70,8 @@ export default {
         this.$scale = $(this.$refs.scale);
         this.$selection = $(this.$refs.selection);
         this.mathScaleLength = this.$scale.width() - 1;
+        const { maxBound, minBound, mathScaleLength } = this;
+        this.scaleStep = (maxBound - minBound) / mathScaleLength;
         this.$leftHandle = $(this.$refs.leftHandle);
         this.$rightHandle = $(this.$refs.rightHandle);
         this.handleWidth = this.$leftHandle.outerWidth();
@@ -184,10 +186,9 @@ export default {
         setHandleAutomatically(handleLocation, value) {
             const capitalizedHandleLocation = capitalizeWord(handleLocation);
             this[`set${capitalizedHandleLocation}HandleToFront`]();
-            const { maxBound, minBound, mathScaleLength, flooredHandleHalf } = this;
+            const { minBound, scaleStep, flooredHandleHalf } = this;
             this[`set${capitalizedHandleLocation}Handle`](
-                (value - minBound) / (maxBound - minBound) *
-                    mathScaleLength - flooredHandleHalf,
+                (value - minBound) / scaleStep - flooredHandleHalf,
             );
         },
         setLeftHandleManually(newHandlePosition) {
@@ -242,13 +243,10 @@ export default {
             return handleLocation === 'left' ? 'lesser' : 'greater';
         },
         triggerUpdateByHandlePosition(valueName, handleCenter) {
-            const { mathScaleLength, maxBound, minBound } = this;
+            const { scaleStep, minBound } = this;
             this.$emit(
                 `trigger-${valueName}-value-update`,
-                this.parse(
-                    (maxBound - minBound) / mathScaleLength *
-                        handleCenter + minBound,
-                ),
+                this.parse(scaleStep * handleCenter + minBound),
             );
         },
         getLeftHandlePosition() {
