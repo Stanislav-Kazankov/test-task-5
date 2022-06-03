@@ -106,20 +106,10 @@ export default {
             const newPosition =
                 $event.clientX - $scale.offset().left - innerOffsetLeft;
             if ($capturedHandle[0] === $leftHandle[0]) {
-                if (newPosition >= $rightHandle.position().left) {
-                    this.setLeftHandle(newPosition);
-                    this.$emit('trigger-lesser-value-equate');
-                } else {
-                    this.setLeftHandleManually(newPosition);
-                }
+                this.setLeftHandleManually(newPosition);
             }
             if ($capturedHandle[0] === $rightHandle[0]) {
-                if (newPosition <= $leftHandle.position().left) {
-                    this.setRightHandle(newPosition);
-                    this.$emit('trigger-greater-value-equate');
-                } else {
-                    this.setRightHandleManually(newPosition);
-                }
+                this.setRightHandleManually(newPosition);
             }
         },
         onMouseUp($event) {
@@ -208,7 +198,7 @@ export default {
             this.setHandleManually('right', newHandlePosition);
         },
         setHandleManually(handleLocation, newHandlePosition) {
-            const { flooredHandleHalf } = this;
+            const { flooredHandleHalf, $rightHandle, $leftHandle } = this;
             const capitalizedHandleLocation = capitalizeWord(handleLocation);
             this[`set${capitalizedHandleLocation}Handle`](
                 newHandlePosition,
@@ -216,7 +206,11 @@ export default {
             const settedHandlePosition = this.getHandlePosition(handleLocation);
             const handleCenter = settedHandlePosition + flooredHandleHalf;
             const valueName = this.getСorrespondingValueName(handleLocation);
-            this.triggerUpdateByHandlePosition(valueName, handleCenter);
+            if ($leftHandle.position().left >= $rightHandle.position().left) {
+                this.$emit(`trigger-${valueName}-value-equate`);
+            } else {
+                this.triggerUpdateByHandlePosition(valueName, handleCenter);
+            }
         },
         setLeftHandleToFront() {
             this.$leftHandle.css('z-index', 1);
