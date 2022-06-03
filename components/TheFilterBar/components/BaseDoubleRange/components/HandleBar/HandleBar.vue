@@ -198,7 +198,7 @@ export default {
             this.setHandleManually('right', newHandlePosition);
         },
         setHandleManually(handleLocation, newHandlePosition) {
-            const { flooredHandleHalf, $rightHandle, $leftHandle } = this;
+            const { flooredHandleHalf, getLeftHandlePosition, getRightHandlePosition } = this;
             const capitalizedHandleLocation = capitalizeWord(handleLocation);
             this[`set${capitalizedHandleLocation}Handle`](
                 newHandlePosition,
@@ -206,7 +206,7 @@ export default {
             const settedHandlePosition = this.getHandlePosition(handleLocation);
             const handleCenter = settedHandlePosition + flooredHandleHalf;
             const valueName = this.getСorrespondingValueName(handleLocation);
-            if ($leftHandle.position().left >= $rightHandle.position().left) {
+            if (getLeftHandlePosition() >= getRightHandlePosition()) {
                 this.$emit(`trigger-${valueName}-value-equate`);
             } else {
                 this.triggerUpdateByHandlePosition(valueName, handleCenter);
