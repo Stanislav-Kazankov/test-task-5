@@ -25,6 +25,8 @@
             @trigger-greater-value-update="greaterValue = $event"
             @trigger-value-change-block="isValueChangeBlocked = true"
             @trigger-value-change-unblock="isValueChangeBlocked = false"
+            @trigger-lesser-value-equate="lesserValue = greaterValue"
+            @trigger-greater-value-equate="greaterValue = lesserValue"
         )
 </template>
 

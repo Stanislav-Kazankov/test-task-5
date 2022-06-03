@@ -106,10 +106,20 @@ export default {
             const newPosition =
                 $event.clientX - $scale.offset().left - innerOffsetLeft;
             if ($capturedHandle[0] === $leftHandle[0]) {
-                this.setLeftHandleManually(newPosition);
+                if (newPosition >= $rightHandle.position().left) {
+                    this.setLeftHandle(newPosition);
+                    this.$emit('trigger-lesser-value-equate');
+                } else {
+                    this.setLeftHandleManually(newPosition);
+                }
             }
             if ($capturedHandle[0] === $rightHandle[0]) {
-                this.setRightHandleManually(newPosition);
+                if (newPosition <= $leftHandle.position().left) {
+                    this.setRightHandle(newPosition);
+                    this.$emit('trigger-greater-value-equate');
+                } else {
+                    this.setRightHandleManually(newPosition);
+                }
             }
         },
         onMouseUp($event) {
