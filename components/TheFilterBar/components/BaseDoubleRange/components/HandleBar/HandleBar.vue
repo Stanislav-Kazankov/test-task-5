@@ -54,13 +54,16 @@ export default {
     },
     data() {
         return {
+            $document: null,
             $scale: null,
             mathScaleLength: null,
+            scaleStep: null,
             $selection: null,
             $leftHandle: null,
             $rightHandle: null,
             handleWidth: null,
-            handleHalf: null,
+            flooredHandleHalf: null,
+            intHandleWidthOdd: null,
             leftHandleMinPosition: null,
             rightHandleMaxPosition: null,
         };
@@ -68,10 +71,10 @@ export default {
     mounted() {
         this.$document = $(document);
         this.$scale = $(this.$refs.scale);
-        this.$selection = $(this.$refs.selection);
         this.mathScaleLength = this.$scale.width() - 1;
         const { maxBound, minBound, mathScaleLength } = this;
         this.scaleStep = (maxBound - minBound) / mathScaleLength;
+        this.$selection = $(this.$refs.selection);
         this.$leftHandle = $(this.$refs.leftHandle);
         this.$rightHandle = $(this.$refs.rightHandle);
         this.handleWidth = this.$leftHandle.outerWidth();
@@ -80,7 +83,7 @@ export default {
         this.intHandleWidthOdd = Math.ceil(handleWidth % 2);
         this.leftHandleMinPosition = -this.flooredHandleHalf;
         this.rightHandleMaxPosition =
-            this.mathScaleLength - this.flooredHandleHalf;
+            mathScaleLength - this.flooredHandleHalf;
         this.setLeftHandleAutomatically(this.lesserValue);
         this.setRightHandleAutomatically(this.greaterValue);
     },
