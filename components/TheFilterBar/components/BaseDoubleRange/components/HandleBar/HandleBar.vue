@@ -54,11 +54,11 @@ export default {
     },
     data() {
         return {
+            $scale: null,
+            mathScaleLength: null,
+            $selection: null,
             $leftHandle: null,
             $rightHandle: null,
-            $scale: null,
-            $selection: null,
-            mathScaleLength: null,
             handleWidth: null,
             handleHalf: null,
             leftHandleMinPosition: null,
