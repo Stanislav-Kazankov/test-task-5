@@ -1,6 +1,6 @@
 import { computed, provide } from '@nuxtjs/composition-api';
 
-export default (isOn, onState, offState) => {
+export const useOuterControlState = (isOn, onState, offState) => {
     const description = computed(
         () => {
             const action = isOn.value
@@ -26,3 +26,5 @@ export default (isOn, onState, offState) => {
         outerControlState,
     );
 };
+
+export default { useOuterControlState };

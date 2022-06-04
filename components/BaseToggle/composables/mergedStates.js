@@ -1,4 +1,4 @@
-export default (stateDefault, props) => ({
+export const useMergedStates = (stateDefault, props) => ({
     on: {
         ...stateDefault.on,
         ...props.states.on,
@@ -8,3 +8,5 @@ export default (stateDefault, props) => ({
         ...props.states.off,
     },
 });
+
+export default { useMergedStates };

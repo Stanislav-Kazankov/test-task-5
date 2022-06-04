@@ -12,8 +12,8 @@
 
 <script>
 import { ref } from '@nuxtjs/composition-api';
-import useMergedStates from './composables/useMergedStates';
-import useOuterControlState from './composables/useOuterControlState';
+import { useMergedStates } from './composables/mergedStates';
+import { useOuterControlState } from './composables/outerControlState';
 import { createObjectPropConfig } from '@/modules/propConfigs';
 
 const stateDefault = {
