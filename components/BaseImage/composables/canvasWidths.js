@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { ref } from '@nuxtjs/composition-api';
 
-export default dimensions => {
+export const useCanvasWidths = dimensions => {
     const canvasWidths = ref(
         _(dimensions)
             .map(({ canvasWidth }) => canvasWidth)
@@ -19,3 +19,5 @@ export default dimensions => {
         lastCanvasWidth,
     };
 };
+
+export default { useCanvasWidths };

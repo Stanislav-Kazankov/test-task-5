@@ -2,7 +2,7 @@ import _ from 'lodash';
 import minBreakpoints from '@/modules/minBreakpoints';
 import devices from '@/modules/devices';
 
-export default dimensions => _(minBreakpoints)
+export const useMedias = dimensions => _(minBreakpoints)
     .filter(
         (media, index) =>
             _(dimensions).has(devices[index]),
@@ -15,3 +15,5 @@ export default dimensions => _(minBreakpoints)
     )
     .reverse()
     .value();
+
+export default { useMedias };

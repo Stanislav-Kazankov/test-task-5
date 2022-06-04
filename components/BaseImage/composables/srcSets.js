@@ -5,7 +5,7 @@ import { createSrcSet, createRestSrcSets } from '../utils/srcSets';
 import getRestSrcs from '../utils/getRestSrcs';
 import devices from '@/modules/devices';
 
-export default (image, dimensions) => {
+export const useSrcSets = (image, dimensions) => {
     const zero1xWidth = dimensions[devices[0]]
         ? dimensions[devices[0]].x1Width
         : undefined;
@@ -59,3 +59,5 @@ export default (image, dimensions) => {
         zeroNotWebpSrcSet,
     };
 };
+
+export default { useSrcSets };

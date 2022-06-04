@@ -34,9 +34,9 @@
 
 <script>
 import { toRefs } from '@nuxtjs/composition-api';
-import useMedias from './composables/useMedias';
-import useSrcSets from './composables/useSrcSets';
-import useCanvasWidths from './composables/useCanvasWidths';
+import { useMedias } from './composables/medias';
+import { useSrcSets } from './composables/srcSets';
+import { useCanvasWidths } from './composables/canvasWidths';
 import devices from '@/modules/devices';
 import { createObjectPropConfig } from '@/modules/propConfigs';
 
