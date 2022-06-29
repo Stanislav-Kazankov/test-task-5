@@ -15,25 +15,18 @@
             )
             .handle-bar__handle.handle-bar__handle--right(
                 ref="rightHandle"
-                @mousedown="onHandleMouseDown"
+                @mousedown.stop="onHandleMouseDown"
                 @transitionend="onHandleTransitionEnd"
             )
 </template>
 
 <script>
-import _ from 'lodash';
 import $ from 'jquery';
+import { useLowLevel } from './composables/lowLevel';
 import { capitalizeWord } from '@/modules/stringProcessing';
 import { createNumberPropConfig } from '@/modules/propConfigs';
 
 export default {
-    inject: {
-        parse: {
-            default: () =>
-                calculatedRealFieldValue =>
-                    parseInt(calculatedRealFieldValue, 10),
-        },
-    },
     props: {
         minBound:
             createNumberPropConfig(
@@ -52,40 +45,73 @@ export default {
                 Number.POSITIVE_INFINITY,
             ),
     },
+    setup(props, { emit }) {
+        const { minBound, maxBound } = props;
+        const {
+            $document,
+            scale,
+            $scale,
+            scaleStep,
+            selection,
+            $selection,
+            leftHandle,
+            $leftHandle,
+            rightHandle,
+            $rightHandle,
+            handleWidth,
+            flooredHandleHalf,
+            setHandle,
+            setLeftHandle,
+            getLeftHandlePosition,
+            setLeftHandleToFront,
+            setRightHandle,
+            getRightHandlePosition,
+            setRightHandleToFront,
+            getСorrespondingValueName,
+            triggerUpdateByHandlePosition,
+            isSelectionNotTransitional,
+            setTransitionForHandle,
+            unsetTransitionForHandle,
+            getHandlePosition,
+        } = useLowLevel(minBound, maxBound, emit);
+
+        return {
+            $document,
+            scale,
+            $scale,
+            scaleStep,
+            selection,
+            $selection,
+            leftHandle,
+            $leftHandle,
+            rightHandle,
+            $rightHandle,
+            handleWidth,
+            flooredHandleHalf,
+            setHandle,
+            setLeftHandle,
+            getLeftHandlePosition,
+            setLeftHandleToFront,
+            setRightHandle,
+            getRightHandlePosition,
+            setRightHandleToFront,
+            getСorrespondingValueName,
+            triggerUpdateByHandlePosition,
+            isSelectionNotTransitional,
+            setTransitionForHandle,
+            unsetTransitionForHandle,
+            getHandlePosition,
+        };
+    },
     data() {
         return {
-            $document: null,
-            $scale: null,
-            mathScaleLength: null,
-            scaleStep: null,
-            $selection: null,
-            $leftHandle: null,
-            $rightHandle: null,
-            handleWidth: null,
-            flooredHandleHalf: null,
-            intHandleWidthOdd: null,
-            leftHandleMinPosition: null,
-            rightHandleMaxPosition: null,
+            // $document: null,
         };
     },
     mounted() {
-        this.$document = $(document);
-        this.$scale = $(this.$refs.scale);
-        this.mathScaleLength = this.$scale.width() - 1;
-        const { maxBound, minBound, mathScaleLength } = this;
-        this.scaleStep = (maxBound - minBound) / mathScaleLength;
-        this.$selection = $(this.$refs.selection);
-        this.$leftHandle = $(this.$refs.leftHandle);
-        this.$rightHandle = $(this.$refs.rightHandle);
-        this.handleWidth = this.$leftHandle.outerWidth();
-        const { handleWidth } = this;
-        this.flooredHandleHalf = Math.floor(handleWidth / 2);
-        this.intHandleWidthOdd = Math.ceil(handleWidth % 2);
-        this.leftHandleMinPosition = -this.flooredHandleHalf;
-        this.rightHandleMaxPosition =
-            mathScaleLength - this.flooredHandleHalf;
-        this.setLeftHandleAutomatically(this.lesserValue);
-        this.setRightHandleAutomatically(this.greaterValue);
+        // this.$document = $(document);
+        // this.setLeftHandleAutomatically(this.lesserValue);
+        // this.setRightHandleAutomatically(this.greaterValue);
     },
     methods: {
         onHandleMouseDown($event) {
@@ -155,29 +181,26 @@ export default {
             }
         },
         transitLeftHandleAutomatically(lesserValue) {
-            this.setTransitionForHandle('left');
+            this.setTransitionForHandle(this.$leftHandle);
             this.setLeftHandleAutomatically(lesserValue);
         },
         transitRightHandleAutomatically(greaterValue) {
-            this.setTransitionForHandle('right');
+            this.setTransitionForHandle(this.$rightHandle);
             this.setRightHandleAutomatically(greaterValue);
         },
         transitLeftHandleAbsolutely(clientX) {
-            this.transitHandleAbsolutely('left', clientX);
+            this.transitHandleAbsolutely(this.$leftHandle, clientX);
         },
         transitRightHandleAbsolutely(clientX) {
-            this.transitHandleAbsolutely('right', clientX);
+            this.transitHandleAbsolutely(this.$rightHandle, clientX);
         },
-        transitHandleAbsolutely(handleLocation, clientX) {
+        transitHandleAbsolutely($handle, clientX) {
             const { $scale, flooredHandleHalf } = this;
             const newCenter = clientX - $scale.offset().left;
-            const valueName = this.getСorrespondingValueName(handleLocation);
+            const valueName = this.getСorrespondingValueName($handle);
             this.triggerUpdateByHandlePosition(valueName, newCenter);
-            this.setTransitionForHandle(handleLocation);
-            const capitalizedHandleLocation = capitalizeWord(handleLocation);
-            this[`set${capitalizedHandleLocation}Handle`](
-                newCenter - flooredHandleHalf,
-            );
+            this.setTransitionForHandle($handle);
+            this.setHandle($handle, newCenter - flooredHandleHalf);
         },
         bindedOnMouseMove: () => {},
         setLeftHandleAutomatically(lesserValue) {
@@ -195,96 +218,22 @@ export default {
             );
         },
         setLeftHandleManually(newHandlePosition) {
-            this.setHandleManually('left', newHandlePosition);
+            this.setHandleManually(this.$leftHandle, newHandlePosition);
         },
         setRightHandleManually(newHandlePosition) {
-            this.setHandleManually('right', newHandlePosition);
+            this.setHandleManually(this.$rightHandle, newHandlePosition);
         },
-        setHandleManually(handleLocation, newHandlePosition) {
+        setHandleManually($handle, newHandlePosition) {
             const { flooredHandleHalf, getLeftHandlePosition, getRightHandlePosition } = this;
-            const capitalizedHandleLocation = capitalizeWord(handleLocation);
-            this[`set${capitalizedHandleLocation}Handle`](
-                newHandlePosition,
-            );
-            const settedHandlePosition = this.getHandlePosition(handleLocation);
+            this.setHandle($handle, newHandlePosition);
+            const settedHandlePosition = this.getHandlePosition($handle);
             const handleCenter = settedHandlePosition + flooredHandleHalf;
-            const valueName = this.getСorrespondingValueName(handleLocation);
-            if (getLeftHandlePosition() >= getRightHandlePosition()) {
-                this.$emit(`trigger-${valueName}-value-equate`);
-            } else {
+            const valueName = this.getСorrespondingValueName($handle);
+            if (getLeftHandlePosition() < getRightHandlePosition()) {
                 this.triggerUpdateByHandlePosition(valueName, handleCenter);
+            } else {
+                this.$emit(`trigger-${valueName}-value-equate`);
             }
-        },
-        setLeftHandleToFront() {
-            this.$leftHandle.css('z-index', 1);
-        },
-        setRightHandleToFront() {
-            this.$leftHandle.css('z-index', 0);
-        },
-        setLeftHandle(newHandlePosition) {
-            const { leftHandleMinPosition, flooredHandleHalf } = this;
-            const rightHandlePosition = this.getRightHandlePosition();
-            const validHandlePosition = _.clamp(
-                newHandlePosition,
-                leftHandleMinPosition,
-                rightHandlePosition,
-            );
-            this.$leftHandle.css('left', validHandlePosition + 'px');
-            this.$selection.css(
-                'left', validHandlePosition + flooredHandleHalf + 'px',
-            );
-            this.setSelectionWidth(validHandlePosition, rightHandlePosition);
-        },
-        setRightHandle(newHandlePosition) {
-            const { rightHandleMaxPosition } = this;
-            const leftHandlePosition = this.getLeftHandlePosition();
-            const validHandlePosition = _.clamp(
-                newHandlePosition,
-                leftHandlePosition,
-                rightHandleMaxPosition,
-            );
-            this.$rightHandle.css('left', validHandlePosition + 'px');
-            this.setSelectionWidth(leftHandlePosition, validHandlePosition);
-        },
-        getСorrespondingValueName(handleLocation) {
-            return handleLocation === 'left' ? 'lesser' : 'greater';
-        },
-        triggerUpdateByHandlePosition(valueName, handleCenter) {
-            const { scaleStep, minBound } = this;
-            this.$emit(
-                `trigger-${valueName}-value-update`,
-                this.parse(scaleStep * handleCenter + minBound),
-            );
-        },
-        getLeftHandlePosition() {
-            return this.getHandlePosition('left');
-        },
-        getRightHandlePosition() {
-            return this.getHandlePosition('right');
-        },
-        isSelectionNotTransitional() {
-            return this.$selection.css('transition-duration') === '0s';
-        },
-        setTransitionForHandle(handleLocation) {
-            this[`$${handleLocation}Handle`].css('transition', 'left 0.33s');
-            const variativePart =
-                handleLocation === 'left' ? 'left 0.33s, ' : '';
-            this.$selection.css(
-                'transition', `${variativePart}width 0.33s`,
-            );
-        },
-        unsetTransitionForHandle($handle) {
-            $handle.css('transition', '');
-            this.$selection.css('transition', '');
-        },
-        setSelectionWidth(leftHandlePosition, rightHandlePosition) {
-            const { intHandleWidthOdd } = this;
-            const newSelectionWidth =
-                rightHandlePosition - leftHandlePosition + intHandleWidthOdd;
-            this.$selection.css('width', newSelectionWidth + 'px');
-        },
-        getHandlePosition(handleLocation) {
-            return this[`$${handleLocation}Handle`].position().left;
         },
     },
 };
