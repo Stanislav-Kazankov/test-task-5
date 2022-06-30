@@ -15,7 +15,7 @@
             )
             .handle-bar__handle.handle-bar__handle--right(
                 ref="rightHandle"
-                @mousedown.stop="onHandleMouseDown"
+                @mousedown="onHandleMouseDown"
                 @transitionend="onHandleTransitionEnd"
             )
 </template>
@@ -152,18 +152,20 @@ export default {
             this.unsetTransitionForHandle($($event.target));
         },
         onScaleMouseDown($event) {
-            this.$emit('trigger-value-change-block');
-            if (this.isSelectionNotTransitional()) {
-                const { clientX } = $event;
-                const { $leftHandle, $rightHandle, handleWidth, flooredHandleHalf } = this;
-                if (clientX < $leftHandle.offset().left) {
-                    this.transitLeftHandleAbsolutely(clientX);
-                } else if (clientX > $rightHandle.offset().left + handleWidth - 1) {
-                    this.transitRightHandleAbsolutely(clientX);
-                    this.triggerUpdateByHandlePosition(
-                        'lesser',
-                        this.getLeftHandlePosition() + flooredHandleHalf,
-                    );
+            if ($event.target === this.$scale[0]) {
+                this.$emit('trigger-value-change-block');
+                if (this.isSelectionNotTransitional()) {
+                    const { clientX } = $event;
+                    const { $leftHandle, $rightHandle, handleWidth, flooredHandleHalf } = this;
+                    if (clientX < $leftHandle.offset().left) {
+                        this.transitLeftHandleAbsolutely(clientX);
+                    } else if (clientX > $rightHandle.offset().left + handleWidth - 1) {
+                        this.transitRightHandleAbsolutely(clientX);
+                        this.triggerUpdateByHandlePosition(
+                            'lesser',
+                            this.getLeftHandlePosition() + flooredHandleHalf,
+                        );
+                    }
                 }
             }
         },
