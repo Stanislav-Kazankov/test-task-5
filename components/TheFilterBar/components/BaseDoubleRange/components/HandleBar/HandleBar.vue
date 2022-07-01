@@ -23,7 +23,7 @@
 <script>
 import $ from 'jquery';
 import { useLowLevel } from './composables/lowLevel';
-import { capitalizeWord } from '@/modules/stringProcessing';
+import { useHighLevel } from './composables/highLevel';
 import { createNumberPropConfig } from '@/modules/propConfigs';
 
 export default {
@@ -61,6 +61,7 @@ export default {
             handleWidth,
             flooredHandleHalf,
             setHandle,
+            setHandleToFront,
             setLeftHandle,
             getLeftHandlePosition,
             setLeftHandleToFront,
@@ -74,6 +75,17 @@ export default {
             unsetTransitionForHandle,
             getHandlePosition,
         } = useLowLevel(minBound, maxBound, emit);
+
+        const { lesserValue, greaterValue } = props;
+
+        const {
+            setLeftHandleAutomatically,
+            setRightHandleAutomatically,
+        } = useHighLevel(
+            lesserValue, greaterValue, $leftHandle,
+            $rightHandle, setHandleToFront, setHandle,
+            minBound, scaleStep, flooredHandleHalf,
+        );
 
         return {
             $document,
@@ -101,17 +113,9 @@ export default {
             setTransitionForHandle,
             unsetTransitionForHandle,
             getHandlePosition,
+            setLeftHandleAutomatically,
+            setRightHandleAutomatically,
         };
-    },
-    data() {
-        return {
-            // $document: null,
-        };
-    },
-    mounted() {
-        // this.$document = $(document);
-        // this.setLeftHandleAutomatically(this.lesserValue);
-        // this.setRightHandleAutomatically(this.greaterValue);
     },
     methods: {
         onHandleMouseDown($event) {
@@ -205,20 +209,6 @@ export default {
             this.setHandle($handle, newCenter - flooredHandleHalf);
         },
         bindedOnMouseMove: () => {},
-        setLeftHandleAutomatically(lesserValue) {
-            this.setHandleAutomatically('left', lesserValue);
-        },
-        setRightHandleAutomatically(greaterValue) {
-            this.setHandleAutomatically('right', greaterValue);
-        },
-        setHandleAutomatically(handleLocation, value) {
-            const capitalizedHandleLocation = capitalizeWord(handleLocation);
-            this[`set${capitalizedHandleLocation}HandleToFront`]();
-            const { minBound, scaleStep, flooredHandleHalf } = this;
-            this[`set${capitalizedHandleLocation}Handle`](
-                (value - minBound) / scaleStep - flooredHandleHalf,
-            );
-        },
         setLeftHandleManually(newHandlePosition) {
             this.setHandleManually(this.$leftHandle, newHandlePosition);
         },

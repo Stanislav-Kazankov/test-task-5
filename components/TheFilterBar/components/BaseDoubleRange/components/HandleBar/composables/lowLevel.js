@@ -51,6 +51,14 @@ export const useLowLevel = (minBound, maxBound, emit) => {
         }
     };
 
+    const setHandleToFront = $handle => {
+        if ($handle[0] === $leftHandle.value[0]) {
+            setLeftHandleToFront();
+        } else {
+            setRightHandleToFront();
+        }
+    };
+
     const setLeftHandle = newHandlePosition => {
         const rightHandlePosition = getRightHandlePosition();
         const validHandlePosition = _.clamp(
@@ -133,6 +141,7 @@ export const useLowLevel = (minBound, maxBound, emit) => {
         handleWidth,
         flooredHandleHalf,
         setHandle,
+        setHandleToFront,
         setLeftHandle,
         getLeftHandlePosition,
         setLeftHandleToFront,
